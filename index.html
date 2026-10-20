@@ -3,135 +3,420 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#a8d8fa">
-  <meta name="description" content="Um convite especial para o Chá do Benício. 28 de novembro de 2026.">
-  <meta property="og:title" content="Chá do Benício 💙">
-  <meta property="og:description" content="Papai e mamãe convidam você para celebrar a chegada do Benício, dia 28 de novembro de 2026.">
-  <title>Chá do Benício | Convite interativo</title>
+  <title>Chá do Benício</title>
+  <meta name="theme-color" content="#82bfff">
+  <meta name="description" content="Convite interativo do Chá do Benício">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Great+Vibes&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
-  <script src="config.js" defer></script>
-  <script src="app.js" defer></script>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:#eef7ff;
+      --bg-2:#d7ebff;
+      --card:#ffffff;
+      --line:#d5e8fb;
+      --text:#17304d;
+      --muted:#5f7896;
+      --blue:#2d82da;
+      --blue-2:#5ea8f3;
+      --blue-3:#9fd0ff;
+      --sky:#bdddff;
+      --shadow:0 18px 45px rgba(30,96,170,.12);
+      --radius:28px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;font-family:Inter,system-ui,sans-serif;color:var(--text);background:
+      radial-gradient(circle at top right, #ffffff 0, #f8fbff 22%, #eaf5ff 60%, #dfefff 100%);
+      line-height:1.45;}
+    img{max-width:100%;display:block}
+    a{color:inherit;text-decoration:none}
+    .container{width:min(1120px,calc(100% - 28px));margin:0 auto}
+    .section{padding:34px 0}
+    .section-title{margin:0 0 8px;font:700 clamp(2rem,5vw,3.2rem)/1.02 'Playfair Display',serif;letter-spacing:-.03em;color:#133863}
+    .section-sub{margin:0;color:var(--muted);font-size:1rem}
+    .pill{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border-radius:999px;background:#fff;border:1px solid var(--line);box-shadow:0 10px 22px rgba(41,110,184,.08);font-size:.92rem;color:#1c4f86;font-weight:700}
+    .topbar{position:sticky;top:0;z-index:30;backdrop-filter:blur(16px);background:rgba(248,252,255,.75);border-bottom:1px solid rgba(170,207,243,.45)}
+    .topbar-inner{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 0}
+    .brand{font-weight:800;color:#1c4f86;letter-spacing:.02em}
+    .brand small{display:block;font-size:.72rem;color:var(--muted);font-weight:700}
+    .top-actions{display:flex;gap:8px;overflow:auto;padding-bottom:2px}
+    .top-actions a{white-space:nowrap;padding:10px 14px;border-radius:999px;background:#fff;border:1px solid var(--line);font-size:.92rem;font-weight:700;color:#265f9a}
+
+    .hero{position:relative;overflow:hidden;padding:22px 0 22px}
+    .hero::before{content:'';position:absolute;inset:-20% -10% auto auto;width:360px;height:360px;background:radial-gradient(circle,#a6d3ff 0, rgba(166,211,255,0) 68%);opacity:.55;pointer-events:none}
+    .hero-wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:28px;align-items:center}
+    .hero-visual{position:relative;min-height:420px;display:flex;align-items:flex-end;justify-content:center}
+    .hero-cloud{position:absolute;inset:auto -6% 0 -6%;height:140px;background:linear-gradient(180deg,#ffffff, #edf7ff);border-radius:100px 100px 0 0/75px 75px 0 0;box-shadow:var(--shadow)}
+    .hero-circle{position:absolute;top:14px;left:14px;width:110px;height:110px;border-radius:50%;background:linear-gradient(180deg,#d6ecff,#a9d4ff);box-shadow:var(--shadow);display:grid;place-items:center;text-align:center;padding:14px;font-weight:700;color:#23558e;font-size:.92rem}
+    .hero-bear{position:relative;z-index:2;filter:drop-shadow(0 30px 40px rgba(22,84,145,.18));width:min(100%,460px)}
+    .hero-card{position:relative;background:linear-gradient(180deg,#fbfdff,#f0f8ff);border:1px solid #d5e9fb;border-radius:32px;padding:28px;box-shadow:var(--shadow)}
+    .eyebrow{display:inline-block;padding:8px 14px;border-radius:999px;background:#edf6ff;color:#2b72bb;font-size:.82rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase}
+    .hero-title{margin:14px 0 0;font:700 clamp(3rem,9vw,5rem)/.9 'Playfair Display',serif;color:#133863;letter-spacing:-.05em}
+    .hero-title small{display:block;margin-bottom:8px;font-size:clamp(1.6rem,5vw,2.2rem);color:#3f8edc}
+    .hero-desc{margin:14px 0 22px;font-size:1.08rem;color:#42617f}
+    .hero-date{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px}
+    .hero-date .mini{padding:16px;border-radius:22px;background:#fff;border:1px solid var(--line);box-shadow:0 10px 20px rgba(40,107,180,.08)}
+    .hero-date small{display:block;margin-bottom:4px;color:#5f7896;font-size:.82rem;font-weight:700}
+    .hero-date strong{font-size:1rem;color:#183a63}
+    .action-grid{display:grid;gap:12px}
+    .action-card{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:18px 18px;border-radius:22px;background:linear-gradient(180deg,#fff,#f3f9ff);border:1px solid var(--line);box-shadow:0 12px 24px rgba(39,107,181,.08)}
+    .action-card.main{background:linear-gradient(135deg,#2d82da,#67b0fb);color:#fff;border-color:transparent}
+    .action-card .left{display:flex;align-items:center;gap:12px}
+    .action-card .icon{width:42px;height:42px;border-radius:16px;display:grid;place-items:center;font-size:1.25rem;background:rgba(255,255,255,.72);color:#2d82da}
+    .action-card.main .icon{background:rgba(255,255,255,.18);color:#fff}
+    .action-card b{display:block;font-size:1rem}
+    .action-card span{font-size:.94rem;opacity:.92}
+    .arrow{font-size:1.1rem;font-weight:900}
+
+    .meeting-card{display:grid;grid-template-columns:220px 1fr;gap:20px;align-items:stretch;background:linear-gradient(180deg,#ffffff,#f5fbff);border:1px solid var(--line);border-radius:30px;padding:18px;box-shadow:var(--shadow)}
+    .date-box{border-radius:26px;background:linear-gradient(180deg,#3e95ea,#6cb7ff);padding:24px;color:#fff;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;box-shadow:0 16px 30px rgba(41,123,209,.24)}
+    .date-box small{font-size:.85rem;letter-spacing:.08em;text-transform:uppercase;opacity:.92}
+    .date-box strong{font-size:5rem;line-height:.9;font-weight:800;margin:8px 0 4px}
+    .date-box span{font-size:1.02rem;font-weight:700}
+    .meeting-info{display:grid;gap:14px}
+    .info-row{display:grid;grid-template-columns:58px 1fr;gap:14px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:22px;padding:14px 16px}
+    .info-icon{width:58px;height:58px;border-radius:18px;background:#edf6ff;color:#2d82da;display:grid;place-items:center;font-size:1.4rem;font-weight:800}
+    .info-label{font-size:.84rem;text-transform:uppercase;letter-spacing:.08em;color:#6a84a0;font-weight:800}
+    .info-value{font-size:1.1rem;font-weight:700;color:#17304d}
+    .blank{color:#7fa0c1}
+    .meeting-note{padding:16px 18px;border-radius:22px;background:linear-gradient(135deg,#dcefff,#f7fbff);color:#275384;font-weight:600}
+
+    .gifts-header{display:flex;align-items:end;justify-content:space-between;gap:16px;margin-bottom:18px}
+    .gift-count{font-weight:700;color:#37648f;background:#fff;border:1px solid var(--line);padding:10px 14px;border-radius:999px;box-shadow:0 10px 20px rgba(40,107,180,.08)}
+    .gifts-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+    .gift-card{background:linear-gradient(180deg,#fff,#f6fbff);border:1px solid #d7e8f9;border-radius:26px;box-shadow:0 16px 28px rgba(32,98,169,.08);overflow:hidden;display:flex;flex-direction:column}
+    .gift-photo{aspect-ratio:1.18/1;background:linear-gradient(180deg,#f4fbff,#e7f3ff);padding:16px;display:flex;align-items:center;justify-content:center}
+    .gift-photo img{width:100%;height:100%;object-fit:contain;mix-blend-mode:multiply}
+    .gift-body{padding:16px 16px 14px;display:flex;flex-direction:column;gap:10px;flex:1}
+    .gift-topline{display:flex;align-items:start;justify-content:space-between;gap:8px}
+    .gift-name{margin:0;font-size:1.06rem;line-height:1.15;color:#17304d}
+    .gift-badge{padding:8px 10px;border-radius:14px;background:#edf6ff;color:#2d82da;font-size:.82rem;font-weight:800;white-space:nowrap}
+    .gift-joke{margin:0;color:#527191;font-size:.92rem}
+    .gift-btn{margin-top:auto;border:0;border-radius:18px;background:linear-gradient(135deg,#2d82da,#5caaf5);color:#fff;font-weight:800;padding:14px 16px;font-size:.96rem;cursor:pointer;box-shadow:0 14px 24px rgba(43,122,207,.25)}
+    .gift-btn[disabled]{background:#c8d8ea;box-shadow:none;cursor:not-allowed}
+
+    .rsvp-shell{display:grid;grid-template-columns:.9fr 1.1fr;gap:20px;align-items:stretch}
+    .rsvp-side{position:relative;overflow:hidden;background:linear-gradient(180deg,#4097eb,#6bb8ff);border-radius:30px;padding:24px;color:#fff;box-shadow:var(--shadow)}
+    .rsvp-side::after{content:'';position:absolute;inset:auto -20% -12% auto;width:260px;height:260px;border-radius:50%;background:rgba(255,255,255,.14)}
+    .rsvp-side h2{margin:12px 0 8px;font:700 clamp(2rem,5vw,3rem)/1 'Playfair Display',serif}
+    .rsvp-side p{margin:0 0 16px;font-size:1.02rem;color:rgba(255,255,255,.95)}
+    .rsvp-side img{width:min(100%,260px);margin:8px auto 0;filter:drop-shadow(0 20px 24px rgba(12,49,86,.18));border-radius:24px}
+    .rsvp-card{background:linear-gradient(180deg,#fff,#f7fbff);border:1px solid var(--line);border-radius:30px;padding:24px;box-shadow:var(--shadow)}
+    .rsvp-card h3{margin:8px 0 16px;font:700 clamp(1.8rem,4vw,2.5rem)/1 'Playfair Display',serif;color:#153b64}
+    .field{display:grid;gap:8px;margin-bottom:14px}
+    .field label{font-weight:700;color:#23496e}
+    .field input,.field textarea,.field select{width:100%;border:1px solid #d5e8fb;background:#fff;border-radius:18px;padding:15px 16px;font:600 1rem/1.3 Inter,sans-serif;color:#183652;outline:none;box-shadow:inset 0 1px 0 rgba(255,255,255,.6)}
+    .field textarea{min-height:118px;resize:vertical}
+    .choice-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+    .choice-row label{position:relative;display:block}
+    .choice-row input{position:absolute;opacity:0;pointer-events:none}
+    .choice-card{display:flex;align-items:center;justify-content:center;text-align:center;padding:16px 14px;border-radius:20px;border:1px solid var(--line);background:#fff;color:#2d5f96;font-weight:800;cursor:pointer;min-height:64px}
+    .choice-row input:checked + .choice-card{background:linear-gradient(135deg,#2d82da,#5caaf5);border-color:transparent;color:#fff;box-shadow:0 14px 24px rgba(43,122,207,.24)}
+    .two-col{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .submit-btn{width:100%;border:0;border-radius:20px;background:linear-gradient(135deg,#2d82da,#5caaf5);padding:16px 18px;color:#fff;font-weight:800;font-size:1rem;cursor:pointer;box-shadow:0 16px 26px rgba(42,119,205,.25)}
+    .feedback{min-height:22px;margin:12px 0 0;font-weight:700;color:#27614d}
+
+    .footer{padding:28px 0 50px}
+    .footer-card{position:relative;overflow:hidden;background:linear-gradient(140deg,#1f78d8,#5fb0ff);color:#fff;border-radius:34px;padding:28px;box-shadow:0 24px 40px rgba(39,110,184,.24)}
+    .footer-card::before{content:'';position:absolute;inset:auto auto -40px -30px;width:220px;height:220px;border-radius:50%;background:rgba(255,255,255,.12)}
+    .footer-kicker{display:inline-flex;padding:8px 14px;border-radius:999px;background:rgba(255,255,255,.16);font-weight:800}
+    .footer-card h2{margin:14px 0 10px;font:700 clamp(2rem,5vw,3rem)/1 'Playfair Display',serif}
+    .footer-card p{margin:0 0 10px;font-size:1.02rem;color:rgba(255,255,255,.96);max-width:700px}
+    .footer-card .cta{margin-top:10px;display:inline-flex;align-items:center;gap:10px;padding:14px 18px;border-radius:18px;background:#fff;color:#1860ac;font-weight:800;box-shadow:0 16px 26px rgba(15,53,96,.18)}
+    .muted-credit{display:block;margin-top:16px;color:rgba(255,255,255,.9)}
+
+    dialog{border:0;padding:0;background:transparent;max-width:min(520px,calc(100% - 24px))}
+    dialog::backdrop{background:rgba(8,28,53,.42);backdrop-filter:blur(3px)}
+    .modal-card{background:linear-gradient(180deg,#fff,#f7fbff);border:1px solid var(--line);border-radius:30px;padding:22px;box-shadow:0 25px 50px rgba(18,64,111,.22);position:relative}
+    .modal-close{position:absolute;right:14px;top:14px;width:42px;height:42px;border:0;border-radius:50%;background:#edf6ff;color:#2467ae;font-size:1.4rem;font-weight:900;cursor:pointer}
+    .modal-card h3{margin:10px 0 8px;font:700 2rem/1 'Playfair Display',serif;color:#153b64}
+    .modal-card p{margin:0 0 14px;color:#587391}
+    .modal-meta{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+    .modal-thumb{width:78px;height:78px;border-radius:20px;background:#eff8ff;padding:10px;border:1px solid var(--line)}
+    .modal-thumb img{width:100%;height:100%;object-fit:contain}
+    .hidden{display:none!important}
+    @media (max-width: 900px){
+      .hero-wrap,.meeting-card,.rsvp-shell{grid-template-columns:1fr}
+      .hero-visual{min-height:330px}
+      .gifts-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+    }
+    @media (max-width: 640px){
+      .container{width:min(100% - 18px, 1080px)}
+      .section{padding:28px 0}
+      .hero-date{grid-template-columns:1fr}
+      .gifts-grid{grid-template-columns:1fr 1fr;gap:12px}
+      .gift-name{font-size:1rem}
+      .date-box strong{font-size:4rem}
+      .two-col,.choice-row{grid-template-columns:1fr}
+      .topbar-inner{padding:10px 0}
+      .top-actions a{padding:9px 12px}
+      .hero-card,.rsvp-card,.footer-card,.meeting-card{border-radius:26px}
+      .action-card{padding:16px}
+      .gift-photo{aspect-ratio:1.1/1}
+    }
+  </style>
 </head>
 <body>
-  <header class="site-header">
-    <a class="wordmark" href="#inicio" aria-label="Chá do Benício, início">Benício <span>♥</span></a>
-    <a class="header-link" href="#presentes">Presentes <span aria-hidden="true">↗</span></a>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <a class="brand" href="#topo">Chá do Benício<small>28 de novembro de 2026</small></a>
+      <nav class="top-actions" aria-label="Navegação">
+        <a href="#presentes">Presentes</a>
+        <a href="#encontro">Nosso encontro</a>
+        <a href="#presenca">Presença</a>
+      </nav>
+    </div>
   </header>
 
-  <main id="inicio">
-    <section class="hero" aria-labelledby="heroTitle">
-      <div class="hero-shell">
-        <div class="hero-visual reveal">
-          <img src="assets/ursinho.webp" alt="Ursinho de pelúcia com laço azul no quartinho do Benício" width="1050" height="1041">
-          <div class="hero-photo-date" aria-label="Dia 28 de novembro de 2026"><b>28</b><span>NOV<br>2026</span></div>
+  <main id="topo">
+    <section class="hero section">
+      <div class="container hero-wrap">
+        <div class="hero-visual">
+          <div class="hero-circle">Um novo capítulo<br>está chegando... 💙</div>
+          <img class="hero-bear" src="assets/hero_bear.png" alt="Ursinho 3D do Chá do Benício">
+          <div class="hero-cloud" aria-hidden="true"></div>
         </div>
-        <div class="hero-content reveal">
-          <div class="eyebrow">COM CARINHO, PAPAI E MAMÃE CONVIDAM</div>
-          <span class="hero-script">Chá do</span>
-          <h1 id="heroTitle">Benício<span>♥</span></h1>
-          <p class="hero-tagline">Um dia especial para celebrar a chegada do nosso pequeno grande amor.</p>
-          <div class="hero-day"><span aria-hidden="true">✦</span> SÁBADO, 28 DE NOVEMBRO DE 2026 <span aria-hidden="true">✦</span></div>
-          <div class="hero-invite-note">A alegria vai ser ainda maior com você lá! <span>💙</span></div>
-          <nav class="hero-actions" aria-label="Ações do convite">
-            <a class="action-link primary" href="#presentes"><span class="action-icon" aria-hidden="true">🎁</span><span class="action-text">Ver lista de presentes</span><span class="action-arrow" aria-hidden="true">↗</span></a>
-            <a class="action-link secondary" href="#detalhes"><span class="action-icon" aria-hidden="true">⌖</span><span class="action-text">Ver localização</span><span class="action-arrow" aria-hidden="true">↗</span></a>
-            <a class="action-link secondary" href="#presenca"><span class="action-icon" aria-hidden="true">♡</span><span class="action-text">Confirmar presença</span><span class="action-arrow" aria-hidden="true">↗</span></a>
-          </nav>
+        <div class="hero-card">
+          <span class="eyebrow">Papai e mamãe convidam</span>
+          <h1 class="hero-title"><small>Chá do</small>Benício</h1>
+          <p class="hero-desc">Um convite delicado, mais azul e com tudo à mão para os convidados interagirem o mínimo possível.</p>
+          <div class="hero-date">
+            <div class="mini"><small>Data</small><strong>Sábado, 28 de novembro de 2026</strong></div>
+            <div class="mini"><small>Horário</small><strong style="color:#7fa0c1">A confirmar</strong></div>
+            <div class="mini"><small>Local</small><strong style="color:#7fa0c1">A confirmar</strong></div>
+          </div>
+          <div class="action-grid">
+            <a class="action-card main" href="#presentes"><div class="left"><div class="icon">🎁</div><div><b>Ver lista de presentes</b><span>Todos os presentes em uma única lista</span></div></div><div class="arrow">↘</div></a>
+            <a class="action-card" href="#encontro"><div class="left"><div class="icon">📍</div><div><b>Ver localização</b><span>Horário e endereço serão confirmados</span></div></div><div class="arrow">↘</div></a>
+            <a class="action-card" href="#presenca"><div class="left"><div class="icon">💌</div><div><b>Confirmar presença</b><span>Um formulário rápido e direto</span></div></div><div class="arrow">↘</div></a>
+          </div>
         </div>
       </div>
-      <div class="hero-bottom" aria-hidden="true"></div>
     </section>
 
-    <section id="presentes" class="gifts-section section-pad" aria-labelledby="giftsTitle">
-      <div class="section-heading reveal">
-        <span class="mini-kicker">UM PRESENTINHO, MUITO AMOR</span>
-        <h2 id="giftsTitle">Lista de <em>Presentes</em><span class="tiny-heart">♥</span></h2>
-        <p>Escolha seu presente com carinho. Um toque em <b>"Quero presentear"</b>, seu nome e pronto! 💙</p>
-      </div>
-      <div id="demoNotice" class="demo-banner hidden" role="status"><strong>Versão de demonstração.</strong> Os presentes escolhidos aparecem reservados apenas neste navegador. Para sincronizar entre todos os convidados é necessário conectar o banco de dados.</div>
-      <div id="connectionNotice" class="error-banner hidden" role="alert"></div>
-      <p class="gift-count" id="giftCount" aria-live="polite">Carregando presentes…</p>
-      <div class="gift-grid" id="giftGrid" aria-live="polite"></div>
-      <p class="gifts-note">O maior presente é ter você celebrando com a gente. <span>💙</span></p>
-    </section>
-
-    <section id="detalhes" class="details section-pad" aria-labelledby="detailsTitle">
-      <div class="section-heading reveal">
-        <span class="mini-kicker">NOSSO ENCONTRO</span>
-        <h2 id="detailsTitle">Anota essa <em>data!</em></h2>
-        <p>Estamos contando os dias para comemorar com você.</p>
-      </div>
-      <div class="event-card reveal">
-        <div class="event-date"><small>SÁBADO · NOVEMBRO</small><div class="event-num">28</div><span>2026</span></div>
-        <div class="event-fields">
-          <div class="event-field"><div class="event-field-icon">◷</div><div><small>HORÁRIO</small><strong id="eventTime" class="field-blank" aria-label="Horário ainda não confirmado">&nbsp;</strong></div></div>
-          <div class="event-field"><div class="event-field-icon">⌖</div><div><small>LOCAL / ENDEREÇO</small><strong id="eventAddress" class="field-blank" aria-label="Endereço ainda não confirmado">&nbsp;</strong></div></div>
-          <a id="mapsLink" href="#" class="event-map hidden" target="_blank" rel="noopener noreferrer">Abrir localização no mapa ↗</a>
+    <section id="encontro" class="section">
+      <div class="container">
+        <div class="gifts-header">
+          <div>
+            <span class="pill">Nosso encontro</span>
+            <h2 class="section-title">Guarda essa data</h2>
+            <p class="section-sub">Tudo pronto para você saber quando e onde vai acontecer.</p>
+          </div>
+        </div>
+        <div class="meeting-card">
+          <div class="date-box">
+            <small>Novembro</small>
+            <strong>28</strong>
+            <span>Sábado • 2026</span>
+          </div>
+          <div class="meeting-info">
+            <div class="info-row">
+              <div class="info-icon">⏰</div>
+              <div>
+                <div class="info-label">Horário</div>
+                <div class="info-value blank">Será confirmado em breve</div>
+              </div>
+            </div>
+            <div class="info-row">
+              <div class="info-icon">📍</div>
+              <div>
+                <div class="info-label">Endereço</div>
+                <div class="info-value blank">Será confirmado em breve</div>
+              </div>
+            </div>
+            <div class="meeting-note">Papai e mamãe convidam você para celebrar a chegada do Benício. Assim que o endereço e o horário forem definidos, esse card será atualizado. 💙</div>
+          </div>
         </div>
       </div>
-      <p class="countdown reveal"><strong id="countdownValue">…</strong> <span id="countdownLabel">dias para a grande festa 💙</span></p>
     </section>
 
-    <section id="presenca" class="rsvp-section section-pad" aria-labelledby="rsvpTitle">
-      <div class="rsvp-layout">
-        <div class="rsvp-intro reveal"><img src="assets/pezinhos.webp" alt="Pezinhos de bebê envoltos em uma mantinha azul" loading="lazy">
-          <div class="rsvp-intro-overlay"><span class="mini-kicker">QUEREMOS VOCÊ COM A GENTE</span><h2 id="rsvpTitle">Você vem <em>celebrar?</em></h2><p>É rapidinho confirmar, prometemos!</p></div>
+    <section id="presentes" class="section">
+      <div class="container">
+        <div class="gifts-header">
+          <div>
+            <span class="pill">Lista de presentes</span>
+            <h2 class="section-title">Escolha com carinho</h2>
+            <p class="section-sub">Sem categorias e sem passos extras: todos os presentes ficam aqui, um abaixo do outro.</p>
+          </div>
+          <div id="giftCount" class="gift-count">Carregando...</div>
         </div>
-        <form id="rsvpForm" class="rsvp-card reveal">
-          <span class="mini-kicker">CONFIRME SUA PRESENÇA</span>
-          <h3>Esperamos você! <span>♡</span></h3>
-          <label for="rsvpName">Seu nome *</label>
-          <input id="rsvpName" name="name" type="text" maxlength="80" autocomplete="name" placeholder="Como podemos chamar você?" required>
-          <fieldset class="presence-fieldset"><legend>Você vem?</legend>
-            <label class="choice-pill"><input type="radio" name="attendance" value="yes" checked><span>♥ Vou sim!</span></label>
-            <label class="choice-pill"><input type="radio" name="attendance" value="no"><span>Não poderei</span></label>
-          </fieldset>
-          <div id="guestCountGroup"><label for="rsvpGuests">Quantas pessoas, incluindo você?</label><input id="rsvpGuests" name="guests" type="number" inputmode="numeric" min="1" max="15" value="1" required></div>
-          <label for="rsvpMessage">Um recadinho para o Benício <span class="optional">(opcional)</span></label>
-          <textarea id="rsvpMessage" name="message" rows="3" maxlength="300" placeholder="Uma mensagem de carinho..."></textarea>
-          <button id="rsvpSubmit" class="button button-blue button-wide" type="submit">Confirmar presença <span aria-hidden="true">↗</span></button>
-          <p id="rsvpFeedback" class="form-feedback" role="status" aria-live="polite"></p>
+        <div id="giftGrid" class="gifts-grid"></div>
+      </div>
+    </section>
+
+    <section id="presenca" class="section">
+      <div class="container rsvp-shell">
+        <div class="rsvp-side">
+          <span class="eyebrow" style="background:rgba(255,255,255,.18);color:#fff">Confirmação de presença</span>
+          <h2>Vai comemorar com a gente?</h2>
+          <p>Prometemos que aqui ficou muito mais bonito e muito mais simples: nome, resposta e quantidade de pessoas.</p>
+          <img src="assets/feet.png" alt="Pezinhos do bebê em mantinha azul">
+        </div>
+        <form id="rsvpForm" class="rsvp-card">
+          <span class="pill">Resposta rápida</span>
+          <h3>Confirme sua presença</h3>
+          <div class="field">
+            <label for="rsvpName">Seu nome</label>
+            <input id="rsvpName" name="name" type="text" maxlength="80" placeholder="Digite seu nome" required>
+          </div>
+          <div class="choice-row">
+            <label><input type="radio" name="attendance" value="yes" checked><span class="choice-card">💙 Vou sim</span></label>
+            <label><input type="radio" name="attendance" value="no"><span class="choice-card">🤍 Não poderei</span></label>
+          </div>
+          <div class="two-col">
+            <div class="field">
+              <label for="rsvpGuests">Quantas pessoas vão?</label>
+              <select id="rsvpGuests" name="guests">
+                <option>1 pessoa</option><option>2 pessoas</option><option>3 pessoas</option><option>4 pessoas</option><option>5 pessoas</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="rsvpMessage">Mensagem (opcional)</label>
+              <input id="rsvpMessage" name="message" type="text" maxlength="120" placeholder="Deixe um recado carinhoso">
+            </div>
+          </div>
+          <button class="submit-btn" type="submit">Confirmar presença</button>
+          <p id="rsvpFeedback" class="feedback" aria-live="polite"></p>
         </form>
       </div>
     </section>
 
-    <section class="closing-section" aria-label="Mensagem de despedida">
-      <span class="mini-kicker">COM MUITO AMOR</span>
-      <h2>Nos vemos <em>em breve!</em> <span>♥</span></h2>
-      <p>Papai, mamãe e Benício</p>
-    </section>
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-card">
+          <span class="footer-kicker">Um recadinho do papai... 👀</span>
+          <h2>Gostou desse convite?</h2>
+          <p>E se você também quiser um convite digital interativo, personalizado e cheio de surpresas, o papai faz o seu!</p>
+          <p>Porque criar convites é divertido... mas comprar fraldas custa dinheiro! 😂🍼</p>
+          <a class="cta" id="contactLink" href="#">Peça o seu aqui ↗</a>
+          <small class="muted-credit">Feito com carinho para o Chá do Benício</small>
+        </div>
+      </div>
+    </footer>
   </main>
 
-  <footer class="site-footer">
-    <div class="footer-note">
-      <p class="footer-kicker">Um recadinho do papai... 👀</p>
-      <h2>Gostou desse convite?</h2>
-      <p>E se você também quiser um convite digital interativo, personalizado e cheio de surpresas, o papai faz o seu!</p>
-      <p class="footer-joke">Porque criar convites é divertido... mas comprar fraldas custa dinheiro! 😂🍼</p>
-      <a href="#" id="contactLink" class="footer-cta">Peça o seu aqui <span aria-hidden="true">↗</span></a>
-    </div>
-    <small class="footer-credit">Feito com carinho para o Chá do Benício · 2026</small>
-  </footer>
-
-  <dialog id="giftModal" class="gift-dialog" aria-labelledby="giftModalTitle">
-    <form id="giftForm" class="gift-modal-form">
-      <button id="closeGiftModal" class="modal-close" type="button" aria-label="Fechar">×</button>
-      <div id="giftModalIcon" class="modal-gift-icon" aria-hidden="true">♡</div>
-      <span class="mini-kicker">UMA ESCOLHA FEITA COM CARINHO</span>
-      <h2 id="giftModalTitle">Reservar presente</h2>
-      <p id="giftModalDescription">Um carinho para o Benício.</p>
-      <label for="giftGuestName">Seu nome <span aria-hidden="true">*</span></label>
-      <input id="giftGuestName" name="name" type="text" maxlength="80" autocomplete="name" placeholder="Quem está presenteando?" required>
-      <div id="giftQuantityGroup" class="quantity-group"><label for="giftQuantity">Quantidade</label>
-      <select id="giftQuantity" name="quantity" required></select></div>
-      <p class="modal-note">A quantidade ficará reservada para evitar presentes repetidos.</p>
-      <button id="giftSubmit" class="button button-blue button-wide" type="submit">Confirmar presente ♥</button>
-      <p id="giftFeedback" class="form-feedback" aria-live="polite" role="status"></p>
+  <dialog id="giftDialog">
+    <form class="modal-card" id="giftForm" method="dialog">
+      <button class="modal-close" id="closeGift" type="button">×</button>
+      <span class="pill">Reservar presente</span>
+      <h3 id="giftDialogTitle">Presente</h3>
+      <div class="modal-meta">
+        <div class="modal-thumb"><img id="giftDialogImage" src="" alt=""></div>
+        <div>
+          <p id="giftDialogText">Confirme seu nome e a quantidade.</p>
+          <div id="giftDialogStock" class="gift-badge">0 disponível</div>
+        </div>
+      </div>
+      <div class="field">
+        <label for="giftName">Seu nome</label>
+        <input id="giftName" name="name" type="text" maxlength="80" placeholder="Quem está presenteando?" required>
+      </div>
+      <div class="field">
+        <label for="giftQty">Quantidade</label>
+        <select id="giftQty" name="quantity"></select>
+      </div>
+      <button class="submit-btn" id="giftSubmit" type="submit">Confirmar presente</button>
+      <p id="giftFeedback" class="feedback" aria-live="polite"></p>
     </form>
   </dialog>
-  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    const gifts = [{"id": "berco", "name": "Berço", "qty": 1, "img": "assets/crib.png"}, {"id": "comoda", "name": "Cômoda para bebê", "qty": 1, "img": "assets/dresser.png"}, {"id": "carrinho", "name": "Carrinho de bebê", "qty": 1, "img": "assets/stroller.png"}, {"id": "bebeconforto", "name": "Bebê conforto", "qty": 1, "img": "assets/carseat.png"}, {"id": "banheira", "name": "Banheira", "qty": 1, "img": "assets/tub.png"}, {"id": "trocador", "name": "Trocador", "qty": 1, "img": "assets/changing.png"}, {"id": "mamadeira", "name": "Mamadeira", "qty": 2, "img": "assets/bottle.png"}, {"id": "kitescova", "name": "Kit escova e pente", "qty": 1, "img": "assets/brush.png"}, {"id": "fraldas-rn", "name": "Fraldas RN", "qty": 2, "img": "assets/diaper.png"}, {"id": "fraldas-p", "name": "Fraldas P", "qty": 8, "img": "assets/diaper.png"}, {"id": "fraldas-m", "name": "Fraldas M", "qty": 14, "img": "assets/diaper.png"}, {"id": "fraldas-g", "name": "Fraldas G", "qty": 10, "img": "assets/diaper.png"}, {"id": "fraldas-xg", "name": "Fraldas XG", "qty": 5, "img": "assets/diaper.png"}, {"id": "lencos", "name": "Lenços umedecidos", "qty": 15, "img": "assets/wipes.png"}, {"id": "pomada", "name": "Pomada para assaduras", "qty": 5, "img": "assets/cream.png"}, {"id": "sabonete", "name": "Sabonete líquido infantil", "qty": 5, "img": "assets/soap.png"}, {"id": "shampoo", "name": "Shampoo infantil", "qty": 3, "img": "assets/shampoo.png"}, {"id": "bodies", "name": "Kit de bodies", "qty": 4, "img": "assets/bodies.png"}, {"id": "macacao", "name": "Macacão para bebê", "qty": 4, "img": "assets/onesie.png"}, {"id": "manta", "name": "Manta para bebê", "qty": 3, "img": "assets/blanket.png"}, {"id": "toalha", "name": "Toalha com capuz", "qty": 3, "img": "assets/towel.png"}, {"id": "paninhos", "name": "Kit de paninhos de boca", "qty": 6, "img": "assets/cloths.png"}, {"id": "lencol", "name": "Jogo de lençol para berço", "qty": 3, "img": "assets/sheets.png"}, {"id": "babadores", "name": "Kit de babadores", "qty": 3, "img": "assets/cloths.png"}, {"id": "ps5", "name": "PS5 Pro", "qty": 1, "img": "assets/ps5.png", "joke": "Item essencial para o equilíbrio emocional do papai. 😂"}];
+    const STORAGE_KEY = 'benicio_gifts_v5';
+    const RSVP_KEY = 'benicio_rsvp_v5';
+    const grid = document.getElementById('giftGrid');
+    const giftCount = document.getElementById('giftCount');
+    const dialog = document.getElementById('giftDialog');
+    const giftForm = document.getElementById('giftForm');
+    const closeGift = document.getElementById('closeGift');
+    const giftQty = document.getElementById('giftQty');
+    const giftNameInput = document.getElementById('giftName');
+    const giftFeedback = document.getElementById('giftFeedback');
+    let activeGiftId = null;
+
+    function loadReservations() {
+      try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; } catch { return {}; }
+    }
+    function saveReservations(data) { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); }
+    function reservedFor(id) { const data = loadReservations(); return (data[id]||[]).reduce((a,b)=>a + Number(b.qty||0), 0); }
+    function availableFor(gift) { return Math.max(0, gift.qty - reservedFor(gift.id)); }
+    function renderGifts() {
+      const totalAvailable = gifts.reduce((n,g)=>n + availableFor(g), 0);
+      giftCount.textContent = totalAvailable + ' itens disponíveis no momento';
+      grid.innerHTML = gifts.map(g => {
+        const avail = availableFor(g);
+        return `
+          <article class="gift-card">
+            <div class="gift-photo"><img src="${g.img}" alt="${g.name}"></div>
+            <div class="gift-body">
+              <div class="gift-topline">
+                <h3 class="gift-name">${g.name}</h3>
+                <span class="gift-badge">${avail} disponível${avail===1?'':'is'}</span>
+              </div>
+              ${g.joke ? `<p class="gift-joke">${g.joke}</p>` : ''}
+              <button class="gift-btn" data-gift-id="${g.id}" ${avail<1?'disabled':''}>${avail<1?'Já reservado':'Quero presentear'}</button>
+            </div>
+          </article>`;
+      }).join('');
+      grid.querySelectorAll('.gift-btn[data-gift-id]').forEach(btn => btn.addEventListener('click', () => openGift(btn.dataset.giftId)));
+    }
+    function openGift(id) {
+      activeGiftId = id;
+      const gift = gifts.find(g => g.id === id);
+      const avail = availableFor(gift);
+      document.getElementById('giftDialogTitle').textContent = gift.name;
+      document.getElementById('giftDialogText').textContent = gift.joke || 'Confirme seu nome e a quantidade que deseja reservar.';
+      document.getElementById('giftDialogImage').src = gift.img;
+      document.getElementById('giftDialogImage').alt = gift.name;
+      document.getElementById('giftDialogStock').textContent = avail + ' disponível' + (avail===1?'':'is');
+      giftQty.innerHTML = '';
+      for(let i=1;i<=avail;i++) {
+        const opt = document.createElement('option');
+        opt.value = String(i);
+        opt.textContent = i + (i===1?' unidade':' unidades');
+        giftQty.appendChild(opt);
+      }
+      giftFeedback.textContent = '';
+      giftForm.reset();
+      dialog.showModal();
+    }
+    closeGift.addEventListener('click', () => dialog.close());
+    giftForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      if(!activeGiftId) return;
+      const name = giftNameInput.value.trim();
+      const qty = Number(giftQty.value || 0);
+      if(!name || qty < 1) { giftFeedback.textContent = 'Preencha seu nome e selecione a quantidade.'; return; }
+      const data = loadReservations();
+      const arr = data[activeGiftId] || [];
+      arr.push({name, qty, when: new Date().toISOString()});
+      data[activeGiftId] = arr;
+      saveReservations(data);
+      giftFeedback.textContent = 'Presente reservado com sucesso!';
+      setTimeout(() => { dialog.close(); renderGifts(); }, 500);
+    });
+
+    const rsvpForm = document.getElementById('rsvpForm');
+    const rsvpFeedback = document.getElementById('rsvpFeedback');
+    rsvpForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const fd = new FormData(rsvpForm);
+      const payload = Object.fromEntries(fd.entries());
+      if(!payload.name.trim()) { rsvpFeedback.textContent = 'Digite seu nome para confirmar.'; return; }
+      const list = JSON.parse(localStorage.getItem(RSVP_KEY) || '[]');
+      list.push({...payload, when:new Date().toISOString()});
+      localStorage.setItem(RSVP_KEY, JSON.stringify(list));
+      rsvpFeedback.textContent = payload.attendance === 'yes' ? 'Presença confirmada 💙' : 'Resposta registrada com carinho 💙';
+      rsvpForm.reset();
+      rsvpForm.querySelector('input[name="attendance"][value="yes"]').checked = true;
+    });
+
+    const contactLink = document.getElementById('contactLink');
+    const msg = encodeURIComponent('Olá! Vi o convite do Chá do Benício e gostaria de fazer um convite digital assim.');
+    contactLink.href = 'https://wa.me/?text=' + msg;
+
+    renderGifts();
+  </script>
 </body>
 </html>
