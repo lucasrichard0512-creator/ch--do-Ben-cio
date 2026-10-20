@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#a8d8fa">
+  <meta name="description" content="Um convite especial para o Chá do Benício. 28 de novembro de 2026.">
+  <meta property="og:title" content="Chá do Benício 💙">
+  <meta property="og:description" content="Papai e mamãe convidam você para celebrar a chegada do Benício, dia 28 de novembro de 2026.">
+  <title>Chá do Benício | Convite interativo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Great+Vibes&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script src="config.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <a class="wordmark" href="#inicio" aria-label="Chá do Benício, início">Benício <span>♥</span></a>
+    <a class="header-link" href="#presentes">Presentes <span aria-hidden="true">↗</span></a>
+  </header>
+
+  <main id="inicio">
+    <section class="hero" aria-labelledby="heroTitle">
+      <div class="hero-shell">
+        <div class="hero-visual reveal">
+          <img src="assets/ursinho.webp" alt="Ursinho de pelúcia com laço azul no quartinho do Benício" width="1050" height="1041">
+          <div class="hero-photo-date" aria-label="Dia 28 de novembro de 2026"><b>28</b><span>NOV<br>2026</span></div>
+        </div>
+        <div class="hero-content reveal">
+          <div class="eyebrow">COM CARINHO, PAPAI E MAMÃE CONVIDAM</div>
+          <span class="hero-script">Chá do</span>
+          <h1 id="heroTitle">Benício<span>♥</span></h1>
+          <p class="hero-tagline">Um dia especial para celebrar a chegada do nosso pequeno grande amor.</p>
+          <div class="hero-day"><span aria-hidden="true">✦</span> SÁBADO, 28 DE NOVEMBRO DE 2026 <span aria-hidden="true">✦</span></div>
+          <div class="hero-invite-note">A alegria vai ser ainda maior com você lá! <span>💙</span></div>
+          <nav class="hero-actions" aria-label="Ações do convite">
+            <a class="action-link primary" href="#presentes"><span class="action-icon" aria-hidden="true">🎁</span><span class="action-text">Ver lista de presentes</span><span class="action-arrow" aria-hidden="true">↗</span></a>
+            <a class="action-link secondary" href="#detalhes"><span class="action-icon" aria-hidden="true">⌖</span><span class="action-text">Ver localização</span><span class="action-arrow" aria-hidden="true">↗</span></a>
+            <a class="action-link secondary" href="#presenca"><span class="action-icon" aria-hidden="true">♡</span><span class="action-text">Confirmar presença</span><span class="action-arrow" aria-hidden="true">↗</span></a>
+          </nav>
+        </div>
+      </div>
+      <div class="hero-bottom" aria-hidden="true"></div>
+    </section>
+
+    <section id="presentes" class="gifts-section section-pad" aria-labelledby="giftsTitle">
+      <div class="section-heading reveal">
+        <span class="mini-kicker">UM PRESENTINHO, MUITO AMOR</span>
+        <h2 id="giftsTitle">Lista de <em>Presentes</em><span class="tiny-heart">♥</span></h2>
+        <p>Escolha seu presente com carinho. Um toque em <b>"Quero presentear"</b>, seu nome e pronto! 💙</p>
+      </div>
+      <div id="demoNotice" class="demo-banner hidden" role="status"><strong>Versão de demonstração.</strong> Os presentes escolhidos aparecem reservados apenas neste navegador. Para sincronizar entre todos os convidados é necessário conectar o banco de dados.</div>
+      <div id="connectionNotice" class="error-banner hidden" role="alert"></div>
+      <p class="gift-count" id="giftCount" aria-live="polite">Carregando presentes…</p>
+      <div class="gift-grid" id="giftGrid" aria-live="polite"></div>
+      <p class="gifts-note">O maior presente é ter você celebrando com a gente. <span>💙</span></p>
+    </section>
+
+    <section id="detalhes" class="details section-pad" aria-labelledby="detailsTitle">
+      <div class="section-heading reveal">
+        <span class="mini-kicker">NOSSO ENCONTRO</span>
+        <h2 id="detailsTitle">Anota essa <em>data!</em></h2>
+        <p>Estamos contando os dias para comemorar com você.</p>
+      </div>
+      <div class="event-card reveal">
+        <div class="event-date"><small>SÁBADO · NOVEMBRO</small><div class="event-num">28</div><span>2026</span></div>
+        <div class="event-fields">
+          <div class="event-field"><div class="event-field-icon">◷</div><div><small>HORÁRIO</small><strong id="eventTime" class="field-blank" aria-label="Horário ainda não confirmado">&nbsp;</strong></div></div>
+          <div class="event-field"><div class="event-field-icon">⌖</div><div><small>LOCAL / ENDEREÇO</small><strong id="eventAddress" class="field-blank" aria-label="Endereço ainda não confirmado">&nbsp;</strong></div></div>
+          <a id="mapsLink" href="#" class="event-map hidden" target="_blank" rel="noopener noreferrer">Abrir localização no mapa ↗</a>
+        </div>
+      </div>
+      <p class="countdown reveal"><strong id="countdownValue">…</strong> <span id="countdownLabel">dias para a grande festa 💙</span></p>
+    </section>
+
+    <section id="presenca" class="rsvp-section section-pad" aria-labelledby="rsvpTitle">
+      <div class="rsvp-layout">
+        <div class="rsvp-intro reveal"><img src="assets/pezinhos.webp" alt="Pezinhos de bebê envoltos em uma mantinha azul" loading="lazy">
+          <div class="rsvp-intro-overlay"><span class="mini-kicker">QUEREMOS VOCÊ COM A GENTE</span><h2 id="rsvpTitle">Você vem <em>celebrar?</em></h2><p>É rapidinho confirmar, prometemos!</p></div>
+        </div>
+        <form id="rsvpForm" class="rsvp-card reveal">
+          <span class="mini-kicker">CONFIRME SUA PRESENÇA</span>
+          <h3>Esperamos você! <span>♡</span></h3>
+          <label for="rsvpName">Seu nome *</label>
+          <input id="rsvpName" name="name" type="text" maxlength="80" autocomplete="name" placeholder="Como podemos chamar você?" required>
+          <fieldset class="presence-fieldset"><legend>Você vem?</legend>
+            <label class="choice-pill"><input type="radio" name="attendance" value="yes" checked><span>♥ Vou sim!</span></label>
+            <label class="choice-pill"><input type="radio" name="attendance" value="no"><span>Não poderei</span></label>
+          </fieldset>
+          <div id="guestCountGroup"><label for="rsvpGuests">Quantas pessoas, incluindo você?</label><input id="rsvpGuests" name="guests" type="number" inputmode="numeric" min="1" max="15" value="1" required></div>
+          <label for="rsvpMessage">Um recadinho para o Benício <span class="optional">(opcional)</span></label>
+          <textarea id="rsvpMessage" name="message" rows="3" maxlength="300" placeholder="Uma mensagem de carinho..."></textarea>
+          <button id="rsvpSubmit" class="button button-blue button-wide" type="submit">Confirmar presença <span aria-hidden="true">↗</span></button>
+          <p id="rsvpFeedback" class="form-feedback" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+
+    <section class="closing-section" aria-label="Mensagem de despedida">
+      <span class="mini-kicker">COM MUITO AMOR</span>
+      <h2>Nos vemos <em>em breve!</em> <span>♥</span></h2>
+      <p>Papai, mamãe e Benício</p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-note">
+      <p class="footer-kicker">Um recadinho do papai... 👀</p>
+      <h2>Gostou desse convite?</h2>
+      <p>E se você também quiser um convite digital interativo, personalizado e cheio de surpresas, o papai faz o seu!</p>
+      <p class="footer-joke">Porque criar convites é divertido... mas comprar fraldas custa dinheiro! 😂🍼</p>
+      <a href="#" id="contactLink" class="footer-cta">Peça o seu aqui <span aria-hidden="true">↗</span></a>
+    </div>
+    <small class="footer-credit">Feito com carinho para o Chá do Benício · 2026</small>
+  </footer>
+
+  <dialog id="giftModal" class="gift-dialog" aria-labelledby="giftModalTitle">
+    <form id="giftForm" class="gift-modal-form">
+      <button id="closeGiftModal" class="modal-close" type="button" aria-label="Fechar">×</button>
+      <div id="giftModalIcon" class="modal-gift-icon" aria-hidden="true">♡</div>
+      <span class="mini-kicker">UMA ESCOLHA FEITA COM CARINHO</span>
+      <h2 id="giftModalTitle">Reservar presente</h2>
+      <p id="giftModalDescription">Um carinho para o Benício.</p>
+      <label for="giftGuestName">Seu nome <span aria-hidden="true">*</span></label>
+      <input id="giftGuestName" name="name" type="text" maxlength="80" autocomplete="name" placeholder="Quem está presenteando?" required>
+      <div id="giftQuantityGroup" class="quantity-group"><label for="giftQuantity">Quantidade</label>
+      <select id="giftQuantity" name="quantity" required></select></div>
+      <p class="modal-note">A quantidade ficará reservada para evitar presentes repetidos.</p>
+      <button id="giftSubmit" class="button button-blue button-wide" type="submit">Confirmar presente ♥</button>
+      <p id="giftFeedback" class="form-feedback" aria-live="polite" role="status"></p>
+    </form>
+  </dialog>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
