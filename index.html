@@ -1,100 +1,123 @@
 <!doctype html>
 <html lang="pt-BR">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#b2d7f9"><meta name="description" content="Papai e mamãe convidam para o Chá do Benício, 28 de novembro de 2026.">
-<meta property="og:title" content="Chá do Benício 💙"><title>Chá do Benício · Convite interativo</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css"><script src="config.js" defer></script><script src="app.js" defer></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#a8d5fa">
+<meta name="description" content="Papai e mamãe convidam você para o Chá do Benício, 28 de novembro de 2026.">
+<meta property="og:title" content="Chá do Benício 💙">
+<meta property="og:description" content="Uma chegada muito especial merece uma comemoração cheia de amor.">
+<title>Chá do Benício | Convite Interativo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Nunito:wght@400;600;700;800;900&family=Great+Vibes&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<script defer src="config.js"></script>
+<script defer src="engine3d.js"></script>
+<script defer src="app.js"></script>
 </head>
 <body>
-<!-- Tela grande: a arte APROVADA, em resolução original, com controles HTML clicáveis alinhados. -->
-<main class="desktop-scene" id="inicio" aria-label="Convite do Chá do Benício">
-  <div class="reference-canvas" id="referenceCanvas">
-    <img src="assets/referencia-exata.png" alt="" class="reference-image" width="854" height="1842">
-    <h1 class="sr-only">Chá do Benício, sábado 28 de novembro de 2026</h1>
-    <p class="sr-only">Papai e mamãe convidam você para comemorar a chegada do Benício.</p>
-    <a class="hit" href="#presentes" data-target="desktop-gifts" style="--x:39;--y:405;--w:238;--h:67" aria-label="Ver lista de presentes"></a>
-    <a class="hit" href="#encontro" data-target="desktop-meeting" style="--x:284;--y:405;--w:239;--h:67" aria-label="Ver localização"></a>
-    <a class="hit" href="#presenca" data-target="desktop-rsvp" style="--x:529;--y:405;--w:240;--h:67" aria-label="Confirmar presença"></a>
-    <div id="desktop-gifts" class="poster-point" style="--top:497"></div>
-    <div id="desktop-meeting" class="poster-point" style="--top:1390"></div>
-    <div id="desktop-rsvp" class="poster-point" style="--top:1555"></div>
-    <div id="posterHotspots" aria-label="Lista de presentes, com botões interativos"></div>
-    <div class="additional-card" id="extraBabadores" aria-label="Kit de babadores, presente adicional">
-      <img src="assets/babadores.png" alt="Kit de babadores">
-      <b>Kit de babadores</b><span data-stock="babadores">3 disponíveis</span>
-      <div class="mini-select"><button type="button" aria-label="Diminuir quantidade" data-qty-action="minus" data-id="babadores">−</button><span data-qty="babadores">1</span><button type="button" aria-label="Aumentar quantidade" data-qty-action="plus" data-id="babadores">+</button></div>
-      <button class="tiny-buy" type="button" data-reserve="babadores">♔ Reservar presente</button>
-    </div>
-    <form class="poster-rsvp" id="desktopRsvp" aria-label="Confirme sua presença">
-      <label class="sr-only" for="desktopName">Seu nome</label><input id="desktopName" name="name" maxlength="80" placeholder="Digite seu nome" autocomplete="name" required>
-      <label class="sr-only" for="desktopNote">Observação opcional</label><textarea id="desktopNote" name="note" maxlength="250" rows="2" placeholder="Deixe uma observação, por exemplo se vai levar mais alguém."></textarea>
-      <button type="submit" aria-label="Confirmar presença">✓ &nbsp; Confirmar presença</button>
-      <p class="poster-feedback" id="desktopFeedback" role="status"></p>
-    </form>
-    <a href="#" class="hit" id="desktopContact" style="--x:632;--y:1750;--w:182;--h:70" aria-label="Pedir um convite personalizado pelo WhatsApp"></a>
+<main>
+<section class="hero-scene" id="inicio" aria-labelledby="heroTitle">
+  <div class="scenery-layer" aria-hidden="true">
+    <div class="curtain curtain-left"></div><div class="curtain curtain-right"></div>
+    <span class="hanging-st hanging-one">✦</span><span class="hanging-st hanging-two">✧</span><span class="hanging-st hanging-three">✦</span>
+    <div class="balloon balloon-left"></div><div class="balloon balloon-right"></div>
+    <div class="hero-light"></div>
   </div>
-</main>
-<!-- Celular: mesma identidade e imagens, refluídas em cards legíveis e com pouco atrito. -->
-<main class="mobile-scene" id="mobileStart">
-  <header class="mobile-hero">
-    <div class="scene-stars" aria-hidden="true">✦ <span>☁</span> ✦</div>
-    <div class="mobile-title">
-      <img src="assets/titulo-original.png" alt="Chá do Benício" class="title-art">
-      <p>Um novo capítulo cheio de amor está chegando...</p>
+  <div class="container hero-grid">
+    <div class="hero-art-wrap">
+      <div class="art-halo"></div>
+      <canvas id="hero3d" class="hero-canvas" role="img" aria-label="Ursinho de pelúcia tridimensional, com laço azul e um coração, em um cenário com berço, balões, estrelas e nuvens"></canvas>
+      <span class="ground-haze" aria-hidden="true"></span>
     </div>
-    <div class="hero-figure"><div class="blue-bubble bubble-one"></div><div class="blue-bubble bubble-two"></div><img src="assets/ursinho-3d.png" alt="Ursinho 3D segurando um coração azul" fetchpriority="high"></div>
-    <div class="hero-date"><span>▣</span> Sábado, 28 de novembro de 2026</div>
-    <p class="hero-invite">Papai e Mamãe te convidam para um momento muito especial! <span>💙</span></p>
-    <nav class="mobile-actions" aria-label="Acessos do convite">
-      <a href="#mobileGifts" class="main-action"><span>♧</span> Ver lista de presentes <b>›</b></a>
-      <a href="#mobileMeeting"><span>●</span> Ver localização <b>›</b></a>
-      <a href="#mobileRsvp"><span>♥</span> Confirmar presença <b>›</b></a>
-    </nav>
-  </header>
-  <section class="mobile-gifts" id="mobileGifts">
-    <div class="cloud-divider" aria-hidden="true"></div>
-    <h2><span aria-hidden="true">🎁</span> Lista de Presentes</h2>
-    <p class="mobile-subtitle">Escolha um presente e ajude a preparar tudo com muito amor para a chegada do Benício! 💙</p>
-    <div id="giftGridMobile" class="gifts-grid"></div>
-    <div class="end-present-note">Cada carinho faz parte dessa história. 💙</div>
-  </section>
-  <section class="mobile-meeting" id="mobileMeeting">
-    <h2>💙 Nosso Encontro</h2>
-    <p>Vai ser uma alegria enorme ter você com a gente!</p>
-    <div class="meeting-two"><div><span class="round-icon">⌖</span><div><strong>Local</strong><span id="mobilePlace">A confirmar</span></div></div><div><span class="round-icon">◷</span><div><strong>Horário</strong><span id="mobileTime">A confirmar</span></div></div></div>
-    <a id="mapLink" class="map-link hidden" target="_blank" rel="noopener noreferrer">Ver localização no mapa ↗</a>
-  </section>
-  <section class="mobile-rsvp" id="mobileRsvp">
-    <h2>💙 Confirme sua Presença</h2>
-    <p>Sua presença vai deixar esse momento ainda mais especial!</p>
-    <form id="mobileRsvpForm" class="mobile-rsvp-form">
-      <label for="mobileName">Seu nome<input id="mobileName" name="name" type="text" autocomplete="name" maxlength="80" placeholder="Digite seu nome" required></label>
-      <label for="mobileNote">Observação <span>(opcional)</span><textarea id="mobileNote" name="note" maxlength="250" rows="3" placeholder="Deixe uma observação, por exemplo se vai levar mais alguém."></textarea></label>
-      <button class="rsvp-button" type="submit">✓ &nbsp; Confirmar presença</button>
-      <p class="feedback" id="mobileFeedback" role="status"></p>
-    </form>
-  </section>
-  <footer class="mobile-footer">
-    <div><strong>Um recadinho do papai... 👀</strong><p>Gostou desse convite?</p><p>E se você também quiser um convite digital interativo, personalizado e cheio de surpresas, o papai faz o seu!</p><em>Porque criar convites é divertido... mas comprar fraldas custa dinheiro! 😂</em></div>
-    <a href="#" id="mobileContact" class="whatsapp-cta">◉ &nbsp; Peça o seu aqui</a>
-  </footer>
+    <div class="hero-copy">
+      <span class="hero-script">Chá do</span>
+      <div class="name-wrap"><h1 id="heroTitle" class="hero-name">Benício</h1><span class="mini-crown" aria-hidden="true">♛</span></div>
+      <div class="tiny-heart" aria-hidden="true">♥</div>
+      <p class="hero-intro">Um novo capítulo<br>cheio de amor está chegando...</p>
+      <div class="date-bubble"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M7 3v4M17 3v4M3 10h18"/><path d="M8 15h3"/></svg><strong>Sábado, 28 de novembro de 2026</strong></div>
+      <p class="hero-note">Papai e mamãe convidam você para<br>um momento muito especial! <span aria-hidden="true">💙</span></p>
+    </div>
+  </div>
+  <nav class="hero-links container" aria-label="Acessos rápidos do convite">
+    <a class="nav-pill nav-primary" href="#presentes"><span class="nav-symbol"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10h18v11H3zM2 7h20v4H2zM12 7v14"/><path d="M12 7S6-1 4 5c-1 3 8 2 8 2Zm0 0s6-8 8-2c1 3-8 2-8 2Z"/></svg></span><span>Ver lista de <br>presentes</span><span class="nav-arrow" aria-hidden="true">›</span></a>
+    <a class="nav-pill" href="#encontro"><span class="nav-symbol"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.7"/></svg></span><span>Ver localização</span><span class="nav-arrow" aria-hidden="true">›</span></a>
+    <a class="nav-pill" href="#presenca"><span class="nav-symbol"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3"/><path d="M2.5 20v-2c0-3 2.5-5 6.5-5s6.5 2 6.5 5v2Z"/><path d="M17 5a3 3 0 0 1 0 6M18 14c2.2.7 3.5 2.2 3.5 4v2"/></svg></span><span>Confirmar <br>presença</span><span class="nav-arrow" aria-hidden="true">›</span></a>
+  </nav>
+  <div class="cloud-edge" aria-hidden="true"></div>
+</section>
+
+<section class="gifts-section" id="presentes" aria-labelledby="giftsTitle">
+  <div class="container">
+    <div class="section-heading">
+      <div class="heading-overline">ESCOLHIDOS COM CARINHO</div>
+      <h2 id="giftsTitle"><span aria-hidden="true">🎁</span> Lista de <em>Presentes</em></h2>
+      <div class="heart-divider" aria-hidden="true"><span></span>♥<span></span></div>
+      <p>Um presentinho ajuda a preparar tudo com muito amor para a chegada do Benício. 💙</p>
+    </div>
+    <p class="status-line" id="inventoryStatus" role="status" aria-live="polite"></p>
+    <div class="gift-grid" id="giftGrid" aria-label="Presentes disponíveis"></div>
+    <p class="gift-end-note">O presente mais importante é ter você pertinho de nós. <span>♥</span></p>
+    <p id="demoNotice" class="demo-notice" role="status" hidden>Prévia do convite: as escolhas feitas aqui ficam apenas neste navegador. As reservas entre convidados serão ativadas quando o site estiver conectado ao banco de dados.</p>
+  </div>
+</section>
+
+<section class="meeting-section" id="encontro" aria-labelledby="meetingTitle">
+  <div class="waves-top" aria-hidden="true"></div>
+  <div class="container meeting-inner">
+    <div class="meeting-visual"><canvas id="meeting3d" role="img" aria-label="Mapa e marcador de localização tridimensionais em tons de azul"></canvas></div>
+    <div class="meeting-main">
+      <div class="section-heading compact"><h2 id="meetingTitle"><span class="blue-heart" aria-hidden="true">♥</span> Nosso <em>Encontro</em></h2><p>Vai ser uma alegria enorme ter você com a gente!</p></div>
+      <div class="meeting-data">
+        <div class="meeting-item"><span class="meeting-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.7"/></svg></span><div><span class="label">Local</span><strong id="addressValue">A confirmar</strong></div></div>
+        <div class="meeting-item"><span class="meeting-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 6v7l4 2"/></svg></span><div><span class="label">Horário</span><strong id="timeValue">A confirmar</strong></div></div>
+      </div>
+      <a id="mapsButton" class="map-button" href="#" target="_blank" rel="noopener noreferrer" hidden>Abrir no mapa <span aria-hidden="true">↗</span></a>
+    </div>
+    <div class="wooden-message" aria-label="Informação sobre o local"><span class="wooden-pin"></span>Estamos preparando<br>tudo com muito carinho.<br>Em breve divulgaremos<br>o endereço e horário! <span class="wooden-heart">♥</span></div>
+  </div>
+</section>
+
+<section class="rsvp-section" id="presenca" aria-labelledby="rsvpTitle">
+  <div class="container rsvp-wrap">
+    <div class="rsvp-art"><canvas id="rsvp3d" role="img" aria-label="Ursinho tridimensional abraçado a um coração azul"></canvas></div>
+    <div class="rsvp-content">
+      <div class="section-heading compact"><h2 id="rsvpTitle"><span class="blue-heart" aria-hidden="true">♥</span> Confirme sua <em>Presença</em></h2><p>Sua presença vai deixar esse momento ainda mais especial!</p><p class="personal-invite">Convite pessoal. Para levar acompanhantes, combine antes com os anfitriões. 💙</p></div>
+      <form id="rsvpForm" class="rsvp-form" autocomplete="on">
+        <label for="rsvpName">Seu nome <span aria-hidden="true">*</span></label>
+        <input id="rsvpName" name="guest_name" maxlength="80" autocomplete="name" required placeholder="Como podemos chamar você?" type="text">
+        <label for="rsvpNote">Observação <span class="optional">(opcional)</span></label>
+        <textarea id="rsvpNote" rows="2" maxlength="400" placeholder="Ex.: preciso consultar sobre acompanhante..."></textarea>
+        <button type="submit" id="rsvpSubmit" class="main-button"><span class="btn-check" aria-hidden="true">✓</span> Confirmar presença</button>
+        <p class="form-feedback" id="rsvpFeedback" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </div>
+</section>
 </main>
-<div class="demo-note hidden" id="demoBanner" role="status">Prévia de demonstração: reservas e confirmações só ficam salvas neste navegador. Para compartilhar entre convidados, configure o banco de dados.</div>
-<div class="offline-banner hidden" id="offlineBanner" role="alert"></div>
-<dialog id="giftDialog" class="gift-dialog" aria-labelledby="giftDialogTitle">
-  <form id="giftForm" class="gift-dialog-form">
-    <button id="closeGiftDialog" type="button" class="dialog-close" aria-label="Fechar">×</button>
-    <img id="dialogImage" src="assets/berco.png" alt="" class="dialog-img">
-    <span class="dialog-kicker">UM PRESENTE PARA O BENÍCIO 💙</span>
-    <h2 id="giftDialogTitle">Reservar presente</h2><p id="dialogJoke"></p>
-    <label for="giftGuest">Quem vai presentear?<input type="text" id="giftGuest" maxlength="80" autocomplete="name" placeholder="Seu nome" required></label>
-    <label for="giftQuantity">Quantidade<select id="giftQuantity" required></select></label>
-    <button id="giftSubmit" class="dialog-confirm" type="submit">Confirmar presente</button>
-    <p role="status" id="giftFeedback" class="feedback"></p>
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <span class="footer-crown" aria-hidden="true">♛</span>
+    <div class="footer-copy"><strong>Um recadinho do papai... 👀</strong><p>Gostou desse convite? E se você também quiser um convite digital interativo, personalizado e cheio de surpresas, o papai faz o seu!</p><em>Porque criar convites é divertido... mas comprar fraldas custa dinheiro! 😂</em></div>
+    <a id="contactLink" class="whatsapp-cta" href="#" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11.5a8.5 8.5 0 0 1-12.4 7.6L3 20l1.1-4.3a8.5 8.5 0 1 1 15.9-4.2Z"/><path d="M8.2 8.5c.2 3.7 3.6 6.8 7.1 7.5l1.2-1.6-2.3-1.1-1.1.9c-1.6-.8-2.5-1.7-3.3-3.2l1-1.2-1.2-2.2Z"/></svg> Peça o seu aqui</a>
+  </div>
+</footer>
+
+<dialog id="giftModal" class="gift-modal" aria-labelledby="giftModalTitle">
+  <form id="giftForm" class="gift-form" method="dialog">
+    <button id="closeModal" class="close-modal" type="button" aria-label="Fechar janela">×</button>
+    <span class="modal-kicker">UM MIMO PARA O BENÍCIO</span>
+    <div class="modal-art"><img id="giftModalImage" alt="" width="220" height="165"></div>
+    <h2 id="giftModalTitle">Escolher presente</h2>
+    <p id="giftModalDesc">Um carinho para o Benício.</p>
+    <p id="giftModalRemaining" class="remaining-text"></p>
+    <label for="giftGuest">Seu nome</label><input id="giftGuest" name="name" maxlength="80" autocomplete="name" placeholder="Quem vai presentear?" required>
+    <label for="giftQuantity">Quantidade</label><select id="giftQuantity" name="quantity" required></select>
+    <button id="giftSubmit" type="submit" class="main-button">Confirmar presente ♥</button>
+    <p id="giftFeedback" class="form-feedback" aria-live="polite" role="status"></p>
   </form>
 </dialog>
 <div id="toast" class="toast" role="status" aria-live="polite"></div>
-</body></html>
+</body>
+</html>

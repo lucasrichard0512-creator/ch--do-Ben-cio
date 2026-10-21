@@ -1,126 +1,83 @@
-'use strict';
+/* Chá do Benício — interação real, lista única e reservas atômicas quando Supabase for configurado. */
 (() => {
- const C=window.BENICIO_CONFIG||{};
- const connected=Boolean(C.SUPABASE_URL&&C.SUPABASE_ANON_KEY);
- const IMG='assets/';
- // Mesma ordem da arte aprovada. Os presentes maiores ficam juntos no fim, antes do PS5.
- const rows=[
-  ['fraldas-rn','Fraldas RN',2,'fraldas-rn.png'],['fraldas-p','Fraldas P',8,'fraldas-p.png'],['fraldas-m','Fraldas M',14,'fraldas-m.png'],['fraldas-g','Fraldas G',10,'fraldas-g.png'],['fraldas-xg','Fraldas XG',5,'fraldas-xg.png'],
-  ['lencos','Lenços umedecidos',15,'lencos.png'],['pomada','Pomada para assaduras',5,'pomada.png'],['sabonete','Sabonete líquido',5,'sabonete.png'],['shampoo','Shampoo infantil',3,'shampoo.png'],['bodies','Kit de bodies',4,'bodies.png'],
-  ['macacao','Macacão para bebê',4,'macacao.png'],['manta','Manta para bebê',3,'manta.png'],['toalha','Toalha com capuz',3,'toalha.png'],['paninhos','Kit de paninhos de boca',6,'paninhos.png'],['lencol','Jogo de lençol para berço',3,'lencol.png'],
-  ['mamadeira','Mamadeira',2,'mamadeira.png'],['escova','Kit escova e pente',1,'escova.png'],['banheira','Banheira',1,'banheira.png'],['trocador','Trocador',1,'trocador.png'],['babadores','Kit de babadores',3,'babadores.png'],
-  ['berco','Berço',1,'berco.png'],['carrinho','Carrinho de bebê',1,'carrinho.png'],['bebe-conforto','Bebê conforto',1,'bebe-conforto.png'],['comoda','Cômoda para bebê',1,'comoda.png'],
-  ['ps5','PS5 Pro',1,'ps5.png','Para o futuro gamer do papai! 🎮😂']
- ];
- const gifts=rows.map(([id,name,capacity,image,joke])=>({id,name,capacity,image:(window.BENICIO_IMAGES?.[image]||IMG+image),joke:joke||''}));
- const byId=new Map(gifts.map(g=>[g.id,g]));
- const $=id=>document.getElementById(id);
- const stateKey='benicio-v7-reservas-demo',rsvpKey='benicio-v7-presencas-demo';
- const inMemory={};
- const getLocal=(key,fallback)=>{try {return JSON.parse(localStorage.getItem(key))||fallback;}catch{return inMemory[key]??fallback;}};
- const setLocal=(key,value)=>{inMemory[key]=value;try{localStorage.setItem(key,JSON.stringify(value));}catch{}};
- const quantity={};const availability={};let ready=false;let activeGift=null;let toastTimeout;
- for(const gift of gifts){quantity[gift.id]=1;availability[gift.id]=gift.capacity;}
- const apiRoot=String(C.SUPABASE_URL||'').replace(/\/+$/,'');
- async function api(path,opts={}) {
-  const res=await fetch(`${apiRoot}/rest/v1/${path}`,{...opts,headers:{apikey:C.SUPABASE_ANON_KEY,Authorization:`Bearer ${C.SUPABASE_ANON_KEY}`,'Content-Type':'application/json',...(opts.headers||{})}});
-  if(!res.ok){let body={};try{body=await res.json();}catch{}throw new Error(body.message||`Erro ${res.status}`);}
-  const text=await res.text();return text?JSON.parse(text):null;
- }
- function readDemo(){const data=getLocal(stateKey,{});for(const gift of gifts)availability[gift.id]=Math.max(0,gift.capacity-Number(data[gift.id]||0));ready=true;}
- async function refresh(){
-  if(!connected){readDemo();render();return;}
-  try{const rows=await api('gift_status?select=id,remaining');for(const gift of gifts)availability[gift.id]=0;for(const row of rows)if(byId.has(row.id))availability[row.id]=Math.max(0,Number(row.remaining));ready=true;$('offlineBanner').classList.add('hidden');}
-  catch(e){ready=false;$('offlineBanner').textContent='A lista está temporariamente indisponível. Tente novamente mais tarde.';$('offlineBanner').classList.remove('hidden');console.error(e);}render();
- }
- function avail(g){return ready?Number(availability[g.id]||0):0;}
- const posterGrid=[
-   {y:605,buttonY:754,stepY:729},
-   {y:781,buttonY:890,stepY:870},
-   {y:923,buttonY:1037,stepY:1018},
-   {y:1067,buttonY:1182,stepY:1164},
-   {y:1211,buttonY:1329,stepY:1308}
- ];
- const posterX=[20,180,341,502,664];
- function setRect(el,x,y,w,h){Object.assign(el.style,{left:(100*x/854)+'%',top:(100*y/1842)+'%',width:(100*w/854)+'%',height:(100*h/1842)+'%'});}
- function positionHotspots(){
-  for(const el of document.querySelectorAll('.hit')){
-   const s=el.style;setRect(el,Number(s.getPropertyValue('--x')),Number(s.getPropertyValue('--y')),Number(s.getPropertyValue('--w')),Number(s.getPropertyValue('--h')));
-  }
-  for(const el of document.querySelectorAll('.poster-point'))el.style.top=(100*Number(el.style.getPropertyValue('--top'))/1842)+'%';
- }
- function createPosterHotspots(){
-  const container=$('posterHotspots');
-  gifts.forEach((gift,i)=>{
-   if(gift.id==='babadores')return; // 25º item inserido no espaço livre com card próprio.
-   const r=Math.floor(i/5),col=i%5;
-   const x=posterX[col], row=posterGrid[r];
-   // A ordem tem 5 itens por linha; a linha dos acessórios tem um card próprio no espaço livre.
-   const buy=document.createElement('button');buy.type='button';buy.className='poster-hotspot';buy.setAttribute('data-reserve',gift.id);buy.setAttribute('aria-label',`Reservar ${gift.name}`);
-   setRect(buy,x+12,row.buttonY,126,24);container.append(buy);
-   for(const [act,dx] of [['minus',29],['plus',115]]){
-    const step=document.createElement('button');step.className='poster-step';step.type='button';step.setAttribute('data-qty-action',act);step.setAttribute('data-id',gift.id);step.setAttribute('aria-label',`${act==='plus'?'Aumentar':'Diminuir'} quantidade de ${gift.name}`);setRect(step,x+dx,row.stepY,20,21);container.append(step);
-   }
-   const count=document.createElement('span');count.className='poster-count';count.dataset.qty=gift.id;count.textContent='1';setRect(count,x+68,row.stepY,16,23);container.append(count);
-   const stock=document.createElement('span');stock.className='poster-stock hidden';stock.dataset.stock=gift.id;setRect(stock,x+51,row.y+99,84,15);container.append(stock);
-  });
- }
- function render(){
-  const grid=$('giftGridMobile');grid.replaceChildren();
-  for(const gift of gifts){
-   const n=avail(gift),card=document.createElement('article');card.className='gift-card'+(gift.id==='ps5'?' special':'');
-   const img=document.createElement('img');img.src=gift.image;img.alt=gift.name;img.loading='lazy';img.width=340;img.height=280;card.append(img);
-   const h=document.createElement('h3');h.className='name';h.textContent=gift.name;card.append(h);
-   const available=document.createElement('div');available.className='available';available.textContent=ready?(n?`${n} disponíve${n===1?'l':'is'}`:'Já escolhido 💙'):'Indisponível';card.append(available);
-   if(gift.joke){const note=document.createElement('p');note.className='joke';note.textContent=gift.joke;card.append(note);}
-   const steps=document.createElement('div');steps.className='stepper';steps.innerHTML=`<button type="button" data-qty-action="minus" data-id="${gift.id}" aria-label="Diminuir quantidade de ${gift.name}">−</button><span data-qty="${gift.id}">${Math.min(quantity[gift.id],Math.max(n,1))}</span><button type="button" data-qty-action="plus" data-id="${gift.id}" aria-label="Aumentar quantidade de ${gift.name}">+</button>`;card.append(steps);
-   const buy=document.createElement('button');buy.type='button';buy.className='reserve';buy.dataset.reserve=gift.id;buy.disabled=n===0;buy.textContent=n?'♧ Reservar presente':'Já escolhido';card.append(buy);grid.append(card);
-   if(quantity[gift.id]>n&&n)quantity[gift.id]=n;
-   for(const s of document.querySelectorAll(`[data-qty="${gift.id}"]`))s.textContent=quantity[gift.id];
-   for(const s of document.querySelectorAll(`[data-stock="${gift.id}"]`)){
-    if(s.classList.contains('poster-stock')){s.classList.toggle('hidden',n===gift.capacity);s.textContent=n?`${n} disponíveis`:'Já escolhido';}
-    else s.textContent=n?`${n} disponíveis`:'Já escolhido';
-   }
-   for(const btn of document.querySelectorAll(`.poster-hotspot[data-reserve="${gift.id}"]`)){btn.disabled=n===0;btn.textContent=n?'':'Já escolhido';}
-  }
-  const bab=byId.get('babadores'),n=avail(bab);$('extraBabadores').querySelector('.tiny-buy').disabled=!n;
- }
- function updateQuantity(id,delta){const gift=byId.get(id);if(!gift||!ready)return;quantity[id]=Math.max(1,Math.min(avail(gift),quantity[id]+delta));for(const span of document.querySelectorAll(`[data-qty="${id}"]`))span.textContent=quantity[id];}
- function openGift(id){const gift=byId.get(id);if(!gift||!ready||avail(gift)<=0)return;activeGift=gift;$('giftDialogTitle').textContent=gift.name;$('dialogImage').src=gift.image;$('dialogImage').alt=gift.name;$('dialogJoke').textContent=gift.joke||'Um carinho para o Benício!';$('giftQuantity').replaceChildren();for(let i=1;i<=avail(gift);i++){$('giftQuantity').add(new Option(`${i} unidade${i===1?'':'s'}`,String(i)));}$('giftQuantity').value=String(Math.min(quantity[id],avail(gift)));$('giftGuest').value='';showFeedback($('giftFeedback'),'');$('giftDialog').showModal();}
- function showFeedback(el,text,error=false){el.textContent=text;el.classList.toggle('error',error);}
- function toast(text){const el=$('toast');el.textContent=text;el.classList.add('visible');clearTimeout(toastTimeout);toastTimeout=setTimeout(()=>el.classList.remove('visible'),3400);}
- document.addEventListener('click',e=>{
-   const minus=e.target.closest('[data-qty-action]');if(minus){updateQuantity(minus.dataset.id,minus.dataset.qtyAction==='plus'?1:-1);return;}
-   const reserve=e.target.closest('[data-reserve]');if(reserve){openGift(reserve.dataset.reserve);}
- });
- $('closeGiftDialog').addEventListener('click',()=>$('giftDialog').close());$('giftDialog').addEventListener('click',e=>{if(e.target===$('giftDialog'))$('giftDialog').close();});
- $('giftForm').addEventListener('submit',async e=>{
-  e.preventDefault();if(!activeGift)return;const guest=$('giftGuest').value.trim(),qty=Number($('giftQuantity').value);if(guest.length<2||qty<1){showFeedback($('giftFeedback'),'Informe seu nome e a quantidade.',true);return;}
-  const btn=$('giftSubmit');btn.disabled=true;btn.textContent='Confirmando...';
-  try{if(connected){await api('rpc/reserve_gift',{method:'POST',body:JSON.stringify({p_gift_id:activeGift.id,p_guest_name:guest,p_quantity:qty})});await refresh();}
-      else{const data=getLocal(stateKey,{}),used=Number(data[activeGift.id]||0);if(used+qty>activeGift.capacity)throw new Error('Presente indisponível');data[activeGift.id]=used+qty;setLocal(stateKey,data);readDemo();render();}
-    $('giftDialog').close();toast(connected?'Presente reservado para o Benício! 💙':'Reserva de demonstração salva neste aparelho.');}
-  catch(err){showFeedback($('giftFeedback'),'Este presente pode ter acabado. Atualize a lista e tente novamente.',true);if(connected)await refresh();console.error(err);}
-  finally{btn.disabled=false;btn.textContent='Confirmar presente';}
- });
- async function submitRSVP(e){
-  e.preventDefault();const form=e.currentTarget,name=String(form.querySelector('[name="name"]').value||'').trim(),message=String(form.querySelector('[name="note"]').value||'').trim();
-  const feedbackEl=form.id==='desktopRsvp'?$('desktopFeedback'):$('mobileFeedback');if(name.length<2){showFeedback(feedbackEl,'Informe seu nome.',true);return;}
-  const data={guest_name:name,attending:true,guest_count:1,message};const btn=form.querySelector('button[type="submit"]');const prev=btn.textContent;btn.disabled=true;btn.textContent='Enviando...';
-  try{if(connected)await api('rsvps',{method:'POST',headers:{Prefer:'return=minimal'},body:JSON.stringify(data)});else{const old=getLocal(rsvpKey,[]);old.push({...data,created_at:new Date().toISOString()});setLocal(rsvpKey,old);}
-      showFeedback(feedbackEl,connected?'Presença confirmada! 💙':'Confirmação de demonstração salva neste aparelho. 💙');form.reset();}
-  catch(error){showFeedback(feedbackEl,'Não foi possível confirmar agora. Tente novamente.',true);console.error(error);}
-  finally{btn.disabled=false;btn.textContent=prev;}
- }
- $('desktopRsvp').addEventListener('submit',submitRSVP);$('mobileRsvpForm').addEventListener('submit',submitRSVP);
- function contactLink(){const wa=String(C.WHATSAPP||'').replace(/\D/g,'');return wa?`https://wa.me/${wa}?text=${encodeURIComponent('Olá! Vi o convite do Chá do Benício e gostaria de um convite assim!')}`:'';}
- for(const id of ['mobileContact','desktopContact']){const a=$(id);const href=contactLink();if(href){a.href=href;a.target='_blank';a.rel='noopener noreferrer';}else a.addEventListener('click',e=>{e.preventDefault();toast('O WhatsApp do papai será adicionado em breve. 💙');});}
- if(C.EVENT_PLACE)$('mobilePlace').textContent=C.EVENT_PLACE;
- if(C.EVENT_TIME)$('mobileTime').textContent=C.EVENT_TIME;
- if(C.MAPS_URL){$('mapLink').href=C.MAPS_URL;$('mapLink').classList.remove('hidden');}
- if(!connected)$('demoBanner').classList.remove('hidden');
- window.addEventListener('storage',e=>{if(!connected&&e.key===stateKey){readDemo();render();}});
- // Em tela grande, as âncoras apontam para a própria arte, sem alterar sua composição.
- document.querySelectorAll('[data-target]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();$(a.dataset.target).scrollIntoView({behavior:'smooth',block:'start'});}));
- createPosterHotspots();positionHotspots();refresh();
+'use strict';
+const gifts = [
+  {id:'fraldas-rn',name:'Fraldas RN',qty:2,model:'diapers',variant:0},
+  {id:'fraldas-p',name:'Fraldas P',qty:8,model:'diapers',variant:1},
+  {id:'fraldas-m',name:'Fraldas M',qty:14,model:'diapers',variant:2},
+  {id:'fraldas-g',name:'Fraldas G',qty:10,model:'diapers',variant:3},
+  {id:'fraldas-xg',name:'Fraldas XG',qty:5,model:'diapers',variant:4},
+  {id:'lencos',name:'Lenços umedecidos',qty:15,model:'wipes'},
+  {id:'pomada',name:'Pomada para assaduras',qty:5,model:'ointment'},
+  {id:'sabonete',name:'Sabonete líquido infantil',qty:5,model:'soap'},
+  {id:'shampoo',name:'Shampoo infantil',qty:3,model:'shampoo'},
+  {id:'bodies',name:'Kit de bodies',qty:4,model:'bodies'},
+  {id:'macacao',name:'Macacão para bebê',qty:4,model:'onesie'},
+  {id:'manta',name:'Manta para bebê',qty:3,model:'blanket'},
+  {id:'toalha',name:'Toalha com capuz',qty:3,model:'towel'},
+  {id:'paninhos',name:'Kit de paninhos de boca',qty:6,model:'cloths'},
+  {id:'lencol',name:'Jogo de lençol para berço',qty:3,model:'sheets'},
+  {id:'babadores',name:'Kit de babadores',qty:3,model:'bib'},
+  {id:'mamadeira',name:'Mamadeira',qty:2,model:'bottle'},
+  {id:'escova',name:'Kit escova e pente',qty:1,model:'brush'},
+  {id:'banheira',name:'Banheira',qty:1,model:'bath'},
+  {id:'trocador',name:'Trocador',qty:1,model:'changing'},
+  {id:'berco',name:'Berço',qty:1,model:'crib',special:true},
+  {id:'carrinho',name:'Carrinho de bebê',qty:1,model:'stroller',special:true},
+  {id:'bebe-conforto',name:'Bebê conforto',qty:1,model:'carseat',special:true},
+  {id:'comoda',name:'Cômoda para bebê',qty:1,model:'dresser',special:true},
+  {id:'ps5',name:'PS5 Pro',qty:1,model:'ps5',special:true,joke:'Item essencial para o equilíbrio emocional do papai. 😂'}
+];
+const cfg=window.BENICIO_CONFIG||{};
+const online=Boolean(cfg.SUPABASE_URL&&cfg.SUPABASE_ANON_KEY);
+const key='benicio:v9:reservas';
+const memoryFallback={};
+function getStored(k){try{return localStorage.getItem(k)??memoryFallback[k]??null}catch{return memoryFallback[k]??null}}
+function setStored(k,v){memoryFallback[k]=v;try{localStorage.setItem(k,v)}catch{/* navegador com armazenamento restrito: modo sessão */}}
+const list=document.querySelector('#giftGrid');
+const status=document.querySelector('#inventoryStatus');
+const demo=document.querySelector('#demoNotice');
+const modal=document.querySelector('#giftModal');
+const form=document.querySelector('#giftForm');
+const giftName=document.querySelector('#giftGuest');
+const giftQty=document.querySelector('#giftQuantity');
+const giftSubmit=document.querySelector('#giftSubmit');
+const giftFeedback=document.querySelector('#giftFeedback');
+const toast=document.querySelector('#toast');
+let active=null;
+let inventory={};
+const readLocal=()=>{try{return JSON.parse(getStored(key)||'{}')}catch{return {}}};
+const writeLocal=(x)=>setStored(key,JSON.stringify(x));
+const initInv=()=>{let saved=readLocal();gifts.forEach(g=>{inventory[g.id]={total:g.qty,reserved:online?0:(saved[g.id]||0)}})};
+const getAvailable=(g)=>Math.max(0,(inventory[g.id]?.total??g.qty)-(inventory[g.id]?.reserved||0));
+const fmt=(n)=>n+' '+(n===1?'disponível':'disponíveis');
+function renderCards(){
+  list.innerHTML=gifts.map(g=>{const avail=getAvailable(g);return `<article class="gift-card ${g.special?'special':''} ${g.id==='ps5'?'ps5':''}" data-gift="${g.id}">
+  <div class="gift-image"><img data-product-render="${g.id}" width="320" height="240" alt="" decoding="async"><span class="fallback-icon" aria-hidden="true" hidden>♥</span></div>
+  <div class="gift-card-body"><h3>${g.name}</h3><p class="gift-meta"><strong data-stock="${g.id}">${fmt(avail)}</strong></p>${g.joke?`<p class="gift-joke">${g.joke}</p>`:''}
+  <button class="gift-button" type="button" data-select="${g.id}" ${avail===0?'disabled':''}>${avail===0?'Já escolhido':'Reservar presente'}</button></div></article>`}).join('');
+  
+  list.querySelectorAll('img[data-product-render]').forEach(img=>img.style.opacity='0');
+  window.Benicio3D?.buildPreviews(gifts).then(()=>list.querySelectorAll('img[data-product-render]').forEach(img=>img.style.opacity='1'));
+}
+list.addEventListener('click',e=>{const el=e.target.closest('[data-select]');if(el)openGift(el.dataset.select)});
+function updateStock(){for(const g of gifts){const a=getAvailable(g);const card=list.querySelector(`[data-gift="${g.id}"]`);if(!card)continue;card.querySelector('[data-stock]').textContent=fmt(a);let btn=card.querySelector('button[data-select]');btn.disabled=a===0;btn.textContent=a===0?'Já escolhido':'Reservar presente'}}
+function openGift(id){const g=gifts.find(x=>x.id===id);if(!g||getAvailable(g)===0)return;active=g;const card=list.querySelector(`[data-gift="${id}"]`);document.querySelector('#giftModalTitle').textContent=g.name;const img=document.querySelector('#giftModalImage');img.src=card.querySelector('.gift-image img').src;img.alt='Modelo 3D de '+g.name;document.querySelector('#giftModalDesc').textContent=g.joke||'Um carinho que ajuda a preparar a chegada do Benício.';document.querySelector('#giftModalRemaining').textContent=fmt(getAvailable(g));fillQuantities(g);giftFeedback.textContent='';form.reset();if(typeof modal.showModal==='function')modal.showModal();else modal.setAttribute('open','');setTimeout(()=>giftName.focus(),40)}
+function fillQuantities(g){const a=getAvailable(g);giftQty.innerHTML='';for(let n=1;n<=a;n++){const opt=document.createElement('option');opt.value=String(n);opt.textContent=n===1?'1 unidade':`${n} unidades`;giftQty.append(opt)}}
+function closeModal(){if(typeof modal.close==='function')modal.close();else modal.removeAttribute('open')}
+function busy(flag){giftSubmit.disabled=flag;giftSubmit.textContent=flag?'Reservando...':'Confirmar presente ♥'}
+function showToast(message){toast.textContent=message;toast.classList.add('show');clearTimeout(showToast.t);showToast.t=setTimeout(()=>toast.classList.remove('show'),3200)}
+async function request(path,opts={}){const base=cfg.SUPABASE_URL.replace(/\/$/,'');const res=await fetch(base+'/rest/v1/'+path,{...opts,headers:{apikey:cfg.SUPABASE_ANON_KEY,Authorization:'Bearer '+cfg.SUPABASE_ANON_KEY,'Content-Type':'application/json',...opts.headers}});if(!res.ok){let data;try{data=await res.json()}catch{data={}}throw new Error(data.message||data.error||`Falha na comunicação (${res.status})`)}const t=await res.text();return t?JSON.parse(t):null}
+async function syncInventory(){if(!online){demo.hidden=false;initInv();updateStock();return}try{const items=await request('gift_inventory?select=gift_id,total,reserved');const byId=Object.fromEntries(items.map(x=>[x.gift_id,x]));for(const g of gifts){const row=byId[g.id];if(row)inventory[g.id]={total:row.total,reserved:row.reserved}}demo.hidden=true;status.textContent='';updateStock()}catch(e){status.textContent='Não foi possível atualizar as disponibilidades. Tente recarregar a página.';console.error(e)}}
+async function reserve(g,name,n){if(!online){const saved=readLocal();const total=Number(saved[g.id]||0);if(total+n>g.qty)throw Error('Este presente já atingiu a quantidade disponível.');saved[g.id]=total+n;writeLocal(saved);inventory[g.id].reserved=total+n;return}
+  const result=await request('rpc/reserve_gift',{method:'POST',body:JSON.stringify({p_gift_id:g.id,p_guest_name:name,p_quantity:n})});if(result?.success===false)throw Error(result.message||'Este presente acabou de ser escolhido por outra pessoa.');await syncInventory()}
+form.addEventListener('submit',async e=>{e.preventDefault();if(!active)return;const name=giftName.value.trim(),quantity=Number(giftQty.value);if(name.length<2||!Number.isInteger(quantity)||quantity<1){giftFeedback.textContent='Informe seu nome e a quantidade.';return}if(quantity>getAvailable(active)){giftFeedback.textContent='A quantidade disponível mudou. Atualize sua escolha.';fillQuantities(active);return}busy(true);giftFeedback.textContent='';try{await reserve(active,name,quantity);updateStock();closeModal();showToast(online?'💙 Presente reservado! Muito obrigado!':'💙 Reservado nesta demonstração!')}catch(err){giftFeedback.textContent=err.message;await syncInventory();if(active)fillQuantities(active)}finally{busy(false)}});
+document.querySelector('#closeModal').addEventListener('click',closeModal);
+modal.addEventListener('click',e=>{if(e.target===modal)closeModal()});
+document.querySelector('#rsvpForm').addEventListener('submit',async e=>{e.preventDefault();const f=e.currentTarget,btn=document.querySelector('#rsvpSubmit'),feedback=document.querySelector('#rsvpFeedback');const name=f.name?.value||document.querySelector('#rsvpName').value;const note=document.querySelector('#rsvpNote').value.trim();if(name.trim().length<2){feedback.textContent='Digite seu nome para confirmar.';return}btn.disabled=true;feedback.textContent='';try{if(online){await request('rsvp',{method:'POST',headers:{Prefer:'return=minimal'},body:JSON.stringify({guest_name:name.trim(),observation:note})})}else{const saved=JSON.parse(getStored('benicio:v9:rsvp')||'[]');saved.push({name:name.trim(),observation:note,created_at:new Date().toISOString()});setStored('benicio:v9:rsvp',JSON.stringify(saved))}feedback.textContent=online?'Presença confirmada! Esperamos você. 💙':'Resposta salva nesta demonstração. No convite publicado, ela será enviada aos anfitriões. 💙';f.reset()}catch(err){feedback.textContent='Não foi possível registrar sua resposta. '+err.message}finally{btn.disabled=false}});
+function applyConfig(){if(cfg.EVENT_TIME){document.querySelector('#timeValue').textContent=cfg.EVENT_TIME}if(cfg.EVENT_ADDRESS){document.querySelector('#addressValue').textContent=cfg.EVENT_ADDRESS}if(cfg.MAPS_URL&&/^https:\/\//.test(cfg.MAPS_URL)){const b=document.querySelector('#mapsButton');b.href=cfg.MAPS_URL;b.hidden=false}
+ const msg=encodeURIComponent('Olá! Vi o convite do Chá do Benício e gostaria de fazer um convite digital interativo parecido.');const phone=String(cfg.WHATSAPP||'').replace(/\D/g,'');document.querySelector('#contactLink').href=phone?`https://wa.me/${phone}?text=${msg}`:`https://api.whatsapp.com/send?text=${msg}`}
+window.addEventListener('storage',e=>{if(!online&&(e.key===key)){const saved=readLocal();gifts.forEach(g=>inventory[g.id].reserved=saved[g.id]||0);updateStock()}});
+async function init(){initInv();renderCards();applyConfig();window.Benicio3D?.initHero();window.Benicio3D?.initAccents();await syncInventory();if(online){setInterval(()=>{if(!document.hidden)syncInventory()},30000)}}
+init();
 })();

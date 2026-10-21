@@ -1,32 +1,44 @@
-# Chá do Benício — V7
+# Chá do Benício · V9 — Site interativo com objetos 3D reais
 
-## Abrir sem instalar nada
-Abra `Convite-Benicio-V7-Abrir.html` no navegador. Ele contém o design e as imagens no próprio arquivo.
+## Como visualizar
 
-## Estrutura editável
-- `index.html`: estrutura e formulários.
-- `styles.css`: comportamento visual e adaptação para celulares.
-- `app.js`: catálogo, limites de presentes, formulários e reservas.
-- `assets/referencia-exata.png`: arte aprovada, usada na visualização ampla para máxima fidelidade.
-- `assets/`: título, urso e fotos dos 25 presentes para o layout responsivo.
-- `config.js`: dados ainda pendentes, banco de dados e WhatsApp.
-- `supabase.sql`: tabelas, permissões e função de reserva.
+- Abra `Convite-Benicio-3D-V9.html` no navegador. Ele reúne HTML, CSS e JavaScript em um arquivo, sem recortes de imagens da arte de referência.
+- Ou publique o conteúdo desta pasta em Vercel, Netlify ou hospedagem estática. O arquivo inicial é `index.html`.
+- Modelos tridimensionais são formados programaticamente por polígonos, materiais, iluminação e câmera com WebGL e fallback Canvas 2D, sem depender de texturas de uma montagem pronta. Os produtos são renderizados em tempo de execução a partir dos modelos 3D.
+- As tipografias externas (Google Fonts) podem usar o fallback da plataforma se estiver sem internet.
 
-## Fidelidade da referência
-Na tela ampla (largura 700px ou maior), a imagem aprovada permanece inteira como composição e recebe botões/controles HTML clicáveis sobre ela. O presente extra 'Kit de babadores' foi incluído no espaço livre da quarta linha, preservando os demais itens. Em telas pequenas o layout é reconstruído com os mesmos elementos e cores, mas os cards são organizados em duas colunas para não deixar os nomes ilegíveis. Portanto a versão mobile é **responsiva**, não uma miniatura pixel a pixel da arte.
+## Entregue
 
-## Quantidades, confirmação e dados pessoais
-- A lista inclui 25 presentes. Berço, carrinho, bebê conforto e cômoda aparecem antes do PS5, que fica por último.
-- A seleção de presente pergunta o nome do convidado e a quantidade a reservar.
-- Confirmação de presença pede apenas **nome** e **observação opcional**, sem quantidade de convidados.
-- A observação pode ser usada para informar circunstâncias, por exemplo a intenção de levar acompanhante. Isso **não significa que convidados extras foram aprovados**.
-- Em demonstração, dados são guardados apenas no navegador, e não sincronizam entre aparelhos.
-- Para reservas de verdade, crie um projeto Supabase, execute `supabase.sql` no SQL Editor e configure a URL e a chave **pública** anon no `config.js`. Nunca insira chave `service_role` no site.
-- O sistema usa a função SQL `reserve_gift`, que bloqueia o registro do presente durante a reserva e impede ultrapassar a quantidade.
-- Até conectar o Supabase, não compartilhe como se fosse uma lista de presentes ativa.
+- Urso 3D com laço, coração e coroa, cenário com balões, nuvens e berço.
+- 25 produtos 3D com fotos/renderizações produzidas pelo navegador, em lista única.
+- Presentes especiais apenas no final: berço, carrinho, bebê conforto, cômoda; PS5 Pro é o último item, com piada do papai.
+- Seleção do presente, escolha da quantidade, pedido de nome e bloqueio quando atingir o limite.
+- Seção de localização/horário, por enquanto `A confirmar`, sem endereço fictício.
+- Confirmação com nome e observação opcional, sem selecionar número de pessoas.
+- Rodapé com recadinho e link de contato.
+- Responsividade para celular, tablet e desktop e suporte a `prefers-reduced-motion`.
 
-## Informações a preencher
-Em `config.js`, configure `EVENT_TIME`, `EVENT_PLACE`, `MAPS_URL` e `WHATSAPP` quando forem definidos. Neste momento, horário/endereço e número do WhatsApp estão vazios. O botão de WhatsApp mostra uma mensagem enquanto o número não está cadastrado.
+## Publicação com reservas sincronizadas (obrigatório antes de compartilhar com convidados)
 
-## Publicação
-Faça upload do projeto para Vercel, Netlify ou outro servidor estático. Essa entrega cria **arquivos**, não altera automaticamente qualquer site que você já tenha publicado.
+**Atenção:** sem conexão ao banco de dados, a demonstração registra reservas apenas no navegador atual. Não significa que alguém em outro aparelho verá a reserva. Não distribua o convite como definitivo sem configurar isto.
+
+1. Crie um projeto próprio no Supabase.
+2. No `SQL Editor`, execute o conteúdo de `supabase.sql` (cria inventário, reservas, confirmação, permissões e função de reserva atômica para evitar duplicidade).
+3. Em `config.js`, preencha `SUPABASE_URL` e `SUPABASE_ANON_KEY`. A **anon key** é chave pública, mas nunca coloque uma `service_role` no frontend.
+4. Atualize `WHATSAPP` com DDI, DDD e número de contato, sem caracteres de formatação.
+5. Assim que souber, preencha `EVENT_TIME`, `EVENT_ADDRESS` e `MAPS_URL` com o link real do mapa.
+6. Publique os arquivos por HTTPS e teste uma reserva em dois aparelhos. A consulta atualiza a disponibilidade a cada 30 segundos e imediatamente após a reserva; a função SQL evita que duas pessoas reservem o último item ao mesmo tempo.
+
+**Privacidade:** o link público não mostra nomes de quem reservou presentes. O banco armazena nomes e observações para consulta privada pelos organizadores. Avalie controles antispam e política de retenção antes de lançar publicamente.
+
+## Editar
+
+- `styles.css`: cores, cartões, layout e tipografia.
+- `engine3d.js`: geometria e cores dos modelos 3D e luzes.
+- `app.js`: 25 itens, estoque, modal, confirmação de presença.
+- `config.js`: dados do evento e integrações.
+- `index.html`: estrutura e textos.
+
+## Nota sobre fidelidade
+
+Esta é uma **reconstrução tridimensional estilizada** do universo visual aprovado, não um modelo fotorrealista idêntico à arte gerada por IA. Os objetos são geometria real, mas não contêm malhas 3D comerciais ultra detalhadas de pelúcia ou produtos licenciados. O site não usa a imagem inteira, nem seus recortes, como interface.
