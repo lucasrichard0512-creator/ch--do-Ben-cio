@@ -17,7 +17,7 @@ alter table public.gifts add column if not exists category text not null default
 
 -- Compatibilidade com o catálogo da primeira versão (que já possuía categoria).
 alter table public.gifts add column if not exists active boolean not null default true;
-alter table public.gifts add column if not exists category text not null default 'outros';
+-- A coluna category já foi adicionada acima.
 
 create table if not exists public.gift_reservations (
   id uuid primary key default gen_random_uuid(),

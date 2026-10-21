@@ -11,10 +11,10 @@
  <link rel="preconnect" href="https://fonts.googleapis.com">
  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Baloo+2:wght@400;500;600;700;800&display=swap" rel="stylesheet">
- <link rel="stylesheet" href="styles.css?v=10.4">
- <link rel="stylesheet" href="mobile.css?v=10.4">
- <script src="config.js?v=10.4" defer></script>
- <script src="app.js?v=10.4" defer></script>
+ <link rel="stylesheet" href="styles.css?v=10.5">
+ <link rel="stylesheet" href="mobile.css?v=10.5">
+ <script src="config.js?v=10.5" defer></script>
+ <script src="app.js?v=10.5" defer></script>
 </head>
 <body>
 <!-- Os ícones foram desenhados no mesmo estilo azul da referência, sem emojis do sistema. -->
@@ -49,6 +49,7 @@
   <img class="gift-decor gift-decor-left" src="assets/bear-cloud-heart.webp" alt="" aria-hidden="true">
   <img class="gift-decor gift-decor-right" src="assets/balloons-hearts.webp" alt="" aria-hidden="true">
   <div class="gift-heading"><h2><img src="assets/title-gifts.png" alt="Lista de Presentes"></h2></div>
+  <p id="connectionStatus" class="connection-status" role="status" aria-live="polite" hidden></p>
   <div id="giftGrid" class="gift-grid" aria-live="polite"></div>
   <p class="gift-smallprint"><img src="assets/ui/icon-97cf0ed0b6a6.png" class="icon" alt="" aria-hidden="true"> O PS5 Pro entrou na lista por recomendação técnica do papai. A mamãe ainda não aprovou o orçamento. 😂</p>
  </section>
@@ -90,7 +91,8 @@
    <form id="rsvpForm" class="rsvp-form">
     <div class="rsvp-fields">
       <div class="field"><label for="rsvpName">Seu nome</label><div class="field-control"><img src="assets/ui/icon-f6327fbb00c9.png" class="icon" alt="" aria-hidden="true"><input id="rsvpName" type="text" name="name" maxlength="80" autocomplete="name" placeholder="Digite seu nome" required></div></div>
-      <div class="field"><label for="rsvpMessage">Observação <span>(opcional)</span></label><div class="field-control"><img src="assets/ui/icon-6b6ced1f911e.png" class="icon" alt="" aria-hidden="true"><textarea id="rsvpMessage" name="message" maxlength="300" rows="2" placeholder="Se vai levar mais alguém, deixe um recadinho..."></textarea></div></div>
+      <div class="field"><label for="rsvpGuests">Quantidade de pessoas (incluindo você)</label><div class="field-control"><img src="assets/ui/icon-f6327fbb00c9.png" class="icon" alt="" aria-hidden="true"><select id="rsvpGuests" name="guestsCount" required aria-label="Número de pessoas"><option value="1">1 pessoa</option><option value="2">2 pessoas</option><option value="3">3 pessoas</option><option value="4">4 pessoas</option><option value="5">5 pessoas</option><option value="6">6 pessoas</option><option value="7">7 pessoas</option><option value="8">8 pessoas</option><option value="9">9 pessoas</option><option value="10">10 pessoas</option><option value="11">11 pessoas</option><option value="12">12 pessoas</option><option value="13">13 pessoas</option><option value="14">14 pessoas</option><option value="15">15 pessoas</option></select></div></div>
+      <div class="field"><label for="rsvpMessage">Observação <span>(opcional)</span></label><div class="field-control"><img src="assets/ui/icon-6b6ced1f911e.png" class="icon" alt="" aria-hidden="true"><textarea id="rsvpMessage" name="message" maxlength="300" rows="2" placeholder="Deixe um recadinho para o Benício..."></textarea></div></div>
     </div>
     <button id="rsvpSubmit" class="submit-button" type="submit"><img src="assets/ui/icon-a9d996f90a57.png" class="icon" alt="" aria-hidden="true"> Confirmar presença</button>
     <p id="rsvpFeedback" class="form-feedback" role="status" aria-live="polite"></p>

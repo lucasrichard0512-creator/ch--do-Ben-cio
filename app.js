@@ -100,10 +100,11 @@ function applyDemoQuantities() {
   const demo = readDemo(DEMO_KEY, {});
   state.gifts = GIFTS.map(item => ({ ...item, reserved: clamp(Number(demo[item.id]) || 0, 0, item.qty) }));
   state.online = true;
-  state.online = true;
 }
 
+let refreshSequence = 0;
 async function refreshGifts() {
+  const sequence = ++refreshSequence;
   if (!DATABASE_READY) {
     applyDemoQuantities();
     renderGifts();
@@ -114,17 +115,31 @@ async function refreshGifts() {
     const items = await supabaseRequest('gifts?select=id,total_qty,reserved_qty&active=eq.true&order=sort_order.asc');
     if (!Array.isArray(items)) throw new Error('Catálogo incompleto');
     const byId = new Map(items.map(item => [item.id, item]));
-    state.gifts = GIFTS.map(item => {
+    const refreshed = GIFTS.map(item => {
       const db = byId.get(item.id);
       if (!db) throw new Error('Presente faltando no banco');
       return { ...item, qty: Number(db.total_qty), reserved: Number(db.reserved_qty) };
     });
+    if (sequence !== refreshSequence) return false;
+    state.gifts = refreshed;
     state.online = true;
   } catch {
+    if (sequence !== refreshSequence) return false;
     state.online = false;
   }
 
   renderGifts();
+  updateConnectionStatus();
+  return state.online;
+}
+
+function updateConnectionStatus() {
+  const node = $('#connectionStatus');
+  if (!node) return;
+  node.hidden = DATABASE_READY && state.online;
+  node.textContent = !DATABASE_READY
+    ? 'Modo demonstração: presentes e presenças são salvos apenas neste navegador. Configure o Supabase antes de compartilhar.'
+    : 'Não foi possível atualizar os presentes. Reservas ficam bloqueadas até a conexão voltar.';
 }
 
 function renderGifts() {
@@ -220,7 +235,6 @@ async function reserveGift(event) {
         p_guest_name: name,
         p_quantity: quantity
       });
-      await refreshGifts();
     } else {
       const demo = readDemo(DEMO_KEY, {});
       const current = clamp(Number(demo[gift.id]) || 0, 0, gift.qty);
@@ -234,7 +248,10 @@ async function reserveGift(event) {
     }
 
     $('#giftModal').close();
-    toast(`💙 Obrigado, ${name.split(' ')[0]}! Sua reserva foi registrada.`);
+    toast(DATABASE_READY ? `💙 Obrigado, ${name.split(' ')[0]}! Sua reserva foi registrada.` : 'Reserva de demonstração salva apenas neste navegador.');
+    // A reserva já foi gravada. Uma falha ao reler o catálogo não pode
+    // transformar a operação concluída em um erro ou induzir a novo envio.
+    await refreshGifts();
   } catch (error) {
     setFeedback($('#giftFeedback'), error.message || 'Não foi possível reservar o presente.', true);
     await refreshGifts();
@@ -249,9 +266,10 @@ async function submitRsvp(event) {
   event.preventDefault();
   const name = $('#rsvpName').value.trim().replace(/\s+/g, ' ');
   const message = $('#rsvpMessage').value.trim();
+  const guestsCount = Number($('#rsvpGuests').value);
   const feedback = $('#rsvpFeedback');
 
-  if (name.length < 2 || name.length > 80 || message.length > 300) {
+  if (name.length < 2 || name.length > 80 || message.length > 300 || !Number.isInteger(guestsCount) || guestsCount < 1 || guestsCount > 15) {
     setFeedback(feedback, 'Confira os dados antes de enviar.', true);
     return;
   }
@@ -265,17 +283,17 @@ async function submitRsvp(event) {
       await supabaseRequest('rpc/confirm_rsvp', 'POST', {
         p_guest_name: name,
         p_attending: true,
-        p_guests_count: 1,
+        p_guests_count: guestsCount,
         p_message: message
       });
     } else {
       const entries = readDemo(DEMO_RSVP_KEY, []);
-      entries.push({ name, message, at: new Date().toISOString() });
+      entries.push({ name, guestsCount, message, at: new Date().toISOString() });
       writeDemo(DEMO_RSVP_KEY, entries);
     }
 
-    setFeedback(feedback, 'Presença confirmada! Vai ser lindo ter você com a gente. 💙');
-    toast('Presença confirmada com carinho 💙');
+    setFeedback(feedback, DATABASE_READY ? 'Presença confirmada! Vai ser lindo ter você com a gente. 💙' : 'Confirmação de demonstração salva somente neste navegador.');
+    toast(DATABASE_READY ? 'Presença confirmada com carinho 💙' : 'Simulação salva neste navegador.');
     $('#rsvpForm').reset();
   } catch (error) {
     setFeedback(feedback, error.message || 'Não foi possível enviar sua confirmação.', true);
@@ -357,6 +375,7 @@ function start() {
   setupInternalNavigation();
   refineGiftHumor();
   initReveal();
+  updateConnectionStatus();
   refreshGifts();
 
   $('#giftGrid').addEventListener('click', event => {
