@@ -58,3 +58,12 @@ O site mantém as seções e elementos interativos separados da arte; não é um
 - `config.js` — data, local, mapas, WhatsApp, Supabase
 - `supabase.sql` — banco de dados e operações atômicas de reserva
 - `assets/` — artes e recortes
+
+
+## Versão 10.3: investigação do quadrado preto no Safari
+- Eliminado do HTML o SVG oculto de símbolos que ficava no começo do `body`.
+- Ícones convertidos em SVGs independentes, sem depender desse elemento oculto.
+- Removida a técnica de esconder o quadrado com um retângulo branco/azul.
+- Parâmetros de versão em CSS/JavaScript para reduzir problemas de cache.
+- O defeito era consistente com um problema de renderização do Safari, mas a correção ainda precisa de confirmação em um iPhone real.
+- Após publicar no Vercel, recarregue ou abra em aba privada; confirme que está vendo a versão nova.
