@@ -24,12 +24,12 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
  .hero-name-top img{width:100%;height:auto;object-fit:contain}
  .hero-grid{display:grid;grid-template-columns:43% minmax(0,57%);flex:1;min-height:330px;position:relative;align-items:center;gap:0;margin:0 -2px}
  .hero-art{height:355px;min-height:0;align-self:center;overflow:visible;pointer-events:none}
- .hero-bear{position:absolute;z-index:3;width:128%;max-width:none;max-height:96%;height:auto;left:-18%;bottom:2%;object-fit:contain;object-position:bottom center;filter:drop-shadow(3px 12px 11px #537da831)}
+ .hero-bear{position:absolute;z-index:3;width:114%;max-width:none;max-height:96%;height:auto;left:-2%;bottom:11%;object-fit:contain;object-position:bottom center;filter:drop-shadow(3px 12px 11px #537da831)}
  .hero-crib{width:31%;left:auto;right:-4%;top:31%;opacity:.40}
- .hero-bottle{width:13%;left:0;bottom:17%;max-width:42px;opacity:.86}
+ .hero-bottle{display:none!important}
  .hero-balloons{width:26%;top:8%;right:-9%;opacity:.52}
  .hero-cloud{width:123%;max-width:none;left:-19%;bottom:-4%;opacity:.65}
- .hero-copy{position:relative;z-index:5;align-self:center;justify-content:center;align-items:center;width:100%;margin:0;padding:3px 0 7px;gap:11px;text-align:center;min-width:0}
+ .hero-copy{position:relative;z-index:5;align-self:center;justify-content:center;align-items:center;width:100%;margin:-2px 0 0;padding:0 0 8px;gap:7px;text-align:center;min-width:0}
  .hero-tagline{font-size:clamp(14px,3.95vw,17.5px);line-height:1.19;font-weight:900}
  .hero-date{max-width:100%;padding:8px 9px;gap:6px;border-radius:16px;font-size:clamp(10px,2.8vw,12px);line-height:1.27;white-space:normal;text-align:left;justify-content:flex-start;box-shadow:0 5px 13px #7196bc33}
  .hero-date .icon{width:19px;height:19px;flex:none}
@@ -107,16 +107,16 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
 
 /* Ajuste óptico: aproxima as duas colunas do título sem encostar nos botões. */
 @media(max-width:680px){
- .hero-art,.hero-copy{transform:translateY(-38px)}
+ .hero-art,.hero-copy{transform:translateY(-22px)}
 }
 @media(max-height:710px) and (max-width:680px){
- .hero-art,.hero-copy{transform:translateY(-19px)}
+ .hero-art,.hero-copy{transform:translateY(-10px)}
 }
 
 /* Urso completamente enquadrado no celular, sem cortar a orelha na borda. */
 @media(max-width:680px){
- .hero-bear{left:0;width:118%;bottom:6%}
+ .hero-bear{left:-1%;width:112%;bottom:11%}
 }
 @media(max-width:370px){
- .hero-bear{left:0;width:121%;bottom:7%}
+ .hero-bear{left:-2%;width:114%;bottom:12%}
 }
