@@ -1,31 +1,32 @@
-# Chá do Benício — Versão 6
+# Chá do Benício — V7
 
-Esta versão foi reconstruída para o celular, com urso 3D sem moldura, paleta predominantemente azul, lista única de presentes com fotografias ilustrativas recortadas individualmente, “Nosso encontro” redesenhado e confirmação simplificada.
+## Abrir sem instalar nada
+Abra `Convite-Benicio-V7-Abrir.html` no navegador. Ele contém o design e as imagens no próprio arquivo.
 
-## Como abrir
-Abra `index.html` em um navegador. O site também pode ser publicado em uma hospedagem estática como Vercel ou Netlify. Mantenha os arquivos `styles.css`, `app.js`, `config.js` e a pasta `assets/` ao lado do HTML.
+## Estrutura editável
+- `index.html`: estrutura e formulários.
+- `styles.css`: comportamento visual e adaptação para celulares.
+- `app.js`: catálogo, limites de presentes, formulários e reservas.
+- `assets/referencia-exata.png`: arte aprovada, usada na visualização ampla para máxima fidelidade.
+- `assets/`: título, urso e fotos dos 25 presentes para o layout responsivo.
+- `config.js`: dados ainda pendentes, banco de dados e WhatsApp.
+- `supabase.sql`: tabelas, permissões e função de reserva.
 
-## Reservas compartilhadas entre os convidados
-O site **funciona como demonstração** sem banco de dados: reservas e respostas ficam apenas no navegador local, portanto **não sincronizam entre dispositivos**. Antes de compartilhar o link real:
+## Fidelidade da referência
+Na tela ampla (largura 700px ou maior), a imagem aprovada permanece inteira como composição e recebe botões/controles HTML clicáveis sobre ela. O presente extra 'Kit de babadores' foi incluído no espaço livre da quarta linha, preservando os demais itens. Em telas pequenas o layout é reconstruído com os mesmos elementos e cores, mas os cards são organizados em duas colunas para não deixar os nomes ilegíveis. Portanto a versão mobile é **responsiva**, não uma miniatura pixel a pixel da arte.
 
-1. Crie um projeto em [Supabase](https://supabase.com/).
-2. Execute `supabase.sql` no SQL Editor do seu projeto.
-3. Abra `config.js` e preencha `SUPABASE_URL` e `SUPABASE_ANON_KEY` (chave pública).
-4. Publique todos os arquivos. A função de reserva usa bloqueio transacional para impedir que duas pessoas escolham o último item simultaneamente.
+## Quantidades, confirmação e dados pessoais
+- A lista inclui 25 presentes. Berço, carrinho, bebê conforto e cômoda aparecem antes do PS5, que fica por último.
+- A seleção de presente pergunta o nome do convidado e a quantidade a reservar.
+- Confirmação de presença pede apenas **nome** e **observação opcional**, sem quantidade de convidados.
+- A observação pode ser usada para informar circunstâncias, por exemplo a intenção de levar acompanhante. Isso **não significa que convidados extras foram aprovados**.
+- Em demonstração, dados são guardados apenas no navegador, e não sincronizam entre aparelhos.
+- Para reservas de verdade, crie um projeto Supabase, execute `supabase.sql` no SQL Editor e configure a URL e a chave **pública** anon no `config.js`. Nunca insira chave `service_role` no site.
+- O sistema usa a função SQL `reserve_gift`, que bloqueia o registro do presente durante a reserva e impede ultrapassar a quantidade.
+- Até conectar o Supabase, não compartilhe como se fosse uma lista de presentes ativa.
 
-As reservas e respostas serão gravadas no Supabase. No painel privado do projeto é possível consultar `gift_reservations` e `rsvps`. Quem visita o convite só vê a quantidade que falta.
+## Informações a preencher
+Em `config.js`, configure `EVENT_TIME`, `EVENT_PLACE`, `MAPS_URL` e `WHATSAPP` quando forem definidos. Neste momento, horário/endereço e número do WhatsApp estão vazios. O botão de WhatsApp mostra uma mensagem enquanto o número não está cadastrado.
 
-## Campos que ficaram pendentes
-Em `config.js` preencha, quando souber:
-- `EVENT_TIME`: horário do chá.
-- `EVENT_PLACE`: local/endereço.
-- `MAPS_URL`: endereço do Google Maps.
-- `WHATSAPP`: número com DDI e DDD, apenas números (por exemplo `5562999999999`) para o contato comercial do papai.
-
-Sem número de WhatsApp, o rodapé mostra um aviso ao clicar. Sem horário/endereço, o convite mostra **A confirmar**. A data é **sábado, 28/11/2026**.
-
-## Antes de publicar
-- Revise a ortografia e disponibilidade dos 25 presentes.
-- Os produtos são imagens ilustrativas, não anúncios de marcas; substitua por fotos oficiais se quiser fidelidade a modelos específicos.
-- Confira as políticas de privacidade aplicáveis à coleta de nome dos convidados.
-- Faça um teste real de reserva em dois aparelhos depois de conectar o Supabase.
+## Publicação
+Faça upload do projeto para Vercel, Netlify ou outro servidor estático. Essa entrega cria **arquivos**, não altera automaticamente qualquer site que você já tenha publicado.

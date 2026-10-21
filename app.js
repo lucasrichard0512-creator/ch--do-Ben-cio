@@ -1,205 +1,126 @@
 'use strict';
 (() => {
-  const config = window.BENICIO_CONFIG || {};
-  const connected = Boolean(config.SUPABASE_URL && config.SUPABASE_ANON_KEY);
-  const catalog = [
-    ['berco', 'Berço', 1, 'berco.png'],
-    ['comoda', 'Cômoda para bebê', 1, 'comoda.png'],
-    ['carrinho', 'Carrinho de bebê', 1, 'carrinho.png'],
-    ['bebe-conforto', 'Bebê conforto', 1, 'bebe-conforto.png'],
-    ['banheira', 'Banheira', 1, 'banheira.png'],
-    ['trocador', 'Trocador', 1, 'trocador.png'],
-    ['mamadeira', 'Mamadeira', 2, 'mamadeira.png'],
-    ['escova', 'Kit escova e pente', 1, 'escova.png'],
-    ['fraldas-rn', 'Fraldas RN', 2, 'fraldas-rn.png'],
-    ['fraldas-p', 'Fraldas P', 8, 'fraldas-p.png'],
-    ['fraldas-m', 'Fraldas M', 14, 'fraldas-m.png'],
-    ['fraldas-g', 'Fraldas G', 10, 'fraldas-g.png'],
-    ['fraldas-xg', 'Fraldas XG', 5, 'fraldas-xg.png'],
-    ['lencos', 'Lenços umedecidos', 15, 'lencos.png'],
-    ['pomada', 'Pomada para assaduras', 5, 'pomada.png'],
-    ['sabonete', 'Sabonete líquido infantil', 5, 'sabonete.png'],
-    ['shampoo', 'Shampoo infantil', 3, 'shampoo.png'],
-    ['bodies', 'Kit de bodies', 4, 'bodies.png'],
-    ['macacao', 'Macacão para bebê', 4, 'macacao.png'],
-    ['manta', 'Manta para bebê', 3, 'manta.png'],
-    ['toalha', 'Toalha com capuz', 3, 'toalha.png'],
-    ['paninhos', 'Kit de paninhos de boca', 6, 'paninhos.png'],
-    ['lencol', 'Jogo de lençol para berço', 3, 'lencol.png'],
-    ['babadores', 'Kit de babadores', 3, 'babadores.png'],
-    ['ps5', 'PlayStation 5 Pro 🎮', 1, 'ps5.png', 'Recomendado pelo papai para garantir a paz da família. 😂']
-  ].map(([id, name, capacity, image, joke]) => ({id, name, capacity, image:(window.BENICIO_IMAGES && window.BENICIO_IMAGES[image]) || `assets/${image}`, joke: joke||''}));
-
-  // The browser-only mode is explicitly marked as a DEMONSTRATION.
-  const localKey = 'cha-benicio-reservas-demo-v6';
-  const rsvpKey = 'cha-benicio-presencas-demo-v6';
-  let tempStorage = {};
-  function safeRead(key, fallback) {
-    try { const raw = localStorage.getItem(key); return raw ? JSON.parse(raw) : fallback; }
-    catch { return Object.hasOwn(tempStorage,key) ? tempStorage[key] : fallback; }
+ const C=window.BENICIO_CONFIG||{};
+ const connected=Boolean(C.SUPABASE_URL&&C.SUPABASE_ANON_KEY);
+ const IMG='assets/';
+ // Mesma ordem da arte aprovada. Os presentes maiores ficam juntos no fim, antes do PS5.
+ const rows=[
+  ['fraldas-rn','Fraldas RN',2,'fraldas-rn.png'],['fraldas-p','Fraldas P',8,'fraldas-p.png'],['fraldas-m','Fraldas M',14,'fraldas-m.png'],['fraldas-g','Fraldas G',10,'fraldas-g.png'],['fraldas-xg','Fraldas XG',5,'fraldas-xg.png'],
+  ['lencos','Lenços umedecidos',15,'lencos.png'],['pomada','Pomada para assaduras',5,'pomada.png'],['sabonete','Sabonete líquido',5,'sabonete.png'],['shampoo','Shampoo infantil',3,'shampoo.png'],['bodies','Kit de bodies',4,'bodies.png'],
+  ['macacao','Macacão para bebê',4,'macacao.png'],['manta','Manta para bebê',3,'manta.png'],['toalha','Toalha com capuz',3,'toalha.png'],['paninhos','Kit de paninhos de boca',6,'paninhos.png'],['lencol','Jogo de lençol para berço',3,'lencol.png'],
+  ['mamadeira','Mamadeira',2,'mamadeira.png'],['escova','Kit escova e pente',1,'escova.png'],['banheira','Banheira',1,'banheira.png'],['trocador','Trocador',1,'trocador.png'],['babadores','Kit de babadores',3,'babadores.png'],
+  ['berco','Berço',1,'berco.png'],['carrinho','Carrinho de bebê',1,'carrinho.png'],['bebe-conforto','Bebê conforto',1,'bebe-conforto.png'],['comoda','Cômoda para bebê',1,'comoda.png'],
+  ['ps5','PS5 Pro',1,'ps5.png','Para o futuro gamer do papai! 🎮😂']
+ ];
+ const gifts=rows.map(([id,name,capacity,image,joke])=>({id,name,capacity,image:(window.BENICIO_IMAGES?.[image]||IMG+image),joke:joke||''}));
+ const byId=new Map(gifts.map(g=>[g.id,g]));
+ const $=id=>document.getElementById(id);
+ const stateKey='benicio-v7-reservas-demo',rsvpKey='benicio-v7-presencas-demo';
+ const inMemory={};
+ const getLocal=(key,fallback)=>{try {return JSON.parse(localStorage.getItem(key))||fallback;}catch{return inMemory[key]??fallback;}};
+ const setLocal=(key,value)=>{inMemory[key]=value;try{localStorage.setItem(key,JSON.stringify(value));}catch{}};
+ const quantity={};const availability={};let ready=false;let activeGift=null;let toastTimeout;
+ for(const gift of gifts){quantity[gift.id]=1;availability[gift.id]=gift.capacity;}
+ const apiRoot=String(C.SUPABASE_URL||'').replace(/\/+$/,'');
+ async function api(path,opts={}) {
+  const res=await fetch(`${apiRoot}/rest/v1/${path}`,{...opts,headers:{apikey:C.SUPABASE_ANON_KEY,Authorization:`Bearer ${C.SUPABASE_ANON_KEY}`,'Content-Type':'application/json',...(opts.headers||{})}});
+  if(!res.ok){let body={};try{body=await res.json();}catch{}throw new Error(body.message||`Erro ${res.status}`);}
+  const text=await res.text();return text?JSON.parse(text):null;
+ }
+ function readDemo(){const data=getLocal(stateKey,{});for(const gift of gifts)availability[gift.id]=Math.max(0,gift.capacity-Number(data[gift.id]||0));ready=true;}
+ async function refresh(){
+  if(!connected){readDemo();render();return;}
+  try{const rows=await api('gift_status?select=id,remaining');for(const gift of gifts)availability[gift.id]=0;for(const row of rows)if(byId.has(row.id))availability[row.id]=Math.max(0,Number(row.remaining));ready=true;$('offlineBanner').classList.add('hidden');}
+  catch(e){ready=false;$('offlineBanner').textContent='A lista está temporariamente indisponível. Tente novamente mais tarde.';$('offlineBanner').classList.remove('hidden');console.error(e);}render();
+ }
+ function avail(g){return ready?Number(availability[g.id]||0):0;}
+ const posterGrid=[
+   {y:605,buttonY:754,stepY:729},
+   {y:781,buttonY:890,stepY:870},
+   {y:923,buttonY:1037,stepY:1018},
+   {y:1067,buttonY:1182,stepY:1164},
+   {y:1211,buttonY:1329,stepY:1308}
+ ];
+ const posterX=[20,180,341,502,664];
+ function setRect(el,x,y,w,h){Object.assign(el.style,{left:(100*x/854)+'%',top:(100*y/1842)+'%',width:(100*w/854)+'%',height:(100*h/1842)+'%'});}
+ function positionHotspots(){
+  for(const el of document.querySelectorAll('.hit')){
+   const s=el.style;setRect(el,Number(s.getPropertyValue('--x')),Number(s.getPropertyValue('--y')),Number(s.getPropertyValue('--w')),Number(s.getPropertyValue('--h')));
   }
-  function safeWrite(key, value) {
-    tempStorage[key] = value;
-    try { localStorage.setItem(key, JSON.stringify(value)); } catch { /* file preview may block storage */ }
-  }
-  let availability = Object.create(null);
-  let catalogReady = false;
-  let activeGift = null;
-  let toastTimer;
-  const $ = (id) => document.getElementById(id);
-  const grid = $('giftList');
-  const giftDialog = $('giftDialog');
-  const giftForm = $('giftForm');
-  const giftPerson = $('giftPerson');
-  const giftQty = $('giftQty');
-  const giftFeedback = $('giftFeedback');
-  const giftSubmit = $('giftSubmit');
-  const rsvp = $('rsvpForm');
-
-  const slug = String(config.SUPABASE_URL || '').replace(/\/+$/, '');
-  const apikey = config.SUPABASE_ANON_KEY || '';
-  async function api(path, options={}) {
-    const headers = {'apikey': apikey, 'Authorization':`Bearer ${apikey}`, 'Content-Type':'application/json', ...(options.headers||{})};
-    const res = await fetch(`${slug}/rest/v1/${path}`, {...options, headers});
-    if (!res.ok) {
-      let detail = '';
-      try { const body=await res.json(); detail = body.message || body.error || ''; } catch {}
-      throw Error(detail || `Erro de conexão (${res.status})`);
-    }
-    const text = await res.text();
-    return text ? JSON.parse(text) : null;
-  }
-
-  function demoAvailability(){
-    const state = safeRead(localKey,{});
-    for (const gift of catalog) availability[gift.id] = Math.max(0, gift.capacity - Number(state[gift.id]||0));
-    catalogReady = true;
-  }
-  async function fetchAvailability(){
-    if(!connected){ demoAvailability(); renderGifts(); return; }
-    try {
-      const rows = await api('gift_status?select=id,remaining');
-      for(const gift of catalog) availability[gift.id] = 0;
-      for(const row of rows) if (Object.hasOwn(availability, row.id)) availability[row.id] = Math.max(0, Number(row.remaining));
-      catalogReady = true;
-      $('connectionBanner').classList.add('hidden');
-    } catch(err) {
-      catalogReady = false;
-      $('connectionBanner').textContent = 'Não foi possível consultar a lista de presentes agora. Atualize a página para tentar novamente.';
-      $('connectionBanner').classList.remove('hidden');
-      console.error(err);
-    }
-    renderGifts();
-  }
-
-  function renderGifts(){
-    const totals = catalog.reduce((sum,g) => sum + (availability[g.id]||0), 0);
-    $('giftCount').textContent = catalogReady ? `${totals} unidades disponíveis para presentear` : 'Lista temporariamente indisponível';
-    grid.replaceChildren();
-    for (const gift of catalog) {
-      const remaining = Math.max(0, availability[gift.id] ?? 0);
-      const card = document.createElement('article');
-      card.className = 'gift-card' + (gift.id === 'ps5' ? ' special' : '');
-      const photo = document.createElement('div'); photo.className = 'gift-picture';
-      const img = document.createElement('img'); img.src=gift.image; img.alt=gift.name; img.loading='eager'; img.width=340; img.height=280;
-      photo.append(img);
-      const info = document.createElement('div');info.className='gift-info';
-      const title=document.createElement('h3');title.textContent=gift.name;
-      const stock=document.createElement('span');stock.className='stock'+(!remaining?' out':'');
-      stock.textContent=catalogReady?(remaining ? `${remaining} disponível${remaining===1?'':'is'}` : 'Já escolhido 💙'):'Aguarde';
-      info.append(title,stock);
-      if(gift.joke){const joke=document.createElement('p');joke.className='gift-joke';joke.textContent=gift.joke;info.append(joke);}
-      const btn = document.createElement('button');btn.type='button';btn.className='gift-button';
-      btn.textContent=!catalogReady ? 'Indisponível' : remaining ? 'Quero presentear' : 'Já reservado';
-      btn.disabled=!catalogReady||!remaining;
-      btn.addEventListener('click',()=>openGift(gift));
-      info.append(btn);card.append(photo,info);grid.append(card);
-    }
-  }
-  function openGift(gift){
-    if(!catalogReady || !(availability[gift.id]>0)) return;
-    activeGift = gift;
-    $('giftDialogTitle').textContent=gift.name;
-    $('giftDialogImage').src=gift.image;
-    $('giftDialogImage').alt=gift.name;
-    $('giftDialogExtra').textContent=gift.joke || `Disponíveis: ${availability[gift.id]}`;
-    giftQty.replaceChildren();
-    for(let i=1;i<=availability[gift.id];i++) {
-      const opt=new Option(`${i} unidade${i===1?'':'s'}`,String(i));giftQty.add(opt);
-    }
-    giftFeedback.textContent='';giftFeedback.classList.remove('error');
-    giftForm.reset();
-    giftDialog.showModal();
-    setTimeout(()=>giftPerson.focus(),50);
-  }
-  $('closeGiftDialog').addEventListener('click',()=>giftDialog.close());
-  giftDialog.addEventListener('click',(e)=>{ if(e.target === giftDialog) giftDialog.close(); });
-  giftForm.addEventListener('submit',async (e)=>{
-    e.preventDefault();
-    if(!activeGift)return;
-    const name=giftPerson.value.trim().replace(/\s+/g,' ');
-    const qty=Number(giftQty.value);
-    if(!name || !Number.isSafeInteger(qty) || qty<1){ feedback(giftFeedback,'Digite seu nome e a quantidade.',true);return; }
-    giftSubmit.disabled=true;
-    giftSubmit.textContent='Confirmando…';
-    try {
-      if(connected) {
-        await api('rpc/reserve_gift',{method:'POST',body:JSON.stringify({p_gift_id:activeGift.id,p_guest_name:name,p_quantity:qty})});
-        await fetchAvailability();
-      } else {
-        const state=safeRead(localKey,{});
-        const used=Number(state[activeGift.id]||0);
-        if(qty>activeGift.capacity-used)throw Error('Esse presente acabou de ficar indisponível.');
-        state[activeGift.id]=used+qty;safeWrite(localKey,state);demoAvailability();renderGifts();
-      }
-      giftDialog.close();showToast(connected?'Presente reservado para o Benício! 💙':'Reserva de demonstração salva neste dispositivo.');
-      activeGift=null;
-    } catch(err) {
-      const msg=String(err.message||'Não foi possível salvar.');
-      feedback(giftFeedback,/indisponível|insuficiente|stock|available/i.test(msg)?'Este presente já foi escolhido. Atualize a lista e tente outro.':'Não foi possível reservar agora. Tente novamente.',true);
-      if(connected)await fetchAvailability();
-      console.error(err);
-    } finally {
-      giftSubmit.disabled=false;
-      giftSubmit.innerHTML='Reservar presente <svg class="ico"><use href="#i-check"/></svg>';
-    }
+  for(const el of document.querySelectorAll('.poster-point'))el.style.top=(100*Number(el.style.getPropertyValue('--top'))/1842)+'%';
+ }
+ function createPosterHotspots(){
+  const container=$('posterHotspots');
+  gifts.forEach((gift,i)=>{
+   if(gift.id==='babadores')return; // 25º item inserido no espaço livre com card próprio.
+   const r=Math.floor(i/5),col=i%5;
+   const x=posterX[col], row=posterGrid[r];
+   // A ordem tem 5 itens por linha; a linha dos acessórios tem um card próprio no espaço livre.
+   const buy=document.createElement('button');buy.type='button';buy.className='poster-hotspot';buy.setAttribute('data-reserve',gift.id);buy.setAttribute('aria-label',`Reservar ${gift.name}`);
+   setRect(buy,x+12,row.buttonY,126,24);container.append(buy);
+   for(const [act,dx] of [['minus',29],['plus',115]]){
+    const step=document.createElement('button');step.className='poster-step';step.type='button';step.setAttribute('data-qty-action',act);step.setAttribute('data-id',gift.id);step.setAttribute('aria-label',`${act==='plus'?'Aumentar':'Diminuir'} quantidade de ${gift.name}`);setRect(step,x+dx,row.stepY,20,21);container.append(step);
+   }
+   const count=document.createElement('span');count.className='poster-count';count.dataset.qty=gift.id;count.textContent='1';setRect(count,x+68,row.stepY,16,23);container.append(count);
+   const stock=document.createElement('span');stock.className='poster-stock hidden';stock.dataset.stock=gift.id;setRect(stock,x+51,row.y+99,84,15);container.append(stock);
   });
-  function feedback(el,msg,error=false){el.textContent=msg;el.classList.toggle('error',error);}
-  function showToast(msg){const el=$('toast');el.textContent=msg;el.classList.add('visible');clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove('visible'),3600);}
-  document.querySelectorAll('input[name="attendance"]').forEach(el=>el.addEventListener('change',()=>{
-    const yes=document.querySelector('input[name="attendance"]:checked').value==='yes';
-    $('rsvpGuestsField').classList.toggle('hidden',!yes);
-  }));
-  rsvp.addEventListener('submit',async (e)=>{
-    e.preventDefault();
-    const name=$('guestName').value.trim();
-    const yes=document.querySelector('input[name="attendance"]:checked').value==='yes';
-    const guests=yes?Number($('guestCount').value):0;
-    const message=$('guestMessage').value.trim();
-    if(!name){feedback($('rsvpFeedback'),'Informe seu nome.',true);return;}
-    const data={guest_name:name,attending:yes,guest_count:guests,message};
-    const btn=$('rsvpSubmit');btn.disabled=true;btn.textContent='Enviando…';
-    try{
-      if(connected)await api('rsvps',{method:'POST',headers:{Prefer:'return=minimal'},body:JSON.stringify(data)});
-      else{const list=safeRead(rsvpKey,[]);list.push({...data,created_at:new Date().toISOString()});safeWrite(rsvpKey,list);}
-      feedback($('rsvpFeedback'),connected?'Resposta recebida! Obrigado pelo carinho. 💙':'Resposta de demonstração salva neste dispositivo. 💙');
-      rsvp.reset();$('rsvpGuestsField').classList.remove('hidden');
-    }catch(err){feedback($('rsvpFeedback'),'Não foi possível enviar sua resposta agora. Tente novamente.',true);console.error(err);}
-    finally{btn.disabled=false;btn.innerHTML='Enviar confirmação <svg class="ico"><use href="#i-arrow"/></svg>';}
-  });
-  const place = String(config.EVENT_PLACE || '').trim();
-  const time = String(config.EVENT_TIME || '').trim();
-  if(time)$('eventTime').textContent=time;
-  if(place)$('eventPlace').textContent=place;
-  if(config.MAPS_URL){const a=$('mapLink');a.href=config.MAPS_URL;a.target='_blank';a.rel='noopener noreferrer';a.classList.remove('hidden');}
-  const wa=String(config.WHATSAPP||'').replace(/\D/g,'');
-  if(wa) {
-    $('contactLink').href=`https://wa.me/${wa}?text=${encodeURIComponent('Olá! Vi o convite do Chá do Benício e quero fazer um convite digital parecido.')}`;
-    $('contactLink').target='_blank';$('contactLink').rel='noopener noreferrer';
-  } else {
-    $('contactLink').addEventListener('click',(e)=>{e.preventDefault();showToast('O WhatsApp do papai ainda será adicionado. 💙');});
+ }
+ function render(){
+  const grid=$('giftGridMobile');grid.replaceChildren();
+  for(const gift of gifts){
+   const n=avail(gift),card=document.createElement('article');card.className='gift-card'+(gift.id==='ps5'?' special':'');
+   const img=document.createElement('img');img.src=gift.image;img.alt=gift.name;img.loading='lazy';img.width=340;img.height=280;card.append(img);
+   const h=document.createElement('h3');h.className='name';h.textContent=gift.name;card.append(h);
+   const available=document.createElement('div');available.className='available';available.textContent=ready?(n?`${n} disponíve${n===1?'l':'is'}`:'Já escolhido 💙'):'Indisponível';card.append(available);
+   if(gift.joke){const note=document.createElement('p');note.className='joke';note.textContent=gift.joke;card.append(note);}
+   const steps=document.createElement('div');steps.className='stepper';steps.innerHTML=`<button type="button" data-qty-action="minus" data-id="${gift.id}" aria-label="Diminuir quantidade de ${gift.name}">−</button><span data-qty="${gift.id}">${Math.min(quantity[gift.id],Math.max(n,1))}</span><button type="button" data-qty-action="plus" data-id="${gift.id}" aria-label="Aumentar quantidade de ${gift.name}">+</button>`;card.append(steps);
+   const buy=document.createElement('button');buy.type='button';buy.className='reserve';buy.dataset.reserve=gift.id;buy.disabled=n===0;buy.textContent=n?'♧ Reservar presente':'Já escolhido';card.append(buy);grid.append(card);
+   if(quantity[gift.id]>n&&n)quantity[gift.id]=n;
+   for(const s of document.querySelectorAll(`[data-qty="${gift.id}"]`))s.textContent=quantity[gift.id];
+   for(const s of document.querySelectorAll(`[data-stock="${gift.id}"]`)){
+    if(s.classList.contains('poster-stock')){s.classList.toggle('hidden',n===gift.capacity);s.textContent=n?`${n} disponíveis`:'Já escolhido';}
+    else s.textContent=n?`${n} disponíveis`:'Já escolhido';
+   }
+   for(const btn of document.querySelectorAll(`.poster-hotspot[data-reserve="${gift.id}"]`)){btn.disabled=n===0;btn.textContent=n?'':'Já escolhido';}
   }
-  if(!connected)$('demoBanner').classList.remove('hidden');
-  window.addEventListener('storage',(e)=>{if(!connected && e.key===localKey){demoAvailability();renderGifts();}});
-  fetchAvailability();
+  const bab=byId.get('babadores'),n=avail(bab);$('extraBabadores').querySelector('.tiny-buy').disabled=!n;
+ }
+ function updateQuantity(id,delta){const gift=byId.get(id);if(!gift||!ready)return;quantity[id]=Math.max(1,Math.min(avail(gift),quantity[id]+delta));for(const span of document.querySelectorAll(`[data-qty="${id}"]`))span.textContent=quantity[id];}
+ function openGift(id){const gift=byId.get(id);if(!gift||!ready||avail(gift)<=0)return;activeGift=gift;$('giftDialogTitle').textContent=gift.name;$('dialogImage').src=gift.image;$('dialogImage').alt=gift.name;$('dialogJoke').textContent=gift.joke||'Um carinho para o Benício!';$('giftQuantity').replaceChildren();for(let i=1;i<=avail(gift);i++){$('giftQuantity').add(new Option(`${i} unidade${i===1?'':'s'}`,String(i)));}$('giftQuantity').value=String(Math.min(quantity[id],avail(gift)));$('giftGuest').value='';showFeedback($('giftFeedback'),'');$('giftDialog').showModal();}
+ function showFeedback(el,text,error=false){el.textContent=text;el.classList.toggle('error',error);}
+ function toast(text){const el=$('toast');el.textContent=text;el.classList.add('visible');clearTimeout(toastTimeout);toastTimeout=setTimeout(()=>el.classList.remove('visible'),3400);}
+ document.addEventListener('click',e=>{
+   const minus=e.target.closest('[data-qty-action]');if(minus){updateQuantity(minus.dataset.id,minus.dataset.qtyAction==='plus'?1:-1);return;}
+   const reserve=e.target.closest('[data-reserve]');if(reserve){openGift(reserve.dataset.reserve);}
+ });
+ $('closeGiftDialog').addEventListener('click',()=>$('giftDialog').close());$('giftDialog').addEventListener('click',e=>{if(e.target===$('giftDialog'))$('giftDialog').close();});
+ $('giftForm').addEventListener('submit',async e=>{
+  e.preventDefault();if(!activeGift)return;const guest=$('giftGuest').value.trim(),qty=Number($('giftQuantity').value);if(guest.length<2||qty<1){showFeedback($('giftFeedback'),'Informe seu nome e a quantidade.',true);return;}
+  const btn=$('giftSubmit');btn.disabled=true;btn.textContent='Confirmando...';
+  try{if(connected){await api('rpc/reserve_gift',{method:'POST',body:JSON.stringify({p_gift_id:activeGift.id,p_guest_name:guest,p_quantity:qty})});await refresh();}
+      else{const data=getLocal(stateKey,{}),used=Number(data[activeGift.id]||0);if(used+qty>activeGift.capacity)throw new Error('Presente indisponível');data[activeGift.id]=used+qty;setLocal(stateKey,data);readDemo();render();}
+    $('giftDialog').close();toast(connected?'Presente reservado para o Benício! 💙':'Reserva de demonstração salva neste aparelho.');}
+  catch(err){showFeedback($('giftFeedback'),'Este presente pode ter acabado. Atualize a lista e tente novamente.',true);if(connected)await refresh();console.error(err);}
+  finally{btn.disabled=false;btn.textContent='Confirmar presente';}
+ });
+ async function submitRSVP(e){
+  e.preventDefault();const form=e.currentTarget,name=String(form.querySelector('[name="name"]').value||'').trim(),message=String(form.querySelector('[name="note"]').value||'').trim();
+  const feedbackEl=form.id==='desktopRsvp'?$('desktopFeedback'):$('mobileFeedback');if(name.length<2){showFeedback(feedbackEl,'Informe seu nome.',true);return;}
+  const data={guest_name:name,attending:true,guest_count:1,message};const btn=form.querySelector('button[type="submit"]');const prev=btn.textContent;btn.disabled=true;btn.textContent='Enviando...';
+  try{if(connected)await api('rsvps',{method:'POST',headers:{Prefer:'return=minimal'},body:JSON.stringify(data)});else{const old=getLocal(rsvpKey,[]);old.push({...data,created_at:new Date().toISOString()});setLocal(rsvpKey,old);}
+      showFeedback(feedbackEl,connected?'Presença confirmada! 💙':'Confirmação de demonstração salva neste aparelho. 💙');form.reset();}
+  catch(error){showFeedback(feedbackEl,'Não foi possível confirmar agora. Tente novamente.',true);console.error(error);}
+  finally{btn.disabled=false;btn.textContent=prev;}
+ }
+ $('desktopRsvp').addEventListener('submit',submitRSVP);$('mobileRsvpForm').addEventListener('submit',submitRSVP);
+ function contactLink(){const wa=String(C.WHATSAPP||'').replace(/\D/g,'');return wa?`https://wa.me/${wa}?text=${encodeURIComponent('Olá! Vi o convite do Chá do Benício e gostaria de um convite assim!')}`:'';}
+ for(const id of ['mobileContact','desktopContact']){const a=$(id);const href=contactLink();if(href){a.href=href;a.target='_blank';a.rel='noopener noreferrer';}else a.addEventListener('click',e=>{e.preventDefault();toast('O WhatsApp do papai será adicionado em breve. 💙');});}
+ if(C.EVENT_PLACE)$('mobilePlace').textContent=C.EVENT_PLACE;
+ if(C.EVENT_TIME)$('mobileTime').textContent=C.EVENT_TIME;
+ if(C.MAPS_URL){$('mapLink').href=C.MAPS_URL;$('mapLink').classList.remove('hidden');}
+ if(!connected)$('demoBanner').classList.remove('hidden');
+ window.addEventListener('storage',e=>{if(!connected&&e.key===stateKey){readDemo();render();}});
+ // Em tela grande, as âncoras apontam para a própria arte, sem alterar sua composição.
+ document.querySelectorAll('[data-target]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();$(a.dataset.target).scrollIntoView({behavior:'smooth',block:'start'});}));
+ createPosterHotspots();positionHotspots();refresh();
 })();
