@@ -1,6 +1,15 @@
-# Chá do Benício — Reconstrução Visual (V7)
+# Chá do Benício — Versão 8 (refinamento de composição)
 
-## O que foi reconstruído
+## Ajustes da Versão 8
+
+- Sem mudança de paleta, cenários, imagens, cartões, ícones, textos ou identidade visual da V7.
+- Título 3D “Chá do Benício” ampliado e centralizado no topo da abertura.
+- Ursinho menor e completamente visível em uma coluna; convite, data e mensagem na coluna oposta.
+- Espaçamentos ajustados para celulares e desktop, incluindo tamanhos 320, 390, 430 e 1200 px.
+- Área de confirmação reenquadrada: ilustração com nuvens e balões isolada acima do formulário no celular; campos sem sobreposição.
+- Mantidos os três botões de navegação, a separação por seções, a reserva de presentes, a localização e a confirmação de presença.
+
+## O que foi reconstruído anteriormente
 
 Esta versão substitui a estética de página branca e caixas independentes por uma composição infantil integrada, inspirada na referência enviada.
 
