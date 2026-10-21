@@ -97,3 +97,46 @@ section:target{scroll-margin-top:0}
 .rsvp-form{padding:10px 12px 14px 22px}
 .rsvp-fields{gap:13px}
 .rsvp-form .submit-button{max-width:440px;min-width:0;width:100%}
+
+
+/* V9: correções finais de usabilidade e organização */
+.curtain,.left-curtain,.right-curtain{display:none!important}
+.hero-name-top{width:min(690px,82%);margin:0 auto -10px}
+.hero-grid{grid-template-columns:minmax(0,46%) minmax(0,54%);min-height:430px}
+.hero-copy{padding:12px 18px 18px;gap:14px}
+.hero-copy .hero-crib{display:block;position:relative;z-index:4;width:min(145px,44%);max-width:145px;height:auto;margin:-2px auto 0;opacity:.82;filter:drop-shadow(0 10px 10px #5c80a636)}
+.hero-art>.hero-crib{display:none!important}
+.hero-date{min-width:min(100%,420px)}
+.gift-image-wrap{height:124px;background:linear-gradient(180deg,#ffffff,#f8fbff)}
+.gift-image{filter:drop-shadow(0 6px 8px #627e9d12)}
+.gift-smallprint{max-width:720px;font-size:13px;line-height:1.45}
+.rsvp-layout{gap:10px;align-items:center}
+.rsvp-form{padding:12px 12px 18px 26px}
+.rsvp-fields{align-items:start}
+.footer-bar{align-items:center}
+
+@media(max-width:680px){
+  .hero{min-height:max(100svh,760px)}
+  .hero-name-top{width:min(100%,430px);margin:0 auto 4px}
+  .hero-grid{grid-template-columns:42% minmax(0,58%);min-height:365px;margin:0}
+  .hero-art,.hero-copy{transform:none!important}
+  .hero-art{height:325px}
+  .hero-bear{left:-8%;width:124%;bottom:4%}
+  .hero-copy{padding:2px 0 10px;gap:12px}
+  .hero-tagline{font-size:clamp(14px,4vw,18px)}
+  .hero-copy .hero-crib{width:min(110px,56%);max-width:110px;margin:-5px auto 2px;opacity:.85}
+  .hero-date{min-width:0;width:100%;max-width:100%;padding:9px 10px}
+  .hero-actions{margin-top:4px}
+  .gift-image-wrap{height:104px}
+  .rsvp-layout{gap:8px}
+  .rsvp-scene{height:188px;max-height:188px}
+  .rsvp-bear{width:min(220px,56%)}
+  .rsvp-form{padding:8px 2px 4px}
+}
+@media(max-width:370px){
+  .hero-name-top{width:min(100%,395px)}
+  .hero-grid{grid-template-columns:41% 59%;min-height:340px}
+  .hero-art{height:305px}
+  .hero-bear{left:-10%;width:128%;bottom:6%}
+  .hero-copy .hero-crib{width:min(98px,54%)}
+}

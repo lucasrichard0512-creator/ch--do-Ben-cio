@@ -22,14 +22,14 @@ const GIFTS = [
   { id: 'paninhos', name: 'Kit de paninhos de boca', qty: 6, image: 'assets/gifts/paninhos.webp', description: 'Nunca é demais. Nunca mesmo.' },
   { id: 'lencol', name: 'Jogo de lençol para berço', qty: 3, image: 'assets/gifts/lencol.webp', description: 'Mais conforto para o soninho do Benício.' },
   { id: 'mamadeira', name: 'Mamadeira', qty: 2, image: 'assets/baby-bottle.webp', description: 'Um clássico que ajuda muito na rotina.' },
-  { id: 'escova-pente', name: 'Kit escova e pente', qty: 1, image: 'assets/gifts/escova-pente.webp', description: 'Para o cabelo do Benício ficar mais arrumado que o do papai.' },
+  { id: 'escova-pente', name: 'Kit escova e pente', qty: 1, image: 'assets/gifts/escova-pente.webp', description: 'Para o cabelo do Benício ficar sempre no capricho.' },
   { id: 'banheira', name: 'Banheira', qty: 1, image: 'assets/gifts/banheira.webp', description: 'Banho gostoso e muito cuidado.' },
   { id: 'trocador', name: 'Trocador', qty: 1, image: 'assets/gifts/trocador.webp', description: 'Praticidade na missão troca de fraldas.' },
-  { id: 'berco', name: 'Berço', qty: 1, image: 'assets/crib.webp', description: 'O bebê só precisa de um. O resto a gente evita. 😅' },
+  { id: 'berco', name: 'Berço', qty: 1, image: 'assets/crib.webp', description: 'Onde vão nascer muitos soninhos tranquilos.' },
   { id: 'carrinho', name: 'Carrinho de bebê', qty: 1, image: 'assets/gifts/carrinho.webp', description: 'Para os passeios mais especiais.' },
   { id: 'bebe-conforto', name: 'Bebê conforto', qty: 1, image: 'assets/gifts/bebe-conforto.webp', description: 'Segurança e conforto nos trajetos.' },
   { id: 'comoda', name: 'Cômoda para bebê', qty: 1, image: 'assets/gifts/comoda.webp', description: 'Organização para o enxoval do príncipe.' },
-  { id: 'ps5-pro', name: 'PS5 Pro', qty: 1, image: 'assets/gifts/ps5-pro.webp', description: 'Item importantíssimo para o bem-estar emocional do papai. A mamãe segue analisando. 😂', isJoke: true }
+  { id: 'ps5-pro', name: 'PS5 Pro', qty: 1, image: 'assets/gifts/ps5-pro.webp', description: 'Sugestão carinhosamente enviada pelo papai. A diretoria da mamãe ainda está avaliando. 😂', isJoke: true }
 ];
 
 const state = {
@@ -100,9 +100,7 @@ function applyDemoQuantities() {
   const demo = readDemo(DEMO_KEY, {});
   state.gifts = GIFTS.map(item => ({ ...item, reserved: clamp(Number(demo[item.id]) || 0, 0, item.qty) }));
   state.online = true;
-  $('#demoNotice').textContent = 'Prévia do convite: ative o Supabase para compartilhar as reservas entre os convidados. Por enquanto, cada navegador mantém suas escolhas separadas.';
-  $('#demoNotice').classList.remove('hidden');
-  $('#connectionNotice').classList.add('hidden');
+  state.online = true;
 }
 
 async function refreshGifts() {
@@ -122,12 +120,8 @@ async function refreshGifts() {
       return { ...item, qty: Number(db.total_qty), reserved: Number(db.reserved_qty) };
     });
     state.online = true;
-    $('#demoNotice').classList.add('hidden');
-    $('#connectionNotice').classList.add('hidden');
   } catch {
     state.online = false;
-    $('#connectionNotice').textContent = 'Não foi possível atualizar a disponibilidade agora. Para evitar reservas duplicadas, os botões foram desativados temporariamente.';
-    $('#connectionNotice').classList.remove('hidden');
   }
 
   renderGifts();
@@ -280,9 +274,7 @@ async function submitRsvp(event) {
       writeDemo(DEMO_RSVP_KEY, entries);
     }
 
-    setFeedback(feedback, DATABASE_READY
-      ? 'Presença confirmada! Vai ser lindo ter você com a gente. 💙'
-      : 'Demonstração: sua confirmação foi salva apenas neste navegador.');
+    setFeedback(feedback, 'Presença confirmada! Vai ser lindo ter você com a gente. 💙');
     toast('Presença confirmada com carinho 💙');
     $('#rsvpForm').reset();
   } catch (error) {
@@ -312,10 +304,32 @@ function fillEventInfo() {
     contact.target = '_blank';
     contact.rel = 'noopener noreferrer';
   } else {
-    contact.addEventListener('click', event => {
+    const text = 'Olá! Vi o convite do Chá do Benício e gostaria de pedir um convite interativo assim.';
+    contact.href = `https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`;
+    contact.target = '_blank';
+    contact.rel = 'noopener noreferrer';
+  }
+}
+
+
+function setupInternalNavigation() {
+  document.querySelectorAll('a[href^="#"]').forEach(link => {
+    link.addEventListener('click', event => {
+      const href = link.getAttribute('href');
+      if (!href || href === '#') return;
+      const target = document.querySelector(href);
+      if (!target) return;
       event.preventDefault();
-      toast('Adicione o número do WhatsApp em config.js para ativar esse botão.');
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      history.replaceState(null, '', href);
     });
+  });
+}
+
+function refineGiftHumor() {
+  const note = document.querySelector('.gift-smallprint');
+  if (note) {
+    note.innerHTML = '<svg class="icon"><use href="#ic-heart"></use></svg> Cada presente pode ser reservado conforme a quantidade disponível. E sim... o PS5 Pro apareceu na lista por uma ideia muito humilde do papai. 😂';
   }
 }
 
@@ -340,6 +354,8 @@ function initReveal() {
 
 function start() {
   fillEventInfo();
+  setupInternalNavigation();
+  refineGiftHumor();
   initReveal();
   refreshGifts();
 
