@@ -1,44 +1,58 @@
-# Chá do Benício · V9 — Site interativo com objetos 3D reais
+# Chá do Benício — versão revisada
 
-## Como visualizar
+Esta versão foi reorganizada para ficar mais próxima da arte de referência enviada.
 
-- Abra `Convite-Benicio-3D-V9.html` no navegador. Ele reúne HTML, CSS e JavaScript em um arquivo, sem recortes de imagens da arte de referência.
-- Ou publique o conteúdo desta pasta em Vercel, Netlify ou hospedagem estática. O arquivo inicial é `index.html`.
-- Modelos tridimensionais são formados programaticamente por polígonos, materiais, iluminação e câmera com WebGL e fallback Canvas 2D, sem depender de texturas de uma montagem pronta. Os produtos são renderizados em tempo de execução a partir dos modelos 3D.
-- As tipografias externas (Google Fonts) podem usar o fallback da plataforma se estiver sem internet.
+## O que foi ajustado
 
-## Entregue
+- visual recriado em estilo azul/branco com os elementos 3D enviados;
+- topo com chamadas principais: lista de presentes, localização e confirmação de presença;
+- lista de presentes com quantidade limitada por item;
+- se um item acabar (ex.: berço), ele fica indisponível para os próximos convidados;
+- item de humor `PS5 Pro` mantido na lista;
+- local e horário preenchidos:
+  - **19:00h**
+  - **Igreja Missão Renovada**
+- seção de confirmação de presença simplificada;
+- animações suaves de entrada e flutuação.
 
-- Urso 3D com laço, coração e coroa, cenário com balões, nuvens e berço.
-- 25 produtos 3D com fotos/renderizações produzidas pelo navegador, em lista única.
-- Presentes especiais apenas no final: berço, carrinho, bebê conforto, cômoda; PS5 Pro é o último item, com piada do papai.
-- Seleção do presente, escolha da quantidade, pedido de nome e bloqueio quando atingir o limite.
-- Seção de localização/horário, por enquanto `A confirmar`, sem endereço fictício.
-- Confirmação com nome e observação opcional, sem selecionar número de pessoas.
-- Rodapé com recadinho e link de contato.
-- Responsividade para celular, tablet e desktop e suporte a `prefers-reduced-motion`.
+## Importante sobre a lista de presentes
 
-## Publicação com reservas sincronizadas (obrigatório antes de compartilhar com convidados)
+Sem Supabase configurado, o site entra em **modo demonstração**:
+- reservas e confirmações ficam salvas apenas no navegador atual.
 
-**Atenção:** sem conexão ao banco de dados, a demonstração registra reservas apenas no navegador atual. Não significa que alguém em outro aparelho verá a reserva. Não distribua o convite como definitivo sem configurar isto.
+Para que todos os convidados vejam a disponibilidade real em tempo real, faça os 3 passos abaixo:
 
-1. Crie um projeto próprio no Supabase.
-2. No `SQL Editor`, execute o conteúdo de `supabase.sql` (cria inventário, reservas, confirmação, permissões e função de reserva atômica para evitar duplicidade).
-3. Em `config.js`, preencha `SUPABASE_URL` e `SUPABASE_ANON_KEY`. A **anon key** é chave pública, mas nunca coloque uma `service_role` no frontend.
-4. Atualize `WHATSAPP` com DDI, DDD e número de contato, sem caracteres de formatação.
-5. Assim que souber, preencha `EVENT_TIME`, `EVENT_ADDRESS` e `MAPS_URL` com o link real do mapa.
-6. Publique os arquivos por HTTPS e teste uma reserva em dois aparelhos. A consulta atualiza a disponibilidade a cada 30 segundos e imediatamente após a reserva; a função SQL evita que duas pessoas reservem o último item ao mesmo tempo.
+1. crie um projeto no Supabase;
+2. execute o arquivo `supabase.sql` no SQL Editor;
+3. preencha `SUPABASE_URL` e `SUPABASE_PUBLISHABLE_KEY` no arquivo `config.js`.
 
-**Privacidade:** o link público não mostra nomes de quem reservou presentes. O banco armazena nomes e observações para consulta privada pelos organizadores. Avalie controles antispam e política de retenção antes de lançar publicamente.
+## WhatsApp do rodapé
 
-## Editar
+Se quiser ativar o botão “Peça o seu aqui”, adicione o número no campo:
 
-- `styles.css`: cores, cartões, layout e tipografia.
-- `engine3d.js`: geometria e cores dos modelos 3D e luzes.
-- `app.js`: 25 itens, estoque, modal, confirmação de presença.
-- `config.js`: dados do evento e integrações.
-- `index.html`: estrutura e textos.
+```js
+WHATSAPP_NUMBER: '5562SEUNUMEROAQUI'
+```
 
-## Nota sobre fidelidade
+## Arquivos principais
 
-Esta é uma **reconstrução tridimensional estilizada** do universo visual aprovado, não um modelo fotorrealista idêntico à arte gerada por IA. Os objetos são geometria real, mas não contêm malhas 3D comerciais ultra detalhadas de pelúcia ou produtos licenciados. O site não usa a imagem inteira, nem seus recortes, como interface.
+- `index.html` → estrutura da página
+- `styles.css` → layout e animações
+- `app.js` → lógica dos presentes, modal e RSVP
+- `config.js` → horário, local, links e chaves públicas
+- `supabase.sql` → banco e funções RPC
+
+
+## Refinamento visual v3
+
+- Composição de abertura com os elementos 3D originais do Chá do Benício.
+- Botões com proporção corrigida nas telas maiores; botões HTML legíveis no celular.
+- Grade de 24 presentes com fotografias recortadas da arte de referência (algumas têm definição limitada por serem recortes da imagem geral).
+- Reservas de itens exclusivos como **berço** (1 unidade) bloqueiam a escolha após esgotamento.
+- Ursinho decorativo restaurado na confirmação em telas pequenas.
+- Arquivos WebP otimizados para reduzir o peso de carregamento das ilustrações.
+- Banco SQL compatível com a primeira versão. O item extra `babadores` fica arquivado, sem apagar reservas anteriores.
+
+**Antes de enviar aos convidados:** configure o Supabase em `config.js` e execute o `supabase.sql`. Enquanto não houver uma conexão válida, a tela mostra claramente "Modo demonstração", e convidados em aparelhos diferentes não compartilham disponibilidade. O botão verde de contato no rodapé precisa de um número de WhatsApp em `config.js`.
+
+**Testes realizados:** validação sintática do JavaScript, verificação dos 24 presentes, teste da reserva do berço até esgotamento no modo de demonstração, confirmação de presença e conferência do link do Google Maps. A conexão real ao Supabase não foi testada por depender das credenciais do projeto.

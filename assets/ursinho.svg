@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 430 460" fill="none" role="img" aria-labelledby="title desc">
+<title id="title">Ursinho do Benício</title><desc id="desc">Ursinho de pelúcia bege com lacinho azul, sentado entre estrelas e nuvens.</desc>
+<defs>
+  <linearGradient id="fur" x1="91" y1="48" x2="328" y2="390" gradientUnits="userSpaceOnUse"><stop stop-color="#FFE9C9"/><stop offset="1" stop-color="#D9B28D"/></linearGradient>
+  <linearGradient id="light" x1="150" y1="140" x2="290" y2="405" gradientUnits="userSpaceOnUse"><stop stop-color="#FFF9EB"/><stop offset="1" stop-color="#F5E2C9"/></linearGradient>
+  <filter id="shadow" x="14" y="22" width="405" height="428"><feGaussianBlur in="SourceAlpha" stdDeviation="10"/><feOffset dy="6"/><feComponentTransfer><feFuncA type="linear" slope=".14"/></feComponentTransfer><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+</defs>
+<ellipse cx="213" cy="411" rx="143" ry="20" fill="#92ADBF" opacity=".16"/>
+<g fill="#F5D9A4"><path d="m74 135 8 13-8 13-8-13z"/><path d="m358 124 8 13-8 13-8-13z"/><path d="m343 250 6 10-6 10-6-10z"/><circle cx="90" cy="279" r="4"/><circle cx="352" cy="70" r="5"/></g>
+<g filter="url(#shadow)">
+<ellipse cx="123" cy="112" rx="51" ry="54" fill="url(#fur)" stroke="#CDA67D" stroke-width="4"/>
+<ellipse cx="123" cy="112" rx="27" ry="31" fill="#E6B8B3"/>
+<ellipse cx="300" cy="112" rx="51" ry="54" fill="url(#fur)" stroke="#CDA67D" stroke-width="4"/>
+<ellipse cx="300" cy="112" rx="27" ry="31" fill="#E6B8B3"/>
+<ellipse cx="212" cy="295" rx="123" ry="120" fill="url(#fur)" stroke="#CEA47E" stroke-width="4"/>
+<ellipse cx="212" cy="313" rx="84" ry="89" fill="url(#light)"/>
+<ellipse cx="106" cy="299" rx="37" ry="69" transform="rotate(27 106 299)" fill="url(#fur)" stroke="#CEA47E" stroke-width="4"/>
+<ellipse cx="319" cy="299" rx="37" ry="69" transform="rotate(-27 319 299)" fill="url(#fur)" stroke="#CEA47E" stroke-width="4"/>
+<ellipse cx="145" cy="387" rx="62" ry="39" transform="rotate(-13 145 387)" fill="url(#fur)" stroke="#CEA47E" stroke-width="4"/>
+<ellipse cx="278" cy="387" rx="62" ry="39" transform="rotate(13 278 387)" fill="url(#fur)" stroke="#CEA47E" stroke-width="4"/>
+<ellipse cx="145" cy="389" rx="34" ry="21" transform="rotate(-13 145 389)" fill="#EDD3BD"/>
+<ellipse cx="278" cy="389" rx="34" ry="21" transform="rotate(13 278 389)" fill="#EDD3BD"/>
+<circle cx="212" cy="169" r="125" fill="url(#fur)" stroke="#CEA47E" stroke-width="4"/>
+<ellipse cx="213" cy="214" rx="65" ry="49" fill="url(#light)"/>
+<ellipse cx="162" cy="174" rx="10" ry="12" fill="#4F443D"/><ellipse cx="263" cy="174" rx="10" ry="12" fill="#4F443D"/>
+<ellipse cx="165" cy="170" rx="3" ry="4" fill="#fff"/><ellipse cx="266" cy="170" rx="3" ry="4" fill="#fff"/>
+<ellipse cx="212" cy="207" rx="24" ry="16" fill="#59483E"/>
+<path d="M212 220v11m0 0c-9 13-19 13-29 6m29-6c9 13 19 13 29 6" stroke="#59483E" stroke-width="4.5" stroke-linecap="round"/>
+<ellipse cx="134" cy="216" rx="18" ry="11" fill="#DF9992" opacity=".28"/>
+<ellipse cx="289" cy="216" rx="18" ry="11" fill="#DF9992" opacity=".28"/>
+<path d="M211 293c-21-25-49-29-58-15-13 22 11 38 58 37-6 37-14 49-10 50 11 5 23 5 33 0 4-2-7-14-10-50 43 2 70-15 56-37-10-15-40-10-57 15z" fill="#A8CCDD" stroke="#749EB4" stroke-width="4" stroke-linejoin="round"/>
+<circle cx="217" cy="301" r="13" fill="#DCEEF5" stroke="#749EB4" stroke-width="3"/>
+</g>
+<g fill="#fff" opacity=".94"><path d="M40 362c-6-24 21-40 42-29 8-16 32-16 38 1 19-1 29 22 15 35H55c-8 0-13-2-15-7z"/><path d="M302 42c-5-19 17-31 34-23 7-13 26-13 31 1 15-1 24 18 12 28h-65c-7 0-11-2-12-6z"/></g>
+</svg>

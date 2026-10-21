@@ -1,83 +1,390 @@
-/* Chá do Benício — interação real, lista única e reservas atômicas quando Supabase for configurado. */
-(() => {
 'use strict';
-const gifts = [
-  {id:'fraldas-rn',name:'Fraldas RN',qty:2,model:'diapers',variant:0},
-  {id:'fraldas-p',name:'Fraldas P',qty:8,model:'diapers',variant:1},
-  {id:'fraldas-m',name:'Fraldas M',qty:14,model:'diapers',variant:2},
-  {id:'fraldas-g',name:'Fraldas G',qty:10,model:'diapers',variant:3},
-  {id:'fraldas-xg',name:'Fraldas XG',qty:5,model:'diapers',variant:4},
-  {id:'lencos',name:'Lenços umedecidos',qty:15,model:'wipes'},
-  {id:'pomada',name:'Pomada para assaduras',qty:5,model:'ointment'},
-  {id:'sabonete',name:'Sabonete líquido infantil',qty:5,model:'soap'},
-  {id:'shampoo',name:'Shampoo infantil',qty:3,model:'shampoo'},
-  {id:'bodies',name:'Kit de bodies',qty:4,model:'bodies'},
-  {id:'macacao',name:'Macacão para bebê',qty:4,model:'onesie'},
-  {id:'manta',name:'Manta para bebê',qty:3,model:'blanket'},
-  {id:'toalha',name:'Toalha com capuz',qty:3,model:'towel'},
-  {id:'paninhos',name:'Kit de paninhos de boca',qty:6,model:'cloths'},
-  {id:'lencol',name:'Jogo de lençol para berço',qty:3,model:'sheets'},
-  {id:'babadores',name:'Kit de babadores',qty:3,model:'bib'},
-  {id:'mamadeira',name:'Mamadeira',qty:2,model:'bottle'},
-  {id:'escova',name:'Kit escova e pente',qty:1,model:'brush'},
-  {id:'banheira',name:'Banheira',qty:1,model:'bath'},
-  {id:'trocador',name:'Trocador',qty:1,model:'changing'},
-  {id:'berco',name:'Berço',qty:1,model:'crib',special:true},
-  {id:'carrinho',name:'Carrinho de bebê',qty:1,model:'stroller',special:true},
-  {id:'bebe-conforto',name:'Bebê conforto',qty:1,model:'carseat',special:true},
-  {id:'comoda',name:'Cômoda para bebê',qty:1,model:'dresser',special:true},
-  {id:'ps5',name:'PS5 Pro',qty:1,model:'ps5',special:true,joke:'Item essencial para o equilíbrio emocional do papai. 😂'}
+
+const CONFIG = window.BENICIO_CONFIG || {};
+const DATABASE_READY = Boolean(CONFIG.SUPABASE_URL && CONFIG.SUPABASE_PUBLISHABLE_KEY);
+const DEMO_KEY = 'cha-benicio-presentes-demo-v2';
+const DEMO_RSVP_KEY = 'cha-benicio-presencas-demo-v2';
+
+const GIFTS = [
+  { id: 'fraldas-rn', name: 'Fralda RN', qty: 2, image: 'assets/gifts/fraldas-rn.png', description: 'Para os primeiros dias do Benício.' },
+  { id: 'fraldas-p', name: 'Fralda P', qty: 8, image: 'assets/gifts/fraldas-p.png', description: 'As pequenas grandes aliadas da rotina.' },
+  { id: 'fraldas-m', name: 'Fralda M', qty: 14, image: 'assets/gifts/fraldas-m.png', description: 'O estoque mais estratégico do enxoval.' },
+  { id: 'fraldas-g', name: 'Fralda G', qty: 10, image: 'assets/gifts/fraldas-g.png', description: 'Porque o Benício vai crescer rapidinho.' },
+  { id: 'fraldas-xg', name: 'Fralda XG', qty: 5, image: 'assets/gifts/fraldas-xg.png', description: 'Prevenção é tudo, principalmente com fraldas.' },
+  { id: 'lencos', name: 'Lenços umedecidos', qty: 15, image: 'assets/gifts/lencos.png', description: 'Sempre úteis, sempre necessários.' },
+  { id: 'pomada', name: 'Pomada para assaduras', qty: 5, image: 'assets/gifts/pomada.png', description: 'Cuidado e carinho para a pele do bebê.' },
+  { id: 'sabonete', name: 'Sabonete líquido', qty: 5, image: 'assets/gifts/sabonete.png', description: 'Um banho cheiroso para o pequeno.' },
+  { id: 'shampoo', name: 'Shampoo infantil', qty: 3, image: 'assets/gifts/shampoo.png', description: 'Para os banhos mais fofos da casa.' },
+  { id: 'bodies', name: 'Kit de bodies', qty: 4, image: 'assets/gifts/bodies.png', description: 'Conforto para muitos abraços.' },
+  { id: 'macacao', name: 'Macacão para bebê', qty: 4, image: 'assets/gifts/macacao.png', description: 'Fofura garantida para o enxoval.' },
+  { id: 'manta', name: 'Manta para bebê', qty: 3, image: 'assets/gifts/manta.png', description: 'Um abraço quentinho em forma de manta.' },
+  { id: 'toalha', name: 'Toalha com capuz', qty: 5, image: 'assets/gifts/toalha.png', description: 'Para sair do banho parecendo um mini ursinho.' },
+  { id: 'paninhos', name: 'Kit de paninhos de boca', qty: 6, image: 'assets/gifts/paninhos.png', description: 'Nunca é demais. Nunca mesmo.' },
+  { id: 'lencol', name: 'Jogo de lençol para berço', qty: 3, image: 'assets/gifts/lencol.png', description: 'Mais conforto para o soninho do Benício.' },
+  { id: 'mamadeira', name: 'Mamadeira', qty: 2, image: 'assets/gifts/mamadeira.png', description: 'Um clássico que ajuda muito na rotina.' },
+  { id: 'escova-pente', name: 'Kit escova e pente', qty: 1, image: 'assets/gifts/escova-pente.png', description: 'Para o cabelo do Benício ficar mais arrumado que o do papai.' },
+  { id: 'banheira', name: 'Banheira', qty: 1, image: 'assets/gifts/banheira.png', description: 'Banho gostoso e muito cuidado.' },
+  { id: 'trocador', name: 'Trocador', qty: 1, image: 'assets/gifts/trocador.png', description: 'Praticidade na missão troca de fraldas.' },
+  { id: 'berco', name: 'Berço', qty: 1, image: 'assets/gifts/berco.png', description: 'O bebê só precisa de um. O resto a gente evita. 😅' },
+  { id: 'carrinho', name: 'Carrinho de bebê', qty: 1, image: 'assets/gifts/carrinho.png', description: 'Para os passeios mais especiais.' },
+  { id: 'bebe-conforto', name: 'Bebê conforto', qty: 1, image: 'assets/gifts/bebe-conforto.png', description: 'Segurança e conforto nos trajetos.' },
+  { id: 'comoda', name: 'Cômoda para bebê', qty: 1, image: 'assets/gifts/comoda.png', description: 'Organização para o enxoval do príncipe.' },
+  { id: 'ps5-pro', name: 'PS5 Pro', qty: 1, image: 'assets/gifts/ps5-pro.png', description: 'Item importantíssimo para o bem-estar emocional do papai. A mamãe segue analisando. 😂', isJoke: true }
 ];
-const cfg=window.BENICIO_CONFIG||{};
-const online=Boolean(cfg.SUPABASE_URL&&cfg.SUPABASE_ANON_KEY);
-const key='benicio:v9:reservas';
-const memoryFallback={};
-function getStored(k){try{return localStorage.getItem(k)??memoryFallback[k]??null}catch{return memoryFallback[k]??null}}
-function setStored(k,v){memoryFallback[k]=v;try{localStorage.setItem(k,v)}catch{/* navegador com armazenamento restrito: modo sessão */}}
-const list=document.querySelector('#giftGrid');
-const status=document.querySelector('#inventoryStatus');
-const demo=document.querySelector('#demoNotice');
-const modal=document.querySelector('#giftModal');
-const form=document.querySelector('#giftForm');
-const giftName=document.querySelector('#giftGuest');
-const giftQty=document.querySelector('#giftQuantity');
-const giftSubmit=document.querySelector('#giftSubmit');
-const giftFeedback=document.querySelector('#giftFeedback');
-const toast=document.querySelector('#toast');
-let active=null;
-let inventory={};
-const readLocal=()=>{try{return JSON.parse(getStored(key)||'{}')}catch{return {}}};
-const writeLocal=(x)=>setStored(key,JSON.stringify(x));
-const initInv=()=>{let saved=readLocal();gifts.forEach(g=>{inventory[g.id]={total:g.qty,reserved:online?0:(saved[g.id]||0)}})};
-const getAvailable=(g)=>Math.max(0,(inventory[g.id]?.total??g.qty)-(inventory[g.id]?.reserved||0));
-const fmt=(n)=>n+' '+(n===1?'disponível':'disponíveis');
-function renderCards(){
-  list.innerHTML=gifts.map(g=>{const avail=getAvailable(g);return `<article class="gift-card ${g.special?'special':''} ${g.id==='ps5'?'ps5':''}" data-gift="${g.id}">
-  <div class="gift-image"><img data-product-render="${g.id}" width="320" height="240" alt="" decoding="async"><span class="fallback-icon" aria-hidden="true" hidden>♥</span></div>
-  <div class="gift-card-body"><h3>${g.name}</h3><p class="gift-meta"><strong data-stock="${g.id}">${fmt(avail)}</strong></p>${g.joke?`<p class="gift-joke">${g.joke}</p>`:''}
-  <button class="gift-button" type="button" data-select="${g.id}" ${avail===0?'disabled':''}>${avail===0?'Já escolhido':'Reservar presente'}</button></div></article>`}).join('');
-  
-  list.querySelectorAll('img[data-product-render]').forEach(img=>img.style.opacity='0');
-  window.Benicio3D?.buildPreviews(gifts).then(()=>list.querySelectorAll('img[data-product-render]').forEach(img=>img.style.opacity='1'));
+
+const state = {
+  gifts: GIFTS.map(item => ({ ...item, reserved: 0 })),
+  selection: Object.fromEntries(GIFTS.map(item => [item.id, 1])),
+  selectedId: null,
+  busy: false,
+  online: !DATABASE_READY
+};
+
+const $ = selector => document.querySelector(selector);
+const escapeHtml = value => String(value).replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char]));
+const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
+
+const memoryDemoCache = new Map();
+function readDemo(key, fallback) {
+  try {
+    const saved = localStorage.getItem(key);
+    if (saved) return JSON.parse(saved);
+  } catch { /* Navegação sem armazenamento persistente. */ }
+  return memoryDemoCache.get(key) || fallback;
 }
-list.addEventListener('click',e=>{const el=e.target.closest('[data-select]');if(el)openGift(el.dataset.select)});
-function updateStock(){for(const g of gifts){const a=getAvailable(g);const card=list.querySelector(`[data-gift="${g.id}"]`);if(!card)continue;card.querySelector('[data-stock]').textContent=fmt(a);let btn=card.querySelector('button[data-select]');btn.disabled=a===0;btn.textContent=a===0?'Já escolhido':'Reservar presente'}}
-function openGift(id){const g=gifts.find(x=>x.id===id);if(!g||getAvailable(g)===0)return;active=g;const card=list.querySelector(`[data-gift="${id}"]`);document.querySelector('#giftModalTitle').textContent=g.name;const img=document.querySelector('#giftModalImage');img.src=card.querySelector('.gift-image img').src;img.alt='Modelo 3D de '+g.name;document.querySelector('#giftModalDesc').textContent=g.joke||'Um carinho que ajuda a preparar a chegada do Benício.';document.querySelector('#giftModalRemaining').textContent=fmt(getAvailable(g));fillQuantities(g);giftFeedback.textContent='';form.reset();if(typeof modal.showModal==='function')modal.showModal();else modal.setAttribute('open','');setTimeout(()=>giftName.focus(),40)}
-function fillQuantities(g){const a=getAvailable(g);giftQty.innerHTML='';for(let n=1;n<=a;n++){const opt=document.createElement('option');opt.value=String(n);opt.textContent=n===1?'1 unidade':`${n} unidades`;giftQty.append(opt)}}
-function closeModal(){if(typeof modal.close==='function')modal.close();else modal.removeAttribute('open')}
-function busy(flag){giftSubmit.disabled=flag;giftSubmit.textContent=flag?'Reservando...':'Confirmar presente ♥'}
-function showToast(message){toast.textContent=message;toast.classList.add('show');clearTimeout(showToast.t);showToast.t=setTimeout(()=>toast.classList.remove('show'),3200)}
-async function request(path,opts={}){const base=cfg.SUPABASE_URL.replace(/\/$/,'');const res=await fetch(base+'/rest/v1/'+path,{...opts,headers:{apikey:cfg.SUPABASE_ANON_KEY,Authorization:'Bearer '+cfg.SUPABASE_ANON_KEY,'Content-Type':'application/json',...opts.headers}});if(!res.ok){let data;try{data=await res.json()}catch{data={}}throw new Error(data.message||data.error||`Falha na comunicação (${res.status})`)}const t=await res.text();return t?JSON.parse(t):null}
-async function syncInventory(){if(!online){demo.hidden=false;initInv();updateStock();return}try{const items=await request('gift_inventory?select=gift_id,total,reserved');const byId=Object.fromEntries(items.map(x=>[x.gift_id,x]));for(const g of gifts){const row=byId[g.id];if(row)inventory[g.id]={total:row.total,reserved:row.reserved}}demo.hidden=true;status.textContent='';updateStock()}catch(e){status.textContent='Não foi possível atualizar as disponibilidades. Tente recarregar a página.';console.error(e)}}
-async function reserve(g,name,n){if(!online){const saved=readLocal();const total=Number(saved[g.id]||0);if(total+n>g.qty)throw Error('Este presente já atingiu a quantidade disponível.');saved[g.id]=total+n;writeLocal(saved);inventory[g.id].reserved=total+n;return}
-  const result=await request('rpc/reserve_gift',{method:'POST',body:JSON.stringify({p_gift_id:g.id,p_guest_name:name,p_quantity:n})});if(result?.success===false)throw Error(result.message||'Este presente acabou de ser escolhido por outra pessoa.');await syncInventory()}
-form.addEventListener('submit',async e=>{e.preventDefault();if(!active)return;const name=giftName.value.trim(),quantity=Number(giftQty.value);if(name.length<2||!Number.isInteger(quantity)||quantity<1){giftFeedback.textContent='Informe seu nome e a quantidade.';return}if(quantity>getAvailable(active)){giftFeedback.textContent='A quantidade disponível mudou. Atualize sua escolha.';fillQuantities(active);return}busy(true);giftFeedback.textContent='';try{await reserve(active,name,quantity);updateStock();closeModal();showToast(online?'💙 Presente reservado! Muito obrigado!':'💙 Reservado nesta demonstração!')}catch(err){giftFeedback.textContent=err.message;await syncInventory();if(active)fillQuantities(active)}finally{busy(false)}});
-document.querySelector('#closeModal').addEventListener('click',closeModal);
-modal.addEventListener('click',e=>{if(e.target===modal)closeModal()});
-document.querySelector('#rsvpForm').addEventListener('submit',async e=>{e.preventDefault();const f=e.currentTarget,btn=document.querySelector('#rsvpSubmit'),feedback=document.querySelector('#rsvpFeedback');const name=f.name?.value||document.querySelector('#rsvpName').value;const note=document.querySelector('#rsvpNote').value.trim();if(name.trim().length<2){feedback.textContent='Digite seu nome para confirmar.';return}btn.disabled=true;feedback.textContent='';try{if(online){await request('rsvp',{method:'POST',headers:{Prefer:'return=minimal'},body:JSON.stringify({guest_name:name.trim(),observation:note})})}else{const saved=JSON.parse(getStored('benicio:v9:rsvp')||'[]');saved.push({name:name.trim(),observation:note,created_at:new Date().toISOString()});setStored('benicio:v9:rsvp',JSON.stringify(saved))}feedback.textContent=online?'Presença confirmada! Esperamos você. 💙':'Resposta salva nesta demonstração. No convite publicado, ela será enviada aos anfitriões. 💙';f.reset()}catch(err){feedback.textContent='Não foi possível registrar sua resposta. '+err.message}finally{btn.disabled=false}});
-function applyConfig(){if(cfg.EVENT_TIME){document.querySelector('#timeValue').textContent=cfg.EVENT_TIME}if(cfg.EVENT_ADDRESS){document.querySelector('#addressValue').textContent=cfg.EVENT_ADDRESS}if(cfg.MAPS_URL&&/^https:\/\//.test(cfg.MAPS_URL)){const b=document.querySelector('#mapsButton');b.href=cfg.MAPS_URL;b.hidden=false}
- const msg=encodeURIComponent('Olá! Vi o convite do Chá do Benício e gostaria de fazer um convite digital interativo parecido.');const phone=String(cfg.WHATSAPP||'').replace(/\D/g,'');document.querySelector('#contactLink').href=phone?`https://wa.me/${phone}?text=${msg}`:`https://api.whatsapp.com/send?text=${msg}`}
-window.addEventListener('storage',e=>{if(!online&&(e.key===key)){const saved=readLocal();gifts.forEach(g=>inventory[g.id].reserved=saved[g.id]||0);updateStock()}});
-async function init(){initInv();renderCards();applyConfig();window.Benicio3D?.initHero();window.Benicio3D?.initAccents();await syncInventory();if(online){setInterval(()=>{if(!document.hidden)syncInventory()},30000)}}
-init();
-})();
+
+function writeDemo(key, value) {
+  memoryDemoCache.set(key, value);
+  try {
+    localStorage.setItem(key, JSON.stringify(value));
+  } catch { /* Mantém a simulação disponível durante a visita. */ }
+}
+
+function toast(message) {
+  const node = $('#toast');
+  node.textContent = message;
+  node.classList.add('visible');
+  clearTimeout(toast.timer);
+  toast.timer = setTimeout(() => node.classList.remove('visible'), 3400);
+}
+
+function setFeedback(node, message, isError = false) {
+  node.textContent = message;
+  node.classList.toggle('is-error', isError);
+}
+
+async function supabaseRequest(path, method = 'GET', payload) {
+  const url = CONFIG.SUPABASE_URL.replace(/\/$/, '') + '/rest/v1/' + path;
+  const headers = { apikey: CONFIG.SUPABASE_PUBLISHABLE_KEY, 'Content-Type': 'application/json' };
+  if (CONFIG.SUPABASE_PUBLISHABLE_KEY.startsWith('eyJ')) {
+    headers.Authorization = 'Bearer ' + CONFIG.SUPABASE_PUBLISHABLE_KEY;
+  }
+  let response;
+  try {
+    response = await fetch(url, { method, headers, body: payload === undefined ? undefined : JSON.stringify(payload) });
+  } catch {
+    throw new Error('Não foi possível conectar. Confira sua internet e tente novamente.');
+  }
+  const result = await response.json().catch(() => null);
+  if (!response.ok) {
+    const raw = result?.message || result?.error || 'Não foi possível concluir agora.';
+    if (String(raw).includes('PRESENTE_ESGOTADO')) throw new Error('Esse presente acabou de ser reservado por outra pessoa.');
+    if (String(raw).includes('DADOS_INVALIDOS')) throw new Error('Revise os dados informados e tente novamente.');
+    if (String(raw).includes('PRESENTE_INEXISTENTE')) throw new Error('Presente não encontrado. Atualize a página.');
+    throw new Error('Não conseguimos concluir agora. Tente novamente em instantes.');
+  }
+  return result;
+}
+
+function applyDemoQuantities() {
+  const demo = readDemo(DEMO_KEY, {});
+  state.gifts = GIFTS.map(item => ({ ...item, reserved: clamp(Number(demo[item.id]) || 0, 0, item.qty) }));
+  state.online = true;
+  $('#demoNotice').textContent = '🧪 Modo demonstração: até configurar o Supabase no arquivo config.js, as reservas e confirmações ficam salvas apenas neste navegador.';
+  $('#demoNotice').classList.remove('hidden');
+  $('#connectionNotice').classList.add('hidden');
+}
+
+async function refreshGifts() {
+  if (!DATABASE_READY) {
+    applyDemoQuantities();
+    renderGifts();
+    return;
+  }
+
+  try {
+    const items = await supabaseRequest('gifts?select=id,total_qty,reserved_qty&active=eq.true&order=sort_order.asc');
+    if (!Array.isArray(items)) throw new Error('Catálogo incompleto');
+    const byId = new Map(items.map(item => [item.id, item]));
+    state.gifts = GIFTS.map(item => {
+      const db = byId.get(item.id);
+      if (!db) throw new Error('Presente faltando no banco');
+      return { ...item, qty: Number(db.total_qty), reserved: Number(db.reserved_qty) };
+    });
+    state.online = true;
+    $('#demoNotice').classList.add('hidden');
+    $('#connectionNotice').classList.add('hidden');
+  } catch {
+    state.online = false;
+    $('#connectionNotice').textContent = 'Não foi possível atualizar a disponibilidade agora. Para evitar reservas duplicadas, os botões foram desativados temporariamente.';
+    $('#connectionNotice').classList.remove('hidden');
+  }
+
+  renderGifts();
+}
+
+function renderGifts() {
+  const html = state.gifts.map(gift => {
+    const left = Math.max(0, gift.qty - gift.reserved);
+    const full = left === 0;
+    const selected = clamp(state.selection[gift.id] || 1, 1, Math.max(left, 1));
+    state.selection[gift.id] = selected;
+    const availability = `${left} ${left === 1 ? 'disponível' : 'disponíveis'}`;
+
+    return `
+      <article data-gift-id="${gift.id}" class="gift-card ${full ? 'is-full' : ''} ${gift.isJoke ? 'is-joke' : ''}">
+        <div class="gift-image-wrap">
+          <img src="${gift.image}" alt="${escapeHtml(gift.name)}" class="gift-image">
+        </div>
+        <h3>${escapeHtml(gift.name)}</h3>
+        <p class="gift-stock">${availability}</p>
+        <div class="gift-counter" aria-label="Quantidade para reservar de ${escapeHtml(gift.name)}">
+          <button type="button" class="qty-btn" data-action="minus" data-gift-id="${gift.id}" ${selected <= 1 || full ? 'disabled' : ''}>−</button>
+          <strong>${selected}</strong>
+          <button type="button" class="qty-btn" data-action="plus" data-gift-id="${gift.id}" ${selected >= left || full ? 'disabled' : ''}>+</button>
+        </div>
+        <button type="button" class="reserve-button" data-reserve-id="${gift.id}" ${full || !state.online ? 'disabled' : ''}>
+          ${full ? 'Presente esgotado' : '🎁 Reservar presente'}
+        </button>
+      </article>
+    `;
+  }).join('');
+
+  $('#giftGrid').innerHTML = html;
+}
+
+function changeSelection(giftId, direction) {
+  const gift = state.gifts.find(item => item.id === giftId);
+  if (!gift) return;
+  const left = Math.max(0, gift.qty - gift.reserved);
+  const current = state.selection[giftId] || 1;
+  const next = direction === 'plus' ? current + 1 : current - 1;
+  state.selection[giftId] = clamp(next, 1, Math.max(left, 1));
+  renderGifts();
+}
+
+function showGiftModal(giftId) {
+  const gift = state.gifts.find(item => item.id === giftId);
+  if (!gift || !state.online) return;
+  const left = gift.qty - gift.reserved;
+  if (left <= 0) return;
+
+  state.selectedId = giftId;
+  $('#giftModalImage').src = gift.image;
+  $('#giftModalImage').alt = gift.name;
+  $('#giftModalTitle').textContent = gift.name;
+  $('#giftModalDescription').textContent = gift.description;
+  $('#giftGuestName').value = $('#rsvpName').value.trim();
+  setFeedback($('#giftFeedback'), '');
+
+  const select = $('#giftQuantity');
+  select.replaceChildren();
+  for (let i = 1; i <= left; i += 1) {
+    const option = document.createElement('option');
+    option.value = String(i);
+    option.textContent = `${i} ${i === 1 ? 'unidade' : 'unidades'}`;
+    if (i === state.selection[giftId]) option.selected = true;
+    select.append(option);
+  }
+
+  $('#giftModal').showModal();
+  $('#giftGuestName').focus();
+}
+
+async function reserveGift(event) {
+  event.preventDefault();
+  if (state.busy || !state.selectedId) return;
+
+  const gift = state.gifts.find(item => item.id === state.selectedId);
+  const name = $('#giftGuestName').value.trim().replace(/\s+/g, ' ');
+  const quantity = Number($('#giftQuantity').value);
+
+  if (!gift || name.length < 2 || name.length > 80 || !Number.isInteger(quantity) || quantity < 1) {
+    setFeedback($('#giftFeedback'), 'Informe seu nome e uma quantidade válida.', true);
+    return;
+  }
+
+  state.busy = true;
+  const button = $('#giftSubmit');
+  button.disabled = true;
+  button.textContent = 'Reservando...';
+
+  try {
+    if (DATABASE_READY) {
+      await supabaseRequest('rpc/reserve_gift', 'POST', {
+        p_gift_id: gift.id,
+        p_guest_name: name,
+        p_quantity: quantity
+      });
+      await refreshGifts();
+    } else {
+      const demo = readDemo(DEMO_KEY, {});
+      const current = clamp(Number(demo[gift.id]) || 0, 0, gift.qty);
+      if (current + quantity > gift.qty) {
+        throw new Error('Não há mais essa quantidade disponível para esse presente.');
+      }
+      demo[gift.id] = current + quantity;
+      writeDemo(DEMO_KEY, demo);
+      applyDemoQuantities();
+      renderGifts();
+    }
+
+    $('#giftModal').close();
+    toast(`💙 Obrigado, ${name.split(' ')[0]}! Sua reserva foi registrada.`);
+  } catch (error) {
+    setFeedback($('#giftFeedback'), error.message || 'Não foi possível reservar o presente.', true);
+    await refreshGifts();
+  } finally {
+    state.busy = false;
+    button.disabled = false;
+    button.textContent = 'Reservar presente 💙';
+  }
+}
+
+async function submitRsvp(event) {
+  event.preventDefault();
+  const name = $('#rsvpName').value.trim().replace(/\s+/g, ' ');
+  const message = $('#rsvpMessage').value.trim();
+  const feedback = $('#rsvpFeedback');
+
+  if (name.length < 2 || name.length > 80 || message.length > 300) {
+    setFeedback(feedback, 'Confira os dados antes de enviar.', true);
+    return;
+  }
+
+  const button = $('#rsvpSubmit');
+  button.disabled = true;
+  button.innerHTML = '<span>…</span> Enviando';
+
+  try {
+    if (DATABASE_READY) {
+      await supabaseRequest('rpc/confirm_rsvp', 'POST', {
+        p_guest_name: name,
+        p_attending: true,
+        p_guests_count: 1,
+        p_message: message
+      });
+    } else {
+      const entries = readDemo(DEMO_RSVP_KEY, []);
+      entries.push({ name, message, at: new Date().toISOString() });
+      writeDemo(DEMO_RSVP_KEY, entries);
+    }
+
+    setFeedback(feedback, DATABASE_READY
+      ? 'Presença confirmada! Vai ser lindo ter você com a gente. 💙'
+      : 'Demonstração: sua confirmação foi salva apenas neste navegador.');
+    toast('Presença confirmada com carinho 💙');
+    $('#rsvpForm').reset();
+  } catch (error) {
+    setFeedback(feedback, error.message || 'Não foi possível enviar sua confirmação.', true);
+  } finally {
+    button.disabled = false;
+    button.innerHTML = '<span>✔</span> Confirmar presença';
+  }
+}
+
+function fillEventInfo() {
+  $('#heroDateText').textContent = CONFIG.EVENT_DATE_LABEL || 'Sábado, 28 de novembro de 2026';
+  $('#meetingPlaceName').textContent = CONFIG.EVENT_PLACE_NAME || 'Igreja Missão Renovada';
+  $('#meetingPlaceAddress').textContent = CONFIG.EVENT_ADDRESS || 'São Miguel do Araguaia - GO';
+  $('#meetingTime').textContent = CONFIG.EVENT_TIME || '19:00h';
+
+  const mapsUrl = String(CONFIG.MAPS_URL || '').trim();
+  if (mapsUrl && /^https?:\/\//i.test(mapsUrl)) {
+    $('#mapsLink').href = mapsUrl;
+    $('#mapsTopButton').href = mapsUrl;
+    $('#mapsTopButton').target = '_blank';
+    $('#mapsTopButton').rel = 'noopener noreferrer';
+  }
+
+  const whatsapp = String(CONFIG.WHATSAPP_NUMBER || '').replace(/\D/g, '');
+  const contact = $('#contactLink');
+  if (whatsapp.length >= 12 && whatsapp.length <= 15) {
+    const text = 'Olá! Vi o convite do Chá do Benício e gostaria de pedir um convite interativo assim.';
+    contact.href = `https://wa.me/${whatsapp}?text=${encodeURIComponent(text)}`;
+    contact.target = '_blank';
+    contact.rel = 'noopener noreferrer';
+  } else {
+    contact.addEventListener('click', event => {
+      event.preventDefault();
+      toast('Adicione o número do WhatsApp em config.js para ativar esse botão.');
+    });
+  }
+}
+
+function initReveal() {
+  const items = document.querySelectorAll('.reveal');
+  if (!('IntersectionObserver' in window)) {
+    items.forEach(item => item.classList.add('in-view'));
+    return;
+  }
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in-view');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -30px 0px' });
+
+  items.forEach(item => observer.observe(item));
+}
+
+function start() {
+  fillEventInfo();
+  initReveal();
+  refreshGifts();
+
+  $('#giftGrid').addEventListener('click', event => {
+    const qtyTrigger = event.target.closest('[data-action]');
+    if (qtyTrigger) {
+      changeSelection(qtyTrigger.dataset.giftId, qtyTrigger.dataset.action);
+      return;
+    }
+
+    const reserveTrigger = event.target.closest('[data-reserve-id]');
+    if (reserveTrigger) {
+      showGiftModal(reserveTrigger.dataset.reserveId);
+    }
+  });
+
+  $('#giftForm').addEventListener('submit', reserveGift);
+  $('#closeGiftModal').addEventListener('click', () => $('#giftModal').close());
+  $('#giftModal').addEventListener('click', event => {
+    if (event.target === $('#giftModal')) $('#giftModal').close();
+  });
+  $('#rsvpForm').addEventListener('submit', submitRsvp);
+
+  if (DATABASE_READY) {
+    document.addEventListener('visibilitychange', () => {
+      if (!document.hidden && !state.busy) refreshGifts();
+    });
+    setInterval(() => {
+      if (!document.hidden && !state.busy) refreshGifts();
+    }, 20000);
+  } else {
+    window.addEventListener('storage', event => {
+      if (event.key === DEMO_KEY) {
+        applyDemoQuantities();
+        renderGifts();
+      }
+    });
+  }
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', start);
+} else {
+  start();
+}
