@@ -67,3 +67,15 @@ O site mantém as seções e elementos interativos separados da arte; não é um
 - Parâmetros de versão em CSS/JavaScript para reduzir problemas de cache.
 - O defeito era consistente com um problema de renderização do Safari, mas a correção ainda precisa de confirmação em um iPhone real.
 - Após publicar no Vercel, recarregue ou abra em aba privada; confirme que está vendo a versão nova.
+
+
+## Correção de exibição 10.4
+- Removido o favicon SVG, cuja interpretação em navegadores varia.
+- Eliminados os pseudoelementos visuais da abertura que criavam camadas aceleradas.
+- Desativadas algumas animações e filtros só no Safari iOS.
+- Adicionada a página `diagnostico.html` para identificar a origem de um quadrado preto persistente.
+- Sem quadrado de remendo (preto, azul ou branco) no CSS.
+
+**Teste importante:** Depois de publicar, visite `https://SEU-DOMINIO/diagnostico.html` no mesmo iPhone. Se o quadrado aparecer nesta página inteiramente limpa, a causa pode estar na renderização do dispositivo, no navegador, ou em algo injetado pela plataforma e não nos componentes do convite.
+
+Ainda não foi possível confirmar o defeito num Safari de iPhone real.

@@ -142,3 +142,27 @@ section:target{scroll-margin-top:0}
   .hero-bear{left:-3%;width:116%;bottom:13%}
   .hero-copy .hero-crib{width:min(88px,46%);margin-top:-8px}
 }
+
+
+/* V10.4: Safari rendering safeguard. No overlay squares. */
+.hero {
+  isolation: auto;
+  background-image:
+    radial-gradient(ellipse at 56% 33%, rgba(255,255,255,.35) 0%, transparent 38%),
+    linear-gradient(180deg, rgba(255,255,255,.10) 0%, rgba(255,255,255,0) 55%, rgba(209,232,245,.45) 100%),
+    url('assets/nursery-atmosphere.webp');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+.hero::before, .hero::after { content:none!important; display:none!important; }
+@supports (-webkit-touch-callout: none) {
+  /* Prevent isolated accelerated layers from producing black tiles in iOS WebKit. */
+  .hero { isolation: auto!important; }
+  .hero-bear, .hero-balloons, .hero-floating-star { animation: none!important; }
+  .hero-bear,.hero-name-top img,.hero-crib,.hero-balloons,.hero-cloud { filter:none!important; }
+  .site-shell { box-shadow:none!important; }
+}
+
+/* Safari-safe rasterized icons; visuals retained without inline SVG rendering. */
+.icon,.chevron{object-fit:contain;vertical-align:middle;flex-shrink:0}.action-button.primary .chevron,.whatsapp-button .chevron{filter:brightness(0) invert(1)}

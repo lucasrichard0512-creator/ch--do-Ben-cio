@@ -148,7 +148,7 @@ function renderGifts() {
           <button type="button" class="qty-btn" data-action="plus" data-gift-id="${gift.id}" ${selected >= left || full ? 'disabled' : ''}>+</button>
         </div>
         <button type="button" class="reserve-button" data-reserve-id="${gift.id}" ${full || !state.online ? 'disabled' : ''}>
-          ${full ? 'Presente esgotado' : '<svg class="icon" aria-hidden="true" viewBox="0 0 48 48" aria-hidden="true"><defs><linearGradient id="iconBlue" x1="0" y1="0" x2=".8" y2="1"><stop stop-color="#71c8ff"/><stop offset=".45" stop-color="#1780d8"/><stop offset="1" stop-color="#074a9e"/></linearGradient><linearGradient id="iconGold" x1="0" y1="0" x2=".8" y2="1"><stop stop-color="#ffe8a4"/><stop offset=".5" stop-color="#f6b943"/><stop offset="1" stop-color="#d88118"/></linearGradient><linearGradient id="iconWhite" x1="0" y1="0" x2=".8" y2="1"><stop stop-color="white"/><stop offset="1" stop-color="#bcdfff"/></linearGradient></defs><rect x="7" y="21" width="34" height="23" rx="4" fill="url(#iconBlue)"/><path d="M5 18h38v8H5z" fill="url(#iconWhite)" stroke="#2074bb" stroke-width="2"/><path d="M24 18v26" stroke="#e6f5ff" stroke-width="5"/><path d="M24 19c-21 3-17-18-8-14 5 2 8 10 8 14Zm0 0c21 3 17-18 8-14-5 2-8 10-8 14Z" fill="none" stroke="#238bdb" stroke-width="3"/></svg> Reservar presente'}
+          ${full ? 'Presente esgotado' : '<img src="assets/ui/icon-87134f8f9592.png" class="icon" alt="" aria-hidden="true"> Reservar presente'}
         </button>
       </article>
     `;
@@ -241,7 +241,7 @@ async function reserveGift(event) {
   } finally {
     state.busy = false;
     button.disabled = false;
-    button.innerHTML = '<svg class="icon" aria-hidden="true" viewBox="0 0 48 48" aria-hidden="true"><defs><linearGradient id="iconBlue" x1="0" y1="0" x2=".8" y2="1"><stop stop-color="#71c8ff"/><stop offset=".45" stop-color="#1780d8"/><stop offset="1" stop-color="#074a9e"/></linearGradient><linearGradient id="iconGold" x1="0" y1="0" x2=".8" y2="1"><stop stop-color="#ffe8a4"/><stop offset=".5" stop-color="#f6b943"/><stop offset="1" stop-color="#d88118"/></linearGradient><linearGradient id="iconWhite" x1="0" y1="0" x2=".8" y2="1"><stop stop-color="white"/><stop offset="1" stop-color="#bcdfff"/></linearGradient></defs><rect x="7" y="21" width="34" height="23" rx="4" fill="url(#iconBlue)"/><path d="M5 18h38v8H5z" fill="url(#iconWhite)" stroke="#2074bb" stroke-width="2"/><path d="M24 18v26" stroke="#e6f5ff" stroke-width="5"/><path d="M24 19c-21 3-17-18-8-14 5 2 8 10 8 14Zm0 0c21 3 17-18 8-14-5 2-8 10-8 14Z" fill="none" stroke="#238bdb" stroke-width="3"/></svg> Reservar presente';
+    button.innerHTML = '<img src="assets/ui/icon-87134f8f9592.png" class="icon" alt="" aria-hidden="true"> Reservar presente';
   }
 }
 
@@ -281,7 +281,7 @@ async function submitRsvp(event) {
     setFeedback(feedback, error.message || 'Não foi possível enviar sua confirmação.', true);
   } finally {
     button.disabled = false;
-    button.innerHTML = '<svg class="icon" aria-hidden="true" viewBox="0 0 48 48" aria-hidden="true"><defs><linearGradient id="iconBlue" x1="0" y1="0" x2=".8" y2="1"><stop stop-color="#71c8ff"/><stop offset=".45" stop-color="#1780d8"/><stop offset="1" stop-color="#074a9e"/></linearGradient><linearGradient id="iconGold" x1="0" y1="0" x2=".8" y2="1"><stop stop-color="#ffe8a4"/><stop offset=".5" stop-color="#f6b943"/><stop offset="1" stop-color="#d88118"/></linearGradient><linearGradient id="iconWhite" x1="0" y1="0" x2=".8" y2="1"><stop stop-color="white"/><stop offset="1" stop-color="#bcdfff"/></linearGradient></defs><circle cx="24" cy="24" r="21" fill="url(#iconWhite)"/><path d="m13 24 8 8 14-16" fill="none" stroke="#1766b8" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg> Confirmar presença';
+    button.innerHTML = '<img src="assets/ui/icon-a9d996f90a57.png" class="icon" alt="" aria-hidden="true"> Confirmar presença';
   }
 }
 
@@ -329,7 +329,7 @@ function setupInternalNavigation() {
 function refineGiftHumor() {
   const note = document.querySelector('.gift-smallprint');
   if (note) {
-    note.innerHTML = '<svg class="icon" viewBox="0 0 48 48" aria-hidden="true"><defs><linearGradient id="iconBlue" x1="0" y1="0" x2=".8" y2="1"><stop stop-color="#71c8ff"/><stop offset=".45" stop-color="#1780d8"/><stop offset="1" stop-color="#074a9e"/></linearGradient><linearGradient id="iconGold" x1="0" y1="0" x2=".8" y2="1"><stop stop-color="#ffe8a4"/><stop offset=".5" stop-color="#f6b943"/><stop offset="1" stop-color="#d88118"/></linearGradient><linearGradient id="iconWhite" x1="0" y1="0" x2=".8" y2="1"><stop stop-color="white"/><stop offset="1" stop-color="#bcdfff"/></linearGradient></defs><path d="M24 42 5 23C-4 12 6-1 18 7l6 6 6-6C42-1 52 12 43 23Z" fill="url(#iconBlue)" stroke="#1164b8" stroke-width="1.5"/><path d="M10 12q7-6 12 3" fill="none" stroke="#c5efff" stroke-width="3.7" stroke-linecap="round"/></svg> Cada presente pode ser reservado apenas uma vez por unidade. E sim... o PS5 Pro segue sendo uma sugestão bem otimista do papai. 😂';
+    note.innerHTML = '<img src="assets/ui/icon-97cf0ed0b6a6.png" class="icon" alt="" aria-hidden="true"> Cada presente pode ser reservado apenas uma vez por unidade. E sim... o PS5 Pro segue sendo uma sugestão bem otimista do papai. 😂';
   }
 }
 
