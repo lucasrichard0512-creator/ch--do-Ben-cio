@@ -1,0 +1,191 @@
+/* Chá do Benício — revisão mobile-first, preservando a composição desktop. */
+html {-webkit-text-size-adjust: 100%; scroll-padding-top: 12px;}
+body {min-width: 280px; overflow-x: clip;}
+button, a {-webkit-tap-highlight-color: transparent; touch-action: manipulation;}
+button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visible {outline: 3px solid #f5b83c; outline-offset: 3px;}
+img {height: auto;}
+.sprite {position:absolute!important; width:0!important; height:0!important; overflow:hidden!important; opacity:0; pointer-events:none;}
+.gift-card, .meeting-box, .field, .field-control {min-width: 0;}
+
+/* Resolução intermediária: manter áreas clicáveis confortáveis. */
+@media (min-width:681px) and (max-width:950px) {
+  .hero-actions{gap:10px}
+  .action-button{padding:10px 12px;gap:8px;font-size:clamp(12px,1.6vw,15px)}
+  .action-icon{width:36px;height:36px}.action-icon .icon{width:25px;height:25px}
+  .gift-grid{gap:9px}
+  .gift-card h3{font-size:13px}
+  .meeting-info{max-width:700px}
+}
+
+/* Celulares: não reduzir o desktop até caber. Reorganizar a composição. */
+@media (max-width:680px) {
+  :root{--mobile-edge:14px}
+  body{background:linear-gradient(180deg,#e5f3ff 0%,#d5eafd 50%,#edf7ff 100%)}
+  .site-shell,.footer-bar{width:100%;max-width:100%;}
+  .scene-fade{overflow:hidden}
+
+  /* Abertura: título completo, urso à esquerda, sem berço e mamadeira sobrepostos. */
+  .hero{padding:22px var(--mobile-edge) 23px;border-radius:0 0 22px 22px;
+    background:radial-gradient(ellipse at 66% 28%,#fff 3%,#f8fbff 41%,#e2f1ff 74%,#c9e2f7 100%)}
+  .hero::before,.hero::after{width:14%;opacity:.23;filter:blur(12px)}
+  .hero-floating-star{font-size:15px;opacity:.45}
+  .star-a{top:3%;left:51%}.star-b{top:15%;right:4%}
+  .hero-grid{display:grid;grid-template-columns:40% minmax(0,60%);gap:0;align-items:center;min-height:348px}
+  .hero-art{height:340px;min-height:0;align-self:stretch;overflow:visible}
+  .hero-bear{width:147%;max-width:none;max-height:333px;height:auto;left:-27%;bottom:5px;
+    object-fit:contain;object-position:bottom center;filter:drop-shadow(2px 10px 8px #5590ce35)}
+  .hero-cloud{width:145%;max-width:none;left:-20%;bottom:-3%;opacity:.48}
+  .hero-crib,.hero-bottle{display:none!important}
+  .hero-copy{min-width:0;align-self:center;gap:11px;padding-left:0;padding-bottom:5px}
+  .hero-name{min-width:0;max-width:100%;margin:0}
+  .hero-name img{display:block;width:100%;max-width:100%;max-height:none;height:auto;object-fit:contain}
+  .hero-tagline{font-size:clamp(14px,4.1vw,17px);line-height:1.18;font-weight:800;letter-spacing:-.015em}
+  .hero-date{max-width:100%;padding:7px 9px;gap:6px;font-size:clamp(10px,2.9vw,12px);line-height:1.3;
+    border-radius:16px;white-space:normal;text-align:left;box-shadow:0 4px 12px #829cc32b}
+  .hero-date span{min-width:0}.hero-date .icon{width:19px;height:19px;flex-shrink:0}
+  .hero-invite{font-size:clamp(11.5px,3.15vw,13px);line-height:1.3;font-weight:800}
+  .hero-love{width:22px;height:22px}
+
+  /* Um botão principal + duas opções. No celular, três pílulas minúsculas não funcionam. */
+  .hero-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin:10px auto 0;max-width:420px}
+  .action-button{min-height:62px;padding:9px 11px;border-radius:19px;gap:8px;
+    font-size:clamp(12px,3.35vw,14px);letter-spacing:0;line-height:1.18;box-shadow:0 5px 13px #5781b333}
+  .action-button:first-child{grid-column:1/-1;justify-content:center;min-height:56px}
+  .action-button:not(:first-child){justify-content:flex-start}
+  .action-button .action-icon{width:34px;height:34px;flex:0 0 34px}
+  .action-icon .icon{width:25px;height:25px}
+  .action-button .chevron{width:12px;height:12px;flex:0 0 12px;margin-left:auto}
+  .action-button span:not(.action-icon){min-width:0}
+
+  /* Lista legível sem fotos borradas nem cartões comprimidos. */
+  .gift-section{padding:21px var(--mobile-edge) 26px;
+    background:radial-gradient(ellipse at 52% 0,#fafdff,#e8f5ff 39%,#d8ecfe 100%)}
+  .gift-heading h2{width:min(100%,430px);max-width:100%}
+  .gift-decor-left{width:64px;top:22px;left:-27px;opacity:.55}
+  .gift-decor-right{width:68px;top:28px;right:-29px;opacity:.55}
+  .info-banner{margin:8px auto 17px;padding:11px 13px;font-size:12px;line-height:1.4;
+    border-radius:14px;max-width:100%;text-align:left;background:#ffffffb8}
+  .gift-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:0}
+  .gift-card{padding:12px 9px 12px;border-radius:18px;min-height:247px;box-shadow:0 5px 16px #5f9ac133}
+  .gift-image-wrap{height:90px;width:100%;overflow:hidden}
+  .gift-image{height:100%;width:100%;object-fit:contain}
+  .gift-card h3{font-size:13px;line-height:1.18;min-height:31px;max-width:100%;margin:7px 0 4px}
+  .gift-stock{font-size:12px;line-height:1.25;min-height:17px}
+  .gift-counter{width:min(95%,150px);gap:8px;margin:8px 0 10px;justify-content:space-between}
+  .qty-btn{width:32px;height:32px;font-size:21px}
+  .gift-counter strong{font-size:16px}
+  .reserve-button{min-height:42px;font-size:clamp(10px,2.9vw,12px);padding:9px 4px;
+    white-space:normal;line-height:1.15;border-radius:22px;gap:5px}
+  .reserve-button .icon{width:17px;height:17px}
+  .gift-card.is-joke:after{font-size:8px;right:1px;top:2px;max-width:80px;text-align:center}
+  .gift-smallprint{margin:17px auto 0;font-size:11.5px;line-height:1.45;max-width:330px}
+  .gift-smallprint .icon{width:18px;height:18px}
+
+  /* Nosso encontro: título completo, ilustrações em uma faixa e cards empilhados. */
+  .meeting-section{padding:26px var(--mobile-edge) 24px;background:linear-gradient(180deg,#e7f4ff,#f6fbff 58%,#e4f1ff)}
+  .meeting-header{grid-template-columns:1fr 1fr;grid-template-areas:"heading heading" "map sign";gap:3px 6px;align-items:end}
+  .meeting-heading{grid-area:heading;padding:0 2px 6px;text-align:center;align-self:center}
+  .meeting-heading h2{font-size:clamp(25px,7.3vw,31px);white-space:normal;line-height:1.03;gap:6px}
+  .meeting-heading h2 .icon{width:26px;height:26px}
+  .meeting-heading p{font-size:clamp(12px,3.4vw,14px);line-height:1.3;margin:4px auto 0;max-width:305px}
+  .meeting-visual{grid-area:map;width:100%;height:127px;max-height:none;object-fit:contain;object-position:center bottom}
+  .meeting-sign{grid-area:sign;width:100%;height:127px;max-height:none;object-fit:contain;object-position:center bottom}
+  .meeting-info{grid-template-columns:minmax(0,1fr);gap:10px;max-width:440px;margin:5px auto 0}
+  .meeting-box{min-height:74px;gap:12px;padding:12px 15px;border-radius:17px;
+    background:#ffffffed;box-shadow:0 4px 15px #5799d021;align-items:center}
+  .round-icon{height:41px;width:41px}
+  .round-icon .icon{width:27px;height:27px}
+  .meeting-box strong{font-size:12px;display:block;margin-bottom:2px}
+  .meeting-box p{font-size:15px;line-height:1.24;margin:0 0 3px;overflow-wrap:break-word}
+  .meeting-box small{font-size:12px;line-height:1.3;color:#58799b}
+  .meeting-link{display:flex;align-items:center;justify-content:center;margin:13px auto 0;min-height:46px;
+    padding:10px 16px;background:linear-gradient(180deg,#278add,#1172c7);color:#fff;border-radius:999px;
+    font-size:13px;box-shadow:0 6px 15px #5b94c83d;max-width:100%}
+  .meeting-link .icon{width:19px;height:19px}
+
+  /* Confirmação: formulário inteiro legível; ursinho junto do botão, sem cobrir campos. */
+  .rsvp-section{padding:27px var(--mobile-edge) 18px;min-height:0;background:linear-gradient(180deg,#e4f2ff,#f7fbff 56%,#e9f5ff)}
+  .rsvp-heading{padding:0 0 13px}
+  .rsvp-heading h2{font-size:clamp(23px,6.4vw,30px);white-space:normal;line-height:1.08;gap:6px}
+  .rsvp-heading h2 .icon{width:25px;height:25px}
+  .rsvp-heading p{font-size:13px;line-height:1.35;margin:6px auto 0;max-width:310px}
+  .rsvp-layout{position:relative;display:block;margin:0;min-height:0}
+  .rsvp-form{position:relative;padding:0 0 6px;z-index:2;width:100%;max-width:470px;margin:auto}
+  .rsvp-fields{grid-template-columns:minmax(0,1fr);gap:14px}
+  .field label{font-size:13px;margin:0 0 5px}
+  .field label span{font-size:11px}
+  .field-control{min-height:52px;padding:10px 12px;border-radius:14px;background:#fff;
+    box-shadow:0 4px 11px #7ca6cf14}
+  .field-control .icon{width:22px;height:22px}
+  .field-control input,.field-control textarea{font-size:16px;line-height:1.3}
+  .field-control textarea{min-height:43px;height:auto;max-height:150px}
+  .rsvp-bear{position:relative;width:143px;max-height:150px;height:150px;object-fit:contain;
+    object-position:left bottom;left:0;bottom:0;z-index:2;display:block;margin:-3px auto -13px 0;}
+  .rsvp-form .submit-button{width:100%;max-width:370px;min-height:49px;margin:16px auto 0;
+    padding:12px 17px;font-size:14px;line-height:1.2;border-radius:24px}
+  .submit-button .icon{width:22px;height:22px}
+  .rsvp-decor-right{width:80px;right:-21px;bottom:9px;opacity:.33}
+  .form-feedback{font-size:12px;min-height:0;line-height:1.4;margin:9px 0 0}
+
+  /* Rodapé reduzido, sem esmagar o texto em duas colunas. */
+  .footer-bar{padding:13px 17px 18px;gap:11px;flex-direction:column;align-items:center;
+    background:linear-gradient(135deg,#0d3b74,#0d477e);border-top:1px solid #8fb8d8}
+  .footer-copy{text-align:center;max-width:370px}
+  .footer-copy .footer-title{font-size:12px;justify-content:center;margin:0 0 4px}
+  .footer-copy .footer-title .icon{height:17px;width:17px}
+  .footer-copy p{font-size:11px;line-height:1.4;margin:0}
+  .footer-joke{opacity:.75}
+  .whatsapp-button{min-height:44px;font-size:12px;padding:11px 24px;justify-content:center;border-radius:99px}
+  .whatsapp-button .chevron{width:13px;height:13px}
+  .gift-dialog{width:calc(100% - 24px);max-height:calc(100dvh - 34px)}
+  .gift-modal-form{max-height:calc(100dvh - 36px);overflow-y:auto;padding:22px 18px}
+  .gift-modal-form input,.gift-modal-form select{font-size:16px;min-height:46px}
+  .gift-modal-head{gap:9px}
+  .gift-modal-image{width:90px;height:86px}
+  .gift-modal-head h2{font-size:21px}
+  .toast{font-size:12px;line-height:1.3;text-align:center}
+}
+
+/* iPhones compactos: preservar texto e áreas de toque. */
+@media (max-width:365px) {
+  :root{--mobile-edge:12px}
+  .hero-grid{grid-template-columns:38% 62%;min-height:330px}
+  .hero-art{height:320px}
+  .hero-bear{width:154%;left:-31%;max-height:310px}
+  .hero-copy{gap:8px}
+  .hero-tagline{font-size:13.5px}
+  .hero-invite{font-size:11px}
+  .hero-date{font-size:10px;padding:6px 7px}
+  .action-button{font-size:12px;padding:8px 8px;gap:6px}
+  .action-button .action-icon{width:31px;height:31px;flex-basis:31px}
+  .action-icon .icon{width:23px;height:23px}
+  .gift-grid{gap:9px}
+  .gift-card{padding:10px 7px}
+  .gift-image-wrap{height:80px}
+  .gift-card h3{font-size:12px}
+  .reserve-button{font-size:10px}
+  .meeting-visual,.meeting-sign{height:112px}
+  .meeting-box p{font-size:14px}
+}
+
+@media (prefers-reduced-motion:reduce) {
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition:none!important}
+}
+/* Refinamento final: cabeçalhos com fallback sem serifa e urso no mesmo plano do CTA. */
+.meeting-heading h2,.rsvp-heading h2{font-family:'Baloo 2','Nunito',system-ui,sans-serif}
+@media(max-width:680px) {
+  .rsvp-layout{position:relative;display:block;margin-top:0}
+  .rsvp-form{position:relative;padding:0 0 150px;margin:0 auto;max-width:470px}
+  .rsvp-bear{position:absolute;width:136px;height:136px;max-height:136px;max-width:136px;
+    left:-6px;bottom:0;margin:0;z-index:3;object-fit:contain;object-position:left bottom}
+  .rsvp-form .submit-button{position:absolute;bottom:44px;right:0;width:calc(100% - 135px);max-width:none;
+    min-width:0;margin:0;font-size:clamp(12px,3.4vw,14px);min-height:51px;padding:10px 6px}
+  .rsvp-form .form-feedback{position:absolute;right:0;bottom:4px;width:calc(100% - 135px);min-height:0;
+    margin:0;font-size:11px;line-height:1.3}
+  .rsvp-heading{padding-bottom:15px}
+}
+@media(max-width:365px) {
+  .rsvp-bear{width:125px;max-width:125px;height:125px;max-height:125px}
+  .rsvp-form .submit-button,.rsvp-form .form-feedback{width:calc(100% - 120px)}
+}

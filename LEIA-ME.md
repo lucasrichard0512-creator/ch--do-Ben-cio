@@ -1,6 +1,20 @@
-# Chá do Benício — Versão 4 (revisão visual)
+# Chá do Benício — Versão 5 (responsividade revisada)
 
-Esta versão atualiza a anterior com foco nas comparações do convite enviado: topo sem cortes, ícones uniformes, seção de encontro mais compacta, ursinho ao lado do formulário e rodapé discreto.
+Esta versão parte da V4 e corrige a disposição das seções especificamente para celulares, mantendo a arte azul e o catálogo.
+
+## Melhorias de responsividade
+
+- Arquivo `mobile.css` separado com ajustes para larguras de 320, 375, 390, 430, 768 e 1200 px.
+- Título do Benício inteiramente visível; mamadeira e berço decorativos escondidos **somente na abertura mobile**, para evitar sobreposições.
+- Navegação em dois níveis no celular: lista de presentes destacada e os outros dois botões lado a lado, todos com área de toque ampliada.
+- Lista de presentes com 2 colunas legíveis e sem estouro lateral, cartões nítidos em SVG.
+- Local e horário empilhados e legíveis; mapa e plaquinha continuam lado a lado como decoração.
+- Formulário ocupando a largura do celular, campos com fonte de 16 px para evitar zoom automático no iPhone. O ursinho fica ao lado do botão de confirmação.
+- Rodapé simplificado no celular.
+- Suporte à preferência do aparelho por movimento reduzido.
+
+**Verificação feita:** prévias automatizadas em navegador Chromium nas larguras 320, 375, 390, 430, 768 e 1200 px, sem rolagem horizontal nem erros de JavaScript. Reserva de berço, seleção de 2 unidades de fralda e RSVP foram testados em modo demonstração. Isso não equivale a um teste final em Safari de um iPhone físico.
+
 
 ## Informações do evento
 
@@ -35,7 +49,8 @@ Preencha `WHATSAPP_NUMBER` no `config.js` com país + DDD + número. Exemplo de 
 ## Alterações no projeto
 
 - `index.html`: composição e ícones azuis customizados em SVG.
-- `styles.css`: responsividade, nova abertura e paisagens decorativas.
+- `styles.css`: estilos principais e paisagens decorativas.
+- `mobile.css`: correções para telas pequenas e intermediárias.
 - `app.js`: lista de presentes e reserva/RSVP, com 24 itens.
 - `assets/gifts/*.svg`: ilustrações locais com boa nitidez, sem nomes duplicados.
 - `config.js`: informações do evento e integrações.
