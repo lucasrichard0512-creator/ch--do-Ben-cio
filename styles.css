@@ -172,3 +172,11 @@ section:target{scroll-margin-top:0}
 .connection-status[hidden]{display:none!important}
 .field-control select{width:100%;min-width:0;min-height:38px;border:0;outline-offset:3px;background:transparent;color:#365877;font:600 16px 'Nunito',sans-serif}
 @supports (-webkit-touch-callout:none){.hero,.hero-grid,.hero-art{backface-visibility:visible}.hero-floating-star{animation:none!important}}
+
+/* V10.6: evita superfícies aceleradas decorativas sobre a origem da viewport iOS. */
+@supports (-webkit-touch-callout:none){
+  .hero{isolation:auto!important;contain:none!important;background-image:url('assets/nursery-atmosphere.webp')!important;transform:none!important;-webkit-transform:none!important;}
+  .hero-name-top,.hero-art,.hero-copy,.hero-grid{isolation:auto!important;will-change:auto!important;-webkit-transform:none!important;transform:none!important}
+  .hero-floating-star,.hero-balloons,.hero-bear{animation:none!important}
+  .hero img{backface-visibility:visible!important;-webkit-backface-visibility:visible!important}
+}

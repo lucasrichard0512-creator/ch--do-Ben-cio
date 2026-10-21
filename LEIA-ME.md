@@ -23,3 +23,12 @@ Enquanto `SUPABASE_URL` e `SUPABASE_PUBLISHABLE_KEY` estiverem vazios, o site in
 - O Safari do iPhone físico ainda precisa ser testado: a causa original do quadrado preto não foi reproduzida neste ambiente.
 - Não foi adicionada autenticação de convidados. Portanto, pessoas podem enviar reservas e presenças repetidas. É recomendado implementar um mecanismo de confirmação/autorização antes de publicar amplamente.
 - Falhas de rede podem ocorrer depois de uma gravação bem-sucedida. Não reenvie uma reserva sem consultar o catálogo.
+
+
+## V10.6 - Safari e desempenho
+- Removido o scroll-snap no celular: a rolagem agora é livre e alcança o rodapé.
+- Redimensionadas/comprimidas as imagens WebP com menor custo de download e decodificação, preservando os nomes.
+- Imagens fora da primeira tela passam a carregar sob demanda; título recebe prioridade.
+- Removido o movimento de rolagem forçado em links internos.
+- Na abertura no Safari iOS, fundo em camada única e elementos decorativos sem animação acelerada para reduzir risco de artefatos pretos.
+- Não foi possível reproduzir o defeito em um iPhone físico neste ambiente. Testar após publicar e recarregar sem cache.

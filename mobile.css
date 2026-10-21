@@ -15,9 +15,9 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
 }
 @media(max-width:680px){
  :root{--edge:15px}
- html{scroll-snap-type:y proximity}
+ html{scroll-snap-type:none!important;scroll-behavior:auto!important;overscroll-behavior-y:auto}
  .site-shell,.footer-bar{width:100%}
- .site-shell>section{scroll-snap-align:start;scroll-margin-top:0}
+ .site-shell>section{scroll-snap-align:none;scroll-margin-top:0}
  .hero{min-height:max(100svh,715px);padding:13px var(--edge) calc(18px + env(safe-area-inset-bottom));display:flex;flex-direction:column;justify-content:space-between;background-position:center center;background-size:cover}
  .hero:before{background:radial-gradient(ellipse at 70% 28%,#ffffff75 0,#ffffff43 23%,transparent 54%),linear-gradient(180deg,#fff2 0,#fff0 53%,#d3e9f680 100%)}
  .hero-name-top{width:min(100%,390px);max-width:100%;margin:0 auto -8px;align-self:center;z-index:9}
@@ -144,3 +144,9 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
     .hero-art,.hero-copy { top:-10px; }
   }
 }
+
+/* V10.6: rolagem livre, incluindo o último pixel do rodapé, no Safari iOS. */
+html,body{height:auto!important;min-height:100%;overflow-y:visible!important;scroll-snap-type:none!important}
+.site-shell>section{scroll-snap-align:none!important}
+.footer-bar{position:relative;display:flex;min-height:145px;padding-bottom:max(28px,env(safe-area-inset-bottom))}
+@media(max-width:680px){html{scroll-behavior:auto!important}.footer-bar{padding-bottom:calc(34px + env(safe-area-inset-bottom))}}

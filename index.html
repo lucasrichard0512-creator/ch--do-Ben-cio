@@ -11,10 +11,11 @@
  <link rel="preconnect" href="https://fonts.googleapis.com">
  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Baloo+2:wght@400;500;600;700;800&display=swap" rel="stylesheet">
- <link rel="stylesheet" href="styles.css?v=10.5">
- <link rel="stylesheet" href="mobile.css?v=10.5">
- <script src="config.js?v=10.5" defer></script>
- <script src="app.js?v=10.5" defer></script>
+ <link rel="preload" as="image" href="assets/title-benicio.webp" fetchpriority="high">
+ <link rel="stylesheet" href="styles.css?v=10.6">
+ <link rel="stylesheet" href="mobile.css?v=10.6">
+ <script src="config.js?v=10.6" defer></script>
+ <script src="app.js?v=10.6" defer></script>
 </head>
 <body>
 <!-- Os ícones foram desenhados no mesmo estilo azul da referência, sem emojis do sistema. -->
@@ -23,10 +24,10 @@
 <main class="site-shell">
  <section id="inicio" class="hero scene-fade section-panel">
   <div class="hero-floating-star star-a" aria-hidden="true">✦</div><div class="hero-floating-star star-b" aria-hidden="true">✦</div><div class="hero-floating-star star-c" aria-hidden="true">✧</div>
-  <h1 class="hero-name hero-name-top"><img src="assets/title-benicio.webp" alt="Chá do Benício"></h1>
+  <h1 class="hero-name hero-name-top"><img src="assets/title-benicio.webp" alt="Chá do Benício" decoding="async" fetchpriority="high"></h1>
   <div class="hero-grid">
     <div class="hero-art" aria-hidden="true">
-      <img class="hero-bear" src="assets/bear-heart.webp" alt="">
+      <img class="hero-bear" src="assets/bear-heart.webp" alt="" decoding="async" fetchpriority="high">
       <img class="hero-bottle" src="assets/baby-bottle.webp" alt="">
       <img class="hero-cloud" src="assets/cloud.webp" alt=""><img class="hero-balloons" src="assets/balloons-hearts.webp" alt="">
     </div>
@@ -46,8 +47,8 @@
  </section>
 
  <section id="presentes" class="gift-section scene-fade section-panel">
-  <img class="gift-decor gift-decor-left" src="assets/bear-cloud-heart.webp" alt="" aria-hidden="true">
-  <img class="gift-decor gift-decor-right" src="assets/balloons-hearts.webp" alt="" aria-hidden="true">
+  <img class="gift-decor gift-decor-left" loading="lazy" decoding="async" src="assets/bear-cloud-heart.webp" alt="" aria-hidden="true">
+  <img class="gift-decor gift-decor-right" loading="lazy" decoding="async" src="assets/balloons-hearts.webp" alt="" aria-hidden="true">
   <div class="gift-heading"><h2><img src="assets/title-gifts.png" alt="Lista de Presentes"></h2></div>
   <p id="connectionStatus" class="connection-status" role="status" aria-live="polite" hidden></p>
   <div id="giftGrid" class="gift-grid" aria-live="polite"></div>
@@ -62,13 +63,13 @@
 
   <div class="meeting-scene" aria-hidden="true">
    <div class="meeting-scene-glow"></div><span class="meeting-spark meeting-spark-a">✦</span><span class="meeting-spark meeting-spark-b">✦</span>
-   <img class="meeting-cloud meeting-cloud-left" src="assets/cloud.webp" alt="">
-   <img class="meeting-cloud meeting-cloud-center" src="assets/cloud.webp" alt="">
-   <img class="meeting-cloud meeting-cloud-right" src="assets/cloud.webp" alt="">
-   <img class="meeting-balloon meeting-balloon-left" src="assets/balloons-hearts.webp" alt="">
-   <img class="meeting-balloon meeting-balloon-right" src="assets/balloons-hearts.webp" alt="">
-   <img class="meeting-visual" src="assets/map-pin-house.webp" alt="">
-   <img class="meeting-sign" src="assets/sign-love.webp" alt="">
+   <img class="meeting-cloud meeting-cloud-left" loading="lazy" decoding="async" src="assets/cloud.webp" alt="">
+   <img class="meeting-cloud meeting-cloud-center" loading="lazy" decoding="async" src="assets/cloud.webp" alt="">
+   <img class="meeting-cloud meeting-cloud-right" loading="lazy" decoding="async" src="assets/cloud.webp" alt="">
+   <img class="meeting-balloon meeting-balloon-left" loading="lazy" decoding="async" src="assets/balloons-hearts.webp" alt="">
+   <img class="meeting-balloon meeting-balloon-right" loading="lazy" decoding="async" src="assets/balloons-hearts.webp" alt="">
+   <img class="meeting-visual" loading="lazy" decoding="async" src="assets/map-pin-house.webp" alt="">
+   <img class="meeting-sign" loading="lazy" decoding="async" src="assets/sign-love.webp" alt="">
   </div>
 
   <div class="meeting-info">
@@ -82,11 +83,11 @@
   <div class="rsvp-heading"><h2><img src="assets/ui/icon-97cf0ed0b6a6.png" class="icon" alt="" aria-hidden="true"> Confirme sua Presença</h2><p>Sua presença vai deixar esse momento ainda mais especial!</p></div>
   <div class="rsvp-layout">
    <div class="rsvp-scene" aria-hidden="true">
-    <img class="rsvp-scene-cloud rsvp-scene-cloud-left" src="assets/cloud.webp" alt="">
-    <img class="rsvp-scene-cloud rsvp-scene-cloud-right" src="assets/cloud.webp" alt="">
-    <img class="rsvp-decor-left" src="assets/balloons-hearts.webp" alt="">
-    <img class="rsvp-decor-right" src="assets/balloons-hearts.webp" alt="">
-    <img class="rsvp-bear" src="assets/bear-cloud-heart.webp" alt="Ursinho abraçando um coração azul entre nuvens">
+    <img class="rsvp-scene-cloud rsvp-scene-cloud-left" loading="lazy" decoding="async" src="assets/cloud.webp" alt="">
+    <img class="rsvp-scene-cloud rsvp-scene-cloud-right" loading="lazy" decoding="async" src="assets/cloud.webp" alt="">
+    <img class="rsvp-decor-left" loading="lazy" decoding="async" src="assets/balloons-hearts.webp" alt="">
+    <img class="rsvp-decor-right" loading="lazy" decoding="async" src="assets/balloons-hearts.webp" alt="">
+    <img class="rsvp-bear" loading="lazy" decoding="async" src="assets/bear-cloud-heart.webp" alt="Ursinho abraçando um coração azul entre nuvens">
    </div>
    <form id="rsvpForm" class="rsvp-form">
     <div class="rsvp-fields">
