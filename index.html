@@ -38,7 +38,7 @@
 </defs></svg>
 
 <main class="site-shell">
- <section id="inicio" class="hero scene-fade">
+ <section id="inicio" class="hero scene-fade section-panel">
   <div class="curtain left-curtain" aria-hidden="true"></div><div class="curtain right-curtain" aria-hidden="true"></div>
   <div class="hero-floating-star star-a" aria-hidden="true">✦</div><div class="hero-floating-star star-b" aria-hidden="true">✦</div>
   <div class="hero-grid">
@@ -63,7 +63,7 @@
   </nav>
  </section>
 
- <section id="presentes" class="gift-section scene-fade">
+ <section id="presentes" class="gift-section scene-fade section-panel">
   <img class="gift-decor gift-decor-left" src="assets/bear-cloud-heart.webp" alt="" aria-hidden="true">
   <img class="gift-decor gift-decor-right" src="assets/balloons-hearts.webp" alt="" aria-hidden="true">
   <div class="gift-heading"><h2><img src="assets/title-gifts.png" alt="Lista de Presentes"></h2></div>
@@ -73,12 +73,23 @@
   <p class="gift-smallprint"><svg class="icon"><use href="#ic-heart"/></svg> Cada presente é reservado somente uma vez por unidade. O PS5 Pro foi sugestão do papai e ainda aguarda aprovação da mamãe!</p>
  </section>
 
- <section id="encontro" class="meeting-section scene-fade">
-  <div class="meeting-header">
+ <section id="encontro" class="meeting-section scene-fade section-panel">
+  <div class="meeting-heading">
+   <h2><svg class="icon"><use href="#ic-heart"/></svg> Nosso Encontro</h2>
+   <p>Vai ser uma alegria enorme ter você com a gente!</p>
+  </div>
+
+  <div class="meeting-scene" aria-hidden="true">
+   <div class="meeting-scene-glow"></div>
+   <img class="meeting-cloud meeting-cloud-left" src="assets/cloud.webp" alt="">
+   <img class="meeting-cloud meeting-cloud-center" src="assets/cloud.webp" alt="">
+   <img class="meeting-cloud meeting-cloud-right" src="assets/cloud.webp" alt="">
+   <img class="meeting-balloon meeting-balloon-left" src="assets/balloons-hearts.webp" alt="">
+   <img class="meeting-balloon meeting-balloon-right" src="assets/balloons-hearts.webp" alt="">
    <img class="meeting-visual" src="assets/map-pin-house.webp" alt="">
-   <div class="meeting-heading"><h2><svg class="icon"><use href="#ic-heart"/></svg> Nosso Encontro</h2><p>Vai ser uma alegria enorme ter você com a gente!</p></div>
    <img class="meeting-sign" src="assets/sign-love.webp" alt="">
   </div>
+
   <div class="meeting-info">
    <article class="meeting-box"><div class="round-icon"><svg class="icon"><use href="#ic-pin"/></svg></div><div><strong>Local</strong><p id="meetingPlaceName">Igreja Missão Renovada</p><small id="meetingPlaceAddress">Rua 6, Setor Eliziário, São Miguel do Araguaia - GO</small></div></article>
    <article class="meeting-box"><div class="round-icon"><svg class="icon"><use href="#ic-clock"/></svg></div><div><strong>Horário</strong><p id="meetingTime">19:00h</p><small>Sábado, 28 de novembro de 2026</small></div></article>
@@ -86,11 +97,16 @@
   <a class="meeting-link" id="mapsLink" href="https://maps.app.goo.gl/pSpLkEZZSyKzMFrK9?g_st=ic" target="_blank" rel="noopener noreferrer"><svg class="icon"><use href="#ic-pin"/></svg> Abrir no Google Maps</a>
  </section>
 
- <section id="presenca" class="rsvp-section scene-fade">
+ <section id="presenca" class="rsvp-section scene-fade section-panel">
   <div class="rsvp-heading"><h2><svg class="icon"><use href="#ic-heart"/></svg> Confirme sua Presença</h2><p>Sua presença vai deixar esse momento ainda mais especial!</p></div>
-  <img class="rsvp-decor-right" src="assets/balloons-hearts.webp" alt="" aria-hidden="true">
   <div class="rsvp-layout">
-   <img class="rsvp-bear" src="assets/bear-cloud-heart.webp" alt="Ursinho abraçando um coração azul entre nuvens">
+   <div class="rsvp-scene" aria-hidden="true">
+    <img class="rsvp-scene-cloud rsvp-scene-cloud-left" src="assets/cloud.webp" alt="">
+    <img class="rsvp-scene-cloud rsvp-scene-cloud-right" src="assets/cloud.webp" alt="">
+    <img class="rsvp-decor-left" src="assets/balloons-hearts.webp" alt="">
+    <img class="rsvp-decor-right" src="assets/balloons-hearts.webp" alt="">
+    <img class="rsvp-bear" src="assets/bear-cloud-heart.webp" alt="Ursinho abraçando um coração azul entre nuvens">
+   </div>
    <form id="rsvpForm" class="rsvp-form">
     <div class="rsvp-fields">
       <div class="field"><label for="rsvpName">Seu nome</label><div class="field-control"><svg class="icon"><use href="#ic-user"/></svg><input id="rsvpName" type="text" name="name" maxlength="80" autocomplete="name" placeholder="Digite seu nome" required></div></div>

@@ -1,141 +1,135 @@
-/* Chá do Benício — revisão mobile-first, preservando a composição desktop. */
-html {-webkit-text-size-adjust: 100%; scroll-padding-top: 12px;}
-body {min-width: 280px; overflow-x: clip;}
-button, a {-webkit-tap-highlight-color: transparent; touch-action: manipulation;}
-button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visible {outline: 3px solid #f5b83c; outline-offset: 3px;}
-img {height: auto;}
-.sprite {position:absolute!important; width:0!important; height:0!important; overflow:hidden!important; opacity:0; pointer-events:none;}
-.gift-card, .meeting-box, .field, .field-control {min-width: 0;}
+html{-webkit-text-size-adjust:100%;scroll-padding-top:12px}
+body{min-width:280px;overflow-x:clip}
+button,a{-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid #f5b83c;outline-offset:3px}
+img{height:auto}
+.sprite{position:absolute!important;width:0!important;height:0!important;overflow:hidden!important;opacity:0;pointer-events:none}
+.gift-card,.meeting-box,.field,.field-control{min-width:0}
 
-/* Resolução intermediária: manter áreas clicáveis confortáveis. */
-@media (min-width:681px) and (max-width:950px) {
+@media (min-width:681px) and (max-width:950px){
   .hero-actions{gap:10px}
   .action-button{padding:10px 12px;gap:8px;font-size:clamp(12px,1.6vw,15px)}
   .action-icon{width:36px;height:36px}.action-icon .icon{width:25px;height:25px}
-  .gift-grid{gap:9px}
-  .gift-card h3{font-size:13px}
-  .meeting-info{max-width:700px}
+  .gift-grid{gap:10px}
+  .meeting-info{max-width:820px}
+  .meeting-box{padding:15px 16px}
+  .meeting-box p{font-size:18px}
 }
 
-/* Celulares: não reduzir o desktop até caber. Reorganizar a composição. */
-@media (max-width:680px) {
-  :root{--mobile-edge:14px}
-  body{background:linear-gradient(180deg,#e5f3ff 0%,#d5eafd 50%,#edf7ff 100%)}
-  .site-shell,.footer-bar{width:100%;max-width:100%;}
-  .scene-fade{overflow:hidden}
+@media (max-width:680px){
+  :root{--mobile-edge:16px}
+  html{scroll-snap-type:y proximity}
+  body{background:linear-gradient(180deg,#e7f4ff 0%,#d7ecfe 54%,#eef8ff 100%)}
+  .site-shell,.footer-bar{width:100%;max-width:100%}
+  .site-shell>section,.footer-bar{scroll-snap-align:start}
+  .section-panel{scroll-margin-top:10px}
 
-  /* Abertura: título completo, urso à esquerda, sem berço e mamadeira sobrepostos. */
-  .hero{padding:22px var(--mobile-edge) 23px;border-radius:0 0 22px 22px;
-    background:radial-gradient(ellipse at 66% 28%,#fff 3%,#f8fbff 41%,#e2f1ff 74%,#c9e2f7 100%)}
-  .hero::before,.hero::after{width:14%;opacity:.23;filter:blur(12px)}
-  .hero-floating-star{font-size:15px;opacity:.45}
-  .star-a{top:3%;left:51%}.star-b{top:15%;right:4%}
-  .hero-grid{display:grid;grid-template-columns:40% minmax(0,60%);gap:0;align-items:center;min-height:348px}
-  .hero-art{height:340px;min-height:0;align-self:stretch;overflow:visible}
-  .hero-bear{width:147%;max-width:none;max-height:333px;height:auto;left:-27%;bottom:5px;
-    object-fit:contain;object-position:bottom center;filter:drop-shadow(2px 10px 8px #5590ce35)}
-  .hero-cloud{width:145%;max-width:none;left:-20%;bottom:-3%;opacity:.48}
+  .hero{min-height:100svh;padding:22px var(--mobile-edge) calc(22px + env(safe-area-inset-bottom));border-radius:0 0 24px 24px;
+    background:radial-gradient(ellipse at 67% 28%,#fff 2%,#f9fcff 40%,#e4f2ff 72%,#cfe5f8 100%)}
+  .hero::before,.hero::after{width:14%;opacity:.23;filter:blur(11px)}
+  .hero-floating-star{font-size:16px;opacity:.45}
+  .star-a{top:4%;left:52%}.star-b{top:14%;right:5%}
+  .hero-grid{display:grid;grid-template-columns:41% minmax(0,59%);gap:2px;align-items:center;min-height:0;flex:1;margin:12px 0 10px}
+  .hero-art{height:360px;min-height:0;overflow:visible}
+  .hero-bear{width:150%;max-width:none;max-height:350px;left:-31%;bottom:6px;object-fit:contain;object-position:bottom center;
+    filter:drop-shadow(2px 10px 10px #5c8ec534)}
+  .hero-cloud{width:150%;max-width:none;left:-23%;bottom:-2%;opacity:.5}
   .hero-crib,.hero-bottle{display:none!important}
-  .hero-copy{min-width:0;align-self:center;gap:11px;padding-left:0;padding-bottom:5px}
+  .hero-copy{min-width:0;align-self:center;gap:12px;padding:0 0 6px}
   .hero-name{min-width:0;max-width:100%;margin:0}
-  .hero-name img{display:block;width:100%;max-width:100%;max-height:none;height:auto;object-fit:contain}
-  .hero-tagline{font-size:clamp(14px,4.1vw,17px);line-height:1.18;font-weight:800;letter-spacing:-.015em}
-  .hero-date{max-width:100%;padding:7px 9px;gap:6px;font-size:clamp(10px,2.9vw,12px);line-height:1.3;
-    border-radius:16px;white-space:normal;text-align:left;box-shadow:0 4px 12px #829cc32b}
-  .hero-date span{min-width:0}.hero-date .icon{width:19px;height:19px;flex-shrink:0}
-  .hero-invite{font-size:clamp(11.5px,3.15vw,13px);line-height:1.3;font-weight:800}
+  .hero-name img{display:block;width:100%;max-width:100%;height:auto;object-fit:contain}
+  .hero-tagline{font-size:clamp(14px,4.2vw,18px);line-height:1.18;font-weight:800;letter-spacing:-.015em}
+  .hero-date{max-width:100%;padding:8px 10px;gap:7px;font-size:clamp(10.5px,2.95vw,12.5px);line-height:1.3;border-radius:17px;
+    white-space:normal;text-align:left;box-shadow:0 4px 12px #829cc32b}
+  .hero-date .icon{width:19px;height:19px;flex-shrink:0}
+  .hero-invite{font-size:clamp(11.5px,3.25vw,13.5px);line-height:1.28;font-weight:800}
   .hero-love{width:22px;height:22px}
-
-  /* Um botão principal + duas opções. No celular, três pílulas minúsculas não funcionam. */
-  .hero-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin:10px auto 0;max-width:420px}
-  .action-button{min-height:62px;padding:9px 11px;border-radius:19px;gap:8px;
-    font-size:clamp(12px,3.35vw,14px);letter-spacing:0;line-height:1.18;box-shadow:0 5px 13px #5781b333}
-  .action-button:first-child{grid-column:1/-1;justify-content:center;min-height:56px}
+  .hero-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:auto;max-width:430px;width:100%}
+  .action-button{min-height:64px;padding:10px 11px;border-radius:20px;gap:8px;font-size:clamp(12px,3.3vw,14px);line-height:1.18;box-shadow:0 5px 13px #5781b333}
+  .action-button:first-child{grid-column:1/-1;justify-content:center;min-height:58px}
   .action-button:not(:first-child){justify-content:flex-start}
-  .action-button .action-icon{width:34px;height:34px;flex:0 0 34px}
+  .action-button .action-icon{width:35px;height:35px;flex:0 0 35px}
   .action-icon .icon{width:25px;height:25px}
   .action-button .chevron{width:12px;height:12px;flex:0 0 12px;margin-left:auto}
-  .action-button span:not(.action-icon){min-width:0}
 
-  /* Lista legível sem fotos borradas nem cartões comprimidos. */
-  .gift-section{padding:21px var(--mobile-edge) 26px;
-    background:radial-gradient(ellipse at 52% 0,#fafdff,#e8f5ff 39%,#d8ecfe 100%)}
+  .gift-section{padding:28px var(--mobile-edge) 28px;min-height:100svh;background:radial-gradient(ellipse at 52% 0,#fcfeff,#eaf6ff 40%,#dcedff 100%)}
   .gift-heading h2{width:min(100%,430px);max-width:100%}
-  .gift-decor-left{width:64px;top:22px;left:-27px;opacity:.55}
-  .gift-decor-right{width:68px;top:28px;right:-29px;opacity:.55}
-  .info-banner{margin:8px auto 17px;padding:11px 13px;font-size:12px;line-height:1.4;
-    border-radius:14px;max-width:100%;text-align:left;background:#ffffffb8}
+  .gift-decor-left{width:66px;top:24px;left:-28px;opacity:.58}
+  .gift-decor-right{width:72px;top:28px;right:-29px;opacity:.58}
+  .info-banner{margin:10px auto 18px;padding:12px 14px;font-size:12px;line-height:1.45;border-radius:15px;max-width:100%;text-align:left;background:#ffffffc4}
   .gift-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:0}
-  .gift-card{padding:12px 9px 12px;border-radius:18px;min-height:247px;box-shadow:0 5px 16px #5f9ac133}
-  .gift-image-wrap{height:90px;width:100%;overflow:hidden}
+  .gift-card{padding:12px 10px 12px;border-radius:19px;min-height:252px;box-shadow:0 7px 18px #5f9ac130}
+  .gift-image-wrap{height:92px;width:100%;overflow:hidden}
   .gift-image{height:100%;width:100%;object-fit:contain}
-  .gift-card h3{font-size:13px;line-height:1.18;min-height:31px;max-width:100%;margin:7px 0 4px}
+  .gift-card h3{font-size:13px;line-height:1.18;min-height:31px;margin:8px 0 4px}
   .gift-stock{font-size:12px;line-height:1.25;min-height:17px}
-  .gift-counter{width:min(95%,150px);gap:8px;margin:8px 0 10px;justify-content:space-between}
+  .gift-counter{width:min(96%,150px);gap:8px;margin:8px 0 10px;justify-content:space-between}
   .qty-btn{width:32px;height:32px;font-size:21px}
   .gift-counter strong{font-size:16px}
-  .reserve-button{min-height:42px;font-size:clamp(10px,2.9vw,12px);padding:9px 4px;
-    white-space:normal;line-height:1.15;border-radius:22px;gap:5px}
+  .reserve-button{min-height:42px;font-size:clamp(10px,2.9vw,12px);padding:9px 5px;white-space:normal;line-height:1.15;border-radius:22px;gap:5px}
   .reserve-button .icon{width:17px;height:17px}
   .gift-card.is-joke:after{font-size:8px;right:1px;top:2px;max-width:80px;text-align:center}
-  .gift-smallprint{margin:17px auto 0;font-size:11.5px;line-height:1.45;max-width:330px}
+  .gift-smallprint{margin:18px auto 0;font-size:11.5px;line-height:1.45;max-width:340px}
   .gift-smallprint .icon{width:18px;height:18px}
 
-  /* Nosso encontro: título completo, ilustrações em uma faixa e cards empilhados. */
-  .meeting-section{padding:26px var(--mobile-edge) 24px;background:linear-gradient(180deg,#e7f4ff,#f6fbff 58%,#e4f1ff)}
-  .meeting-header{grid-template-columns:1fr 1fr;grid-template-areas:"heading heading" "map sign";gap:3px 6px;align-items:end}
-  .meeting-heading{grid-area:heading;padding:0 2px 6px;text-align:center;align-self:center}
-  .meeting-heading h2{font-size:clamp(25px,7.3vw,31px);white-space:normal;line-height:1.03;gap:6px}
-  .meeting-heading h2 .icon{width:26px;height:26px}
-  .meeting-heading p{font-size:clamp(12px,3.4vw,14px);line-height:1.3;margin:4px auto 0;max-width:305px}
-  .meeting-visual{grid-area:map;width:100%;height:127px;max-height:none;object-fit:contain;object-position:center bottom}
-  .meeting-sign{grid-area:sign;width:100%;height:127px;max-height:none;object-fit:contain;object-position:center bottom}
-  .meeting-info{grid-template-columns:minmax(0,1fr);gap:10px;max-width:440px;margin:5px auto 0}
-  .meeting-box{min-height:74px;gap:12px;padding:12px 15px;border-radius:17px;
-    background:#ffffffed;box-shadow:0 4px 15px #5799d021;align-items:center}
-  .round-icon{height:41px;width:41px}
-  .round-icon .icon{width:27px;height:27px}
+  .meeting-section{padding:30px var(--mobile-edge) 28px;min-height:100svh;background:linear-gradient(180deg,#e8f4ff,#f9fdff 50%,#e7f2ff)}
+  .meeting-heading{margin:0 auto 4px;padding:0 6px;text-align:center}
+  .meeting-heading h2{font-size:clamp(26px,7.1vw,32px);white-space:normal;line-height:1.05;gap:7px}
+  .meeting-heading h2 .icon{width:27px;height:27px}
+  .meeting-heading p{font-size:clamp(12.5px,3.4vw,14px);line-height:1.32;margin:6px auto 0;max-width:310px}
+  .meeting-scene{min-height:210px;margin:6px auto 14px;width:100%}
+  .meeting-scene-glow{inset:auto 2% 14px 2%;height:104px}
+  .meeting-cloud-left{left:-3%;width:46%;bottom:0}
+  .meeting-cloud-center{left:24%;width:52%;bottom:7px}
+  .meeting-cloud-right{right:-2%;width:46%;bottom:0}
+  .meeting-balloon{width:19%;max-width:92px}
+  .meeting-balloon-left{left:10%;top:22px}
+  .meeting-balloon-right{right:8%;top:16px}
+  .meeting-visual{left:0;bottom:2px;width:48%}
+  .meeting-sign{right:0;bottom:5px;width:45%}
+  .meeting-info{grid-template-columns:minmax(0,1fr);gap:12px;max-width:440px;margin:0 auto 14px}
+  .meeting-box{min-height:84px;gap:13px;padding:13px 15px;border-radius:19px;background:#ffffffef;box-shadow:0 6px 18px #5799d020;align-items:center}
+  .round-icon{height:44px;width:44px}
+  .round-icon .icon{width:28px;height:28px}
   .meeting-box strong{font-size:12px;display:block;margin-bottom:2px}
   .meeting-box p{font-size:15px;line-height:1.24;margin:0 0 3px;overflow-wrap:break-word}
   .meeting-box small{font-size:12px;line-height:1.3;color:#58799b}
-  .meeting-link{display:flex;align-items:center;justify-content:center;margin:13px auto 0;min-height:46px;
-    padding:10px 16px;background:linear-gradient(180deg,#278add,#1172c7);color:#fff;border-radius:999px;
-    font-size:13px;box-shadow:0 6px 15px #5b94c83d;max-width:100%}
+  .meeting-link{display:flex;align-items:center;justify-content:center;margin:0 auto;min-height:47px;padding:10px 16px;font-size:13px;max-width:100%}
   .meeting-link .icon{width:19px;height:19px}
 
-  /* Confirmação: formulário inteiro legível; ursinho junto do botão, sem cobrir campos. */
-  .rsvp-section{padding:27px var(--mobile-edge) 18px;min-height:0;background:linear-gradient(180deg,#e4f2ff,#f7fbff 56%,#e9f5ff)}
-  .rsvp-heading{padding:0 0 13px}
-  .rsvp-heading h2{font-size:clamp(23px,6.4vw,30px);white-space:normal;line-height:1.08;gap:6px}
+  .rsvp-section{padding:30px var(--mobile-edge) 22px;min-height:100svh;background:linear-gradient(180deg,#e5f3ff,#f8fcff 58%,#eaf5ff)}
+  .rsvp-heading{padding:0 0 10px}
+  .rsvp-heading h2{font-size:clamp(23px,6.4vw,31px);white-space:normal;line-height:1.08;gap:6px}
   .rsvp-heading h2 .icon{width:25px;height:25px}
-  .rsvp-heading p{font-size:13px;line-height:1.35;margin:6px auto 0;max-width:310px}
-  .rsvp-layout{position:relative;display:block;margin:0;min-height:0}
-  .rsvp-form{position:relative;padding:0 0 6px;z-index:2;width:100%;max-width:470px;margin:auto}
+  .rsvp-heading p{font-size:13px;line-height:1.35;margin:6px auto 0;max-width:320px}
+  .rsvp-layout{display:flex;flex-direction:column;gap:10px;max-width:470px;margin:0 auto}
+  .rsvp-scene{min-height:170px;width:100%}
+  .rsvp-scene::before{left:0;right:0;bottom:10px;height:92px}
+  .rsvp-scene-cloud-left{left:4%;width:49%}
+  .rsvp-scene-cloud-right{right:2%;width:40%;bottom:10px}
+  .rsvp-decor-left,.rsvp-decor-right{width:24%;max-width:86px;opacity:.72}
+  .rsvp-decor-left{left:1%;bottom:38px}
+  .rsvp-decor-right{right:0;bottom:58px}
+  .rsvp-bear{left:50%;transform:translateX(-50%);bottom:0;width:190px;max-width:190px}
+  .rsvp-form{position:relative;padding:0 0 6px;z-index:2;width:100%;max-width:470px;margin:0 auto}
   .rsvp-fields{grid-template-columns:minmax(0,1fr);gap:14px}
   .field label{font-size:13px;margin:0 0 5px}
   .field label span{font-size:11px}
-  .field-control{min-height:52px;padding:10px 12px;border-radius:14px;background:#fff;
-    box-shadow:0 4px 11px #7ca6cf14}
+  .field-control{min-height:54px;padding:10px 12px;border-radius:15px;background:#fff;box-shadow:0 4px 12px #7ca6cf14}
   .field-control .icon{width:22px;height:22px}
   .field-control input,.field-control textarea{font-size:16px;line-height:1.3}
-  .field-control textarea{min-height:43px;height:auto;max-height:150px}
-  .rsvp-bear{position:relative;width:143px;max-height:150px;height:150px;object-fit:contain;
-    object-position:left bottom;left:0;bottom:0;z-index:2;display:block;margin:-3px auto -13px 0;}
-  .rsvp-form .submit-button{width:100%;max-width:370px;min-height:49px;margin:16px auto 0;
-    padding:12px 17px;font-size:14px;line-height:1.2;border-radius:24px}
+  .field-control textarea{min-height:54px;height:54px;max-height:160px}
+  .rsvp-form .submit-button{width:100%;max-width:none;min-height:50px;margin:16px auto 0;padding:12px 17px;font-size:14px;line-height:1.2;border-radius:25px}
   .submit-button .icon{width:22px;height:22px}
-  .rsvp-decor-right{width:80px;right:-21px;bottom:9px;opacity:.33}
-  .form-feedback{font-size:12px;min-height:0;line-height:1.4;margin:9px 0 0}
+  .form-feedback{text-align:center;font-size:12px;line-height:1.4;margin:9px 0 0}
 
-  /* Rodapé reduzido, sem esmagar o texto em duas colunas. */
-  .footer-bar{padding:13px 17px 18px;gap:11px;flex-direction:column;align-items:center;
-    background:linear-gradient(135deg,#0d3b74,#0d477e);border-top:1px solid #8fb8d8}
-  .footer-copy{text-align:center;max-width:370px}
-  .footer-copy .footer-title{font-size:12px;justify-content:center;margin:0 0 4px}
-  .footer-copy .footer-title .icon{height:17px;width:17px}
-  .footer-copy p{font-size:11px;line-height:1.4;margin:0}
-  .footer-joke{opacity:.75}
-  .whatsapp-button{min-height:44px;font-size:12px;padding:11px 24px;justify-content:center;border-radius:99px}
+  .footer-bar{padding:16px 17px calc(20px + env(safe-area-inset-bottom));gap:12px;flex-direction:column;align-items:center;background:linear-gradient(135deg,#0d3b74,#0d477e);border-top:1px solid #8fb8d8}
+  .footer-copy{text-align:center;max-width:390px}
+  .footer-copy .footer-title{font-size:14px;justify-content:center;margin:0 0 5px}
+  .footer-copy .footer-title .icon{height:19px;width:19px}
+  .footer-copy p{font-size:11.5px;line-height:1.42;margin:0}
+  .footer-joke{opacity:.8}
+  .whatsapp-button{min-height:46px;font-size:12.5px;padding:11px 24px;justify-content:center;border-radius:99px}
   .whatsapp-button .chevron{width:13px;height:13px}
   .gift-dialog{width:calc(100% - 24px);max-height:calc(100dvh - 34px)}
   .gift-modal-form{max-height:calc(100dvh - 36px);overflow-y:auto;padding:22px 18px}
@@ -146,46 +140,30 @@ img {height: auto;}
   .toast{font-size:12px;line-height:1.3;text-align:center}
 }
 
-/* iPhones compactos: preservar texto e áreas de toque. */
-@media (max-width:365px) {
+@media (max-width:365px){
   :root{--mobile-edge:12px}
-  .hero-grid{grid-template-columns:38% 62%;min-height:330px}
-  .hero-art{height:320px}
-  .hero-bear{width:154%;left:-31%;max-height:310px}
-  .hero-copy{gap:8px}
+  .hero-grid{grid-template-columns:39% 61%;margin-top:10px}
+  .hero-art{height:342px}
+  .hero-bear{width:158%;left:-35%;max-height:334px}
+  .hero-copy{gap:9px}
   .hero-tagline{font-size:13.5px}
   .hero-invite{font-size:11px}
-  .hero-date{font-size:10px;padding:6px 7px}
-  .action-button{font-size:12px;padding:8px 8px;gap:6px}
+  .hero-date{font-size:10px;padding:7px 8px}
+  .action-button{font-size:12px;padding:8px 9px;gap:6px}
   .action-button .action-icon{width:31px;height:31px;flex-basis:31px}
   .action-icon .icon{width:23px;height:23px}
   .gift-grid{gap:9px}
-  .gift-card{padding:10px 7px}
-  .gift-image-wrap{height:80px}
+  .gift-card{padding:10px 8px}
+  .gift-image-wrap{height:82px}
   .gift-card h3{font-size:12px}
   .reserve-button{font-size:10px}
-  .meeting-visual,.meeting-sign{height:112px}
+  .meeting-scene{min-height:190px}
+  .meeting-visual,.meeting-sign{width:46%}
   .meeting-box p{font-size:14px}
+  .rsvp-bear{width:174px;max-width:174px}
 }
 
-@media (prefers-reduced-motion:reduce) {
+@media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   *,*::before,*::after{animation:none!important;transition:none!important}
-}
-/* Refinamento final: cabeçalhos com fallback sem serifa e urso no mesmo plano do CTA. */
-.meeting-heading h2,.rsvp-heading h2{font-family:'Baloo 2','Nunito',system-ui,sans-serif}
-@media(max-width:680px) {
-  .rsvp-layout{position:relative;display:block;margin-top:0}
-  .rsvp-form{position:relative;padding:0 0 150px;margin:0 auto;max-width:470px}
-  .rsvp-bear{position:absolute;width:136px;height:136px;max-height:136px;max-width:136px;
-    left:-6px;bottom:0;margin:0;z-index:3;object-fit:contain;object-position:left bottom}
-  .rsvp-form .submit-button{position:absolute;bottom:44px;right:0;width:calc(100% - 135px);max-width:none;
-    min-width:0;margin:0;font-size:clamp(12px,3.4vw,14px);min-height:51px;padding:10px 6px}
-  .rsvp-form .form-feedback{position:absolute;right:0;bottom:4px;width:calc(100% - 135px);min-height:0;
-    margin:0;font-size:11px;line-height:1.3}
-  .rsvp-heading{padding-bottom:15px}
-}
-@media(max-width:365px) {
-  .rsvp-bear{width:125px;max-width:125px;height:125px;max-height:125px}
-  .rsvp-form .submit-button,.rsvp-form .form-feedback{width:calc(100% - 120px)}
 }

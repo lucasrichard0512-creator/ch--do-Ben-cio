@@ -247,7 +247,7 @@ async function reserveGift(event) {
   } finally {
     state.busy = false;
     button.disabled = false;
-    button.textContent = 'Reservar presente 💙';
+    button.innerHTML = '<svg class="icon" aria-hidden="true"><use href="#ic-gift"></use></svg> Reservar presente';
   }
 }
 
@@ -302,9 +302,6 @@ function fillEventInfo() {
   const mapsUrl = String(CONFIG.MAPS_URL || '').trim();
   if (mapsUrl && /^https?:\/\//i.test(mapsUrl)) {
     $('#mapsLink').href = mapsUrl;
-    $('#mapsTopButton').href = mapsUrl;
-    $('#mapsTopButton').target = '_blank';
-    $('#mapsTopButton').rel = 'noopener noreferrer';
   }
 
   const whatsapp = String(CONFIG.WHATSAPP_NUMBER || '').replace(/\D/g, '');
@@ -323,7 +320,7 @@ function fillEventInfo() {
 }
 
 function initReveal() {
-  const items = document.querySelectorAll('.reveal');
+  const items = document.querySelectorAll('.section-panel');
   if (!('IntersectionObserver' in window)) {
     items.forEach(item => item.classList.add('in-view'));
     return;

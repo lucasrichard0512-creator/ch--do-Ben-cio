@@ -13,3 +13,84 @@
 /* No celular o berço é omitido da abertura para não invadir o título 3D.
    O elemento continua na versão desktop e na pasta assets. */
 @media(max-width:680px){.hero-crib{display:none}}
+
+/* ===== V6 refinements: section flow, hero height, integrated scenes, and cleaner RSVP/footer ===== */
+html{scroll-padding-top:12px;background:#e4f2ff}
+body{overflow-x:clip}
+.section-panel{scroll-margin-top:12px;opacity:0;transform:translateY(22px);transition:opacity .45s ease,transform .45s ease}
+.section-panel.in-view{opacity:1;transform:none}
+.site-shell>section{position:relative}
+.hero,.gift-section,.meeting-section,.rsvp-section{border-top:1px solid rgba(255,255,255,.28)}
+
+.hero{display:flex;flex-direction:column;justify-content:space-between;min-height:100svh;padding-bottom:34px}
+.hero-grid{flex:1;align-items:center;align-content:center}
+.hero-actions{margin-top:auto}
+
+.gift-section{padding-top:32px;padding-bottom:40px}
+.gift-grid{margin-top:12px}
+.gift-image-wrap{height:118px}
+.info-banner{box-shadow:0 8px 20px #5b8cbc18}
+
+.meeting-section{padding:34px 30px 34px;background:linear-gradient(180deg,#e7f4ff 0,#fafdff 48%,#e4f1ff 100%)}
+.meeting-heading{max-width:720px;margin:0 auto 10px;text-align:center;position:relative;z-index:3}
+.meeting-heading p{margin-top:7px;font-size:clamp(13px,1.7vw,17px);line-height:1.35}
+.meeting-scene{position:relative;min-height:248px;max-width:1020px;margin:0 auto 12px;isolation:isolate}
+.meeting-scene-glow{position:absolute;inset:auto 10% 18px 10%;height:116px;border-radius:999px;background:radial-gradient(ellipse at center,#ffffffda 0,#e6f5ffdb 54%,#d8edff40 78%,transparent 100%);z-index:0;filter:blur(4px)}
+.meeting-cloud{position:absolute;bottom:0;z-index:1;opacity:.98;filter:drop-shadow(0 8px 10px #8db4d335)}
+.meeting-cloud-left{left:4%;width:34%}
+.meeting-cloud-center{left:28%;width:44%;bottom:10px}
+.meeting-cloud-right{right:3%;width:34%}
+.meeting-balloon{position:absolute;z-index:2;width:16%;max-width:150px;filter:drop-shadow(0 10px 12px #6d94b831);animation:float 9s ease-in-out infinite}
+.meeting-balloon-left{left:18%;top:22px}
+.meeting-balloon-right{right:14%;top:10px;animation-delay:-2.7s}
+.meeting-visual,.meeting-sign{position:absolute;z-index:3;max-height:none;object-fit:contain;filter:drop-shadow(0 12px 10px #6a9abf28)}
+.meeting-visual{left:2%;bottom:8px;width:42%}
+.meeting-sign{right:2%;bottom:4px;width:34%}
+.meeting-info{grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;max-width:860px;margin:0 auto 14px;z-index:4}
+.meeting-box{border-radius:22px;min-height:128px;padding:18px 20px;gap:16px;box-shadow:0 10px 24px #6396bd1d}
+.meeting-box strong{font-size:14px;letter-spacing:.02em}
+.meeting-box p{font-size:clamp(20px,2.35vw,31px);line-height:1.08;margin:2px 0 5px}
+.meeting-box small{font-size:13px;line-height:1.35;color:#58789e}
+.round-icon{width:56px;height:56px;box-shadow:inset 0 1px 0 #fff}
+.round-icon .icon{width:36px;height:36px}
+.meeting-link{min-height:50px;padding:12px 20px;border-radius:999px;background:linear-gradient(180deg,#288fe5,#0f6dc3);color:#fff;box-shadow:0 9px 18px #5c96ca36}
+.meeting-link .icon{width:20px;height:20px}
+
+.rsvp-section{padding:28px 30px 30px;background:linear-gradient(180deg,#e6f3ff 0,#f7fbff 52%,#e3f2ff 100%)}
+.rsvp-heading{margin-bottom:12px}
+.rsvp-layout{display:grid;grid-template-columns:minmax(220px,320px) minmax(0,1fr);gap:18px;align-items:end;max-width:980px;margin:0 auto}
+.rsvp-scene{position:relative;min-height:280px;isolation:isolate}
+.rsvp-scene::before{content:"";position:absolute;left:4%;right:0;bottom:18px;height:120px;border-radius:999px;background:radial-gradient(ellipse at center,#ffffffea 0,#e9f7ff 56%,#d7ebff40 80%,transparent 100%);filter:blur(4px);z-index:0}
+.rsvp-scene-cloud{position:absolute;bottom:0;z-index:1;opacity:.96}
+.rsvp-scene-cloud-left{left:0;width:68%}
+.rsvp-scene-cloud-right{right:0;width:52%;bottom:6px}
+.rsvp-decor-left,.rsvp-decor-right{position:absolute;z-index:2;width:28%;max-width:120px;opacity:.82}
+.rsvp-decor-left{left:0;bottom:28px;transform:scaleX(-1)}
+.rsvp-decor-right{right:0;bottom:58px}
+.rsvp-bear{position:absolute;left:5%;bottom:0;width:92%;max-width:290px;max-height:none;height:auto;z-index:3;filter:drop-shadow(0 8px 10px #5b8ec02d)}
+.rsvp-form{padding:10px 6px 0 0;min-width:0}
+.rsvp-fields{grid-template-columns:1fr 1fr;gap:16px}
+.field label{font-size:14px}
+.field-control{min-height:62px;border-radius:18px;padding:10px 14px;box-shadow:0 8px 20px #8eb3d013}
+.field-control input,.field-control textarea{font-size:15px}
+.field-control textarea{height:68px}
+.submit-button{min-height:54px;padding:14px 26px;border-radius:999px;box-shadow:0 10px 20px #4f84b834}
+.rsvp-form .submit-button{margin:18px 0 0 auto;min-width:min(100%,460px);width:min(100%,460px)}
+.form-feedback{text-align:left;max-width:460px;margin-left:auto}
+
+.footer-bar{padding:20px 26px;gap:22px;border-radius:0 0 24px 24px}
+.footer-copy .footer-title{display:flex;align-items:center;gap:8px;font-size:18px;margin-bottom:6px}
+.footer-copy .footer-title .icon{width:22px;height:22px}
+.footer-copy p{font-size:13px}
+.whatsapp-button{font-size:14px;padding:13px 22px}
+.whatsapp-button .chevron{width:15px;height:15px}
+
+@media(min-width:681px) and (max-width:980px){
+  .hero{min-height:92svh}
+  .meeting-scene{min-height:214px}
+  .meeting-visual{width:44%}
+  .meeting-sign{width:36%}
+  .meeting-balloon{width:18%}
+  .meeting-box p{font-size:18px}
+  .rsvp-layout{grid-template-columns:260px minmax(0,1fr)}
+}
