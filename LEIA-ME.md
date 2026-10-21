@@ -1,43 +1,51 @@
-# Chá do Benício — Versão 6
+# Chá do Benício — Reconstrução Visual (V7)
 
-## Novidades
+## O que foi reconstruído
 
-- Primeira seção com altura mínima de uma tela no celular, mostrando só o convite.
-- Navegação por seções: abertura, lista de presentes, nosso encontro, confirmação de presença e rodapé.
-- Scroll suave com encaixe leve no celular (`scroll-snap-type: proximity`), sem obrigar o visitante a parar em cada bloco.
-- Cena do encontro recomposta com mapa, plaquinha, nuvens contínuas e balões.
-- Cena da confirmação unificada com ursinho, nuvens, balões e formulário.
-- Melhorias de espaçamento em celulares e tablets.
-- 24 presentes, incluindo o PS5 Pro como piada e o berço limitado a uma unidade.
+Esta versão substitui a estética de página branca e caixas independentes por uma composição infantil integrada, inspirada na referência enviada.
 
-## Testes realizados
+- Abertura com um cenário de quarto infantil, ursinho de alta qualidade, nome original em 3D e elementos decorativos posicionados em profundidade.
+- A primeira tela do celular é dedicada ao convite, com a lista aparecendo apenas ao rolar.
+- Rolagem por capítulos: convite, lista de presentes, nosso encontro e confirmação de presença.
+- Mapa, plaquinha, nuvens e balões unidos em uma cena; imagens e formulário integrados na confirmação.
+- Ícones azuis desenhados, em vez de emojis do sistema, nas ações principais.
+- Imagens dos presentes recortadas da referência, com seus nomes fora das fotografias; para o berço e mamadeira foram utilizadas as artes individuais de alta resolução enviadas.
+- 24 presentes, seletores de quantidade e bloqueio de unidades já reservadas. O PS5 Pro permanece como brincadeira.
+- Data: **sábado, 28 de novembro de 2026, às 19h**, na **Igreja Missão Renovada**. O botão do Google Maps aponta para o link fornecido.
 
-Simulação no navegador em 320×700, 390×844, 430×932 e 900×800.
-Checagens: sem rolagem horizontal, 24 cartões, sem erros de JavaScript,
-reserva do berço até esgotar a unidade e confirmação de presença em modo demonstração.
-Não houve teste em iPhone físico.
+## Antes de compartilhar com os convidados
 
-## Informações do evento
+### 1. Ativar o controle de presentes para todos os celulares
 
-- Data: sábado, 28 de novembro de 2026
-- Hora: 19h00
-- Local: Igreja Missão Renovada, Rua 6, Setor Eliziário, São Miguel do Araguaia - GO
-- Maps: https://maps.app.goo.gl/pSpLkEZZSyKzMFrK9?g_st=ic
+Sem banco conectado, o convite funciona **somente em modo demonstração**. Uma reserva local não bloqueia o mesmo presente no navegador de outra pessoa.
 
-## Atenção antes de publicar para convidados
+1. Crie um projeto em **Supabase**.
+2. No SQL Editor, execute o conteúdo do arquivo `supabase.sql`.
+3. Em `config.js`, preencha `SUPABASE_URL` e `SUPABASE_PUBLISHABLE_KEY`.
+4. Publique novamente o projeto e teste a reserva do berço em dois dispositivos.
 
-**Reservas compartilhadas:** sem configurar Supabase, o convite funciona apenas em modo demonstração local. Para ativar reservas entre vários aparelhos, crie um projeto Supabase, execute `supabase.sql` no SQL Editor e preencha `SUPABASE_URL` e `SUPABASE_PUBLISHABLE_KEY` em `config.js`. Não coloque service_role/secret no navegador.
+Não coloque chaves `service_role`, segredos ou senhas no arquivo `config.js`.
 
-**WhatsApp:** informe seu número de contato em `WHATSAPP_NUMBER` no arquivo `config.js` se quiser que o botão verde do rodapé abra o WhatsApp.
+### 2. Configuração do WhatsApp (opcional)
 
-**Publicação:** os arquivos precisam ser enviados ao projeto hospedado no Vercel. A edição do ZIP não altera o site que já está no ar.
+Adicione o número com DDI 55 e DDD no campo `WHATSAPP_NUMBER` de `config.js`. Enquanto estiver vazio, o botão informa que falta configurar o contato.
 
-## Estrutura
+### 3. Publicação
 
-- `index.html` — marcação de seções e componentes
-- `styles.css` — estilos gerais
-- `mobile.css` — estilos para tablets e celulares
-- `app.js` — interações, lista de presentes e confirmação de presença
-- `config.js` — evento e integrações
-- `supabase.sql` — banco de dados para reservas reais
-- `assets/` — imagens e ícones
+O projeto é **HTML, CSS e JavaScript puro**, sem etapa de build. É possível publicá-lo como projeto estático no Vercel, Netlify ou qualquer hospedagem estática. Envie os arquivos da pasta `cha-do-benicio`, preservando o diretório `assets`.
+
+## Fidelidade e limitações
+
+As artes principais são as fornecidas pelo usuário. As fotografias dos presentes que não tinham arquivo individual foram recortadas da imagem de referência. Como essa imagem original tem resolução limitada, elas não serão tão nítidas quanto fotos individuais em alta resolução. No futuro, é possível substituir cada arquivo em `assets/gifts/` mantendo o mesmo nome para melhorar a nitidez sem alterar o código.
+
+O site mantém as seções e elementos interativos separados da arte; não é uma imagem estática com botões falsos.
+
+## Arquivos
+
+- `index.html` — estrutura do convite
+- `styles.css` — visual desktop e elementos artísticos
+- `mobile.css` — composição e responsividade móvel
+- `app.js` — presentes, reservas, RSVP e interações
+- `config.js` — data, local, mapas, WhatsApp, Supabase
+- `supabase.sql` — banco de dados e operações atômicas de reserva
+- `assets/` — artes e recortes

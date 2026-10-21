@@ -40,13 +40,13 @@
 <main class="site-shell">
  <section id="inicio" class="hero scene-fade section-panel">
   <div class="curtain left-curtain" aria-hidden="true"></div><div class="curtain right-curtain" aria-hidden="true"></div>
-  <div class="hero-floating-star star-a" aria-hidden="true">✦</div><div class="hero-floating-star star-b" aria-hidden="true">✦</div>
+  <div class="hero-floating-star star-a" aria-hidden="true">✦</div><div class="hero-floating-star star-b" aria-hidden="true">✦</div><div class="hero-floating-star star-c" aria-hidden="true">✧</div>
   <div class="hero-grid">
     <div class="hero-art" aria-hidden="true">
       <img class="hero-bear" src="assets/bear-heart.webp" alt="">
       <img class="hero-crib" src="assets/crib.webp" alt="">
       <img class="hero-bottle" src="assets/baby-bottle.webp" alt="">
-      <img class="hero-cloud" src="assets/cloud.webp" alt="">
+      <img class="hero-cloud" src="assets/cloud.webp" alt=""><img class="hero-balloons" src="assets/balloons-hearts.webp" alt="">
     </div>
     <div class="hero-copy">
       <h1 class="hero-name"><img src="assets/title-benicio.webp" alt="Chá do Benício"></h1>
@@ -70,7 +70,7 @@
   <div id="demoNotice" class="info-banner hidden" role="status"></div>
   <div id="connectionNotice" class="info-banner error hidden" role="alert"></div>
   <div id="giftGrid" class="gift-grid" aria-live="polite"></div>
-  <p class="gift-smallprint"><svg class="icon"><use href="#ic-heart"/></svg> Cada presente é reservado somente uma vez por unidade. O PS5 Pro foi sugestão do papai e ainda aguarda aprovação da mamãe!</p>
+  <p class="gift-smallprint"><svg class="icon"><use href="#ic-heart"/></svg> O PS5 Pro entrou na lista por recomendação técnica do papai. A mamãe ainda não aprovou o orçamento. 😂</p>
  </section>
 
  <section id="encontro" class="meeting-section scene-fade section-panel">
@@ -80,7 +80,7 @@
   </div>
 
   <div class="meeting-scene" aria-hidden="true">
-   <div class="meeting-scene-glow"></div>
+   <div class="meeting-scene-glow"></div><span class="meeting-spark meeting-spark-a">✦</span><span class="meeting-spark meeting-spark-b">✦</span>
    <img class="meeting-cloud meeting-cloud-left" src="assets/cloud.webp" alt="">
    <img class="meeting-cloud meeting-cloud-center" src="assets/cloud.webp" alt="">
    <img class="meeting-cloud meeting-cloud-right" src="assets/cloud.webp" alt="">
@@ -123,7 +123,7 @@
 
 <dialog id="giftModal" class="gift-dialog" aria-labelledby="giftModalTitle">
  <form id="giftForm" class="gift-modal-form"><button id="closeGiftModal" class="modal-close" type="button" aria-label="Fechar">×</button>
- <div class="gift-modal-head"><img id="giftModalImage" class="gift-modal-image" src="assets/gifts/fraldas-rn.svg" alt=""><div><p class="modal-kicker">PRESENTE COM CARINHO</p><h2 id="giftModalTitle">Reservar presente</h2><p id="giftModalDescription">Um carinho para o Benício.</p></div></div>
+ <div class="gift-modal-head"><img id="giftModalImage" class="gift-modal-image" src="assets/gifts/fraldas-rn.webp" alt=""><div><p class="modal-kicker">PRESENTE COM CARINHO</p><h2 id="giftModalTitle">Reservar presente</h2><p id="giftModalDescription">Um carinho para o Benício.</p></div></div>
  <label for="giftGuestName">Seu nome</label><input id="giftGuestName" name="giftGuestName" maxlength="80" autocomplete="name" placeholder="Quem está presenteando?" required>
  <label for="giftQuantity">Quantidade</label><select id="giftQuantity" name="giftQuantity"></select>
  <p class="modal-note">Ao confirmar, esta quantidade ficará indisponível para os outros convidados.</p>
