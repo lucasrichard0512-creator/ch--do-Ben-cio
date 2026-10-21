@@ -1,58 +1,44 @@
-# Chá do Benício — versão revisada
+# Chá do Benício — Versão 4 (revisão visual)
 
-Esta versão foi reorganizada para ficar mais próxima da arte de referência enviada.
+Esta versão atualiza a anterior com foco nas comparações do convite enviado: topo sem cortes, ícones uniformes, seção de encontro mais compacta, ursinho ao lado do formulário e rodapé discreto.
 
-## O que foi ajustado
+## Informações do evento
 
-- visual recriado em estilo azul/branco com os elementos 3D enviados;
-- topo com chamadas principais: lista de presentes, localização e confirmação de presença;
-- lista de presentes com quantidade limitada por item;
-- se um item acabar (ex.: berço), ele fica indisponível para os próximos convidados;
-- item de humor `PS5 Pro` mantido na lista;
-- local e horário preenchidos:
-  - **19:00h**
-  - **Igreja Missão Renovada**
-- seção de confirmação de presença simplificada;
-- animações suaves de entrada e flutuação.
+- Dia: 28 de novembro de 2026 (sábado)
+- Horário: 19:00h
+- Local: Igreja Missão Renovada, Rua 6, Setor Eliziário, São Miguel do Araguaia - GO
+- Mapa: https://maps.app.goo.gl/pSpLkEZZSyKzMFrK9?g_st=ic
 
-## Importante sobre a lista de presentes
+## Imagens dos presentes
 
-Sem Supabase configurado, o site entra em **modo demonstração**:
-- reservas e confirmações ficam salvas apenas no navegador atual.
+Os recortes minúsculos e borrados da referência **não estão mais em uso**. O catálogo usa agora **ilustrações SVG nítidas, individuais e escaláveis** para 22 produtos, feitas no mesmo tom azul/creme do site. Para mamadeira e berço são usados os dois elementos 3D enviados pelo usuário.
 
-Para que todos os convidados vejam a disponibilidade real em tempo real, faça os 3 passos abaixo:
+Isso melhora bastante a qualidade no celular, mas **não equivale a fotografias reais em alta resolução**. Para uma reprodução fotográfica perfeita da referência, as fotografias individuais de cada produto precisariam ser fornecidas ou licenciadas separadamente. Substitua o caminho `image` correspondente em `app.js` quando tiver as fotos definitivas.
 
-1. crie um projeto no Supabase;
-2. execute o arquivo `supabase.sql` no SQL Editor;
-3. preencha `SUPABASE_URL` e `SUPABASE_PUBLISHABLE_KEY` no arquivo `config.js`.
+## Reservas reais entre convidados
 
-## WhatsApp do rodapé
+O ZIP ainda está em modo demonstração, porque você não forneceu um projeto Supabase. Nesse modo, as escolhas são guardadas somente no próprio navegador, sem sincronização entre aparelhos. **Não publique como sistema de reservas compartilhadas antes de conectar o banco.**
 
-Se quiser ativar o botão “Peça o seu aqui”, adicione o número no campo:
+Para ativar:
 
-```js
-WHATSAPP_NUMBER: '5562SEUNUMEROAQUI'
-```
+1. Crie ou abra um projeto no Supabase.
+2. No SQL Editor, execute `supabase.sql`. O arquivo mantém as reservas antigas ao atualizar o catálogo.
+3. No arquivo `config.js`, preencha `SUPABASE_URL` e `SUPABASE_PUBLISHABLE_KEY` (somente chave pública; nunca uma secret/service_role).
+4. Publique a pasta `cha-do-benicio` no Vercel. Teste reserva simultânea em dois celulares.
 
-## Arquivos principais
+No banco, a função de reservar presente bloqueia a linha do presente enquanto confirma a reserva, impedindo que duas pessoas peguem a última unidade ao mesmo tempo.
 
-- `index.html` → estrutura da página
-- `styles.css` → layout e animações
-- `app.js` → lógica dos presentes, modal e RSVP
-- `config.js` → horário, local, links e chaves públicas
-- `supabase.sql` → banco e funções RPC
+## Botão de WhatsApp no rodapé
 
+Preencha `WHATSAPP_NUMBER` no `config.js` com país + DDD + número. Exemplo de formato: `5562999999999` (é somente um exemplo). Sem isso, o botão informa que o contato ainda precisa ser configurado.
 
-## Refinamento visual v3
+## Alterações no projeto
 
-- Composição de abertura com os elementos 3D originais do Chá do Benício.
-- Botões com proporção corrigida nas telas maiores; botões HTML legíveis no celular.
-- Grade de 24 presentes com fotografias recortadas da arte de referência (algumas têm definição limitada por serem recortes da imagem geral).
-- Reservas de itens exclusivos como **berço** (1 unidade) bloqueiam a escolha após esgotamento.
-- Ursinho decorativo restaurado na confirmação em telas pequenas.
-- Arquivos WebP otimizados para reduzir o peso de carregamento das ilustrações.
-- Banco SQL compatível com a primeira versão. O item extra `babadores` fica arquivado, sem apagar reservas anteriores.
+- `index.html`: composição e ícones azuis customizados em SVG.
+- `styles.css`: responsividade, nova abertura e paisagens decorativas.
+- `app.js`: lista de presentes e reserva/RSVP, com 24 itens.
+- `assets/gifts/*.svg`: ilustrações locais com boa nitidez, sem nomes duplicados.
+- `config.js`: informações do evento e integrações.
+- `supabase.sql`: estrutura para reservas e confirmações.
 
-**Antes de enviar aos convidados:** configure o Supabase em `config.js` e execute o `supabase.sql`. Enquanto não houver uma conexão válida, a tela mostra claramente "Modo demonstração", e convidados em aparelhos diferentes não compartilham disponibilidade. O botão verde de contato no rodapé precisa de um número de WhatsApp em `config.js`.
-
-**Testes realizados:** validação sintática do JavaScript, verificação dos 24 presentes, teste da reserva do berço até esgotamento no modo de demonstração, confirmação de presença e conferência do link do Google Maps. A conexão real ao Supabase não foi testada por depender das credenciais do projeto.
+> Para atualizar um site já publicado no Vercel, substitua os arquivos do projeto e faça um novo deploy. Trocar só o ZIP local não muda o site publicado.

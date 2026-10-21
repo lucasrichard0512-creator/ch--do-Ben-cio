@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 340" role="img"><defs>
+<linearGradient id="a" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#faffff"/><stop offset=".42" stop-color="#a5dff2"/><stop offset="1" stop-color="#468cca"/></linearGradient>
+<linearGradient id="b" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ffffff"/><stop offset=".7" stop-color="#e5effd"/><stop offset="1" stop-color="#a6c3e7"/></linearGradient>
+<linearGradient id="w" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fae8cf"/><stop offset=".55" stop-color="#d7ab7b"/><stop offset="1" stop-color="#af7b4c"/></linearGradient>
+<linearGradient id="k" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#5e6b7d"/><stop offset=".6" stop-color="#2c3649"/><stop offset="1" stop-color="#111d32"/></linearGradient>
+<linearGradient id="teal" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#80f1e6"/><stop offset=".44" stop-color="#19a9b9"/><stop offset="1" stop-color="#04718c"/></linearGradient>
+<filter id="sh" x="-.5" y="-.5" width="2" height="2"><feGaussianBlur stdDeviation="9"/></filter></defs>
+<ellipse cx="245" cy="313" rx="150" ry="15" fill="#5e95c6" opacity=".13" filter="url(#sh)"/>
+<g transform="rotate(-10 240 180)"><path d="M106 130 L376 130 L371 245 L113 245 Z" fill="url(#b)" stroke="#adbed7" stroke-width="4" stroke-linejoin="round" /><rect x="84" y="143" width="36" height="90" rx="7" fill="#b4cbec" stroke="none" stroke-width="2" /><rect x="164" y="174" width="171" height="38" rx="14" fill="#efbfc9" stroke="none" stroke-width="2" /><text x="245" y="203" text-anchor="middle" font-family="Arial,sans-serif" font-size="20" font-weight="800" fill="#a94e76">BABY CARE</text></g></svg>

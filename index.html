@@ -1,194 +1,117 @@
 <!doctype html>
 <html lang="pt-BR">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#e9f4ff">
-  <meta name="description" content="Convite interativo do Chá do Benício com lista de presentes, localização e confirmação de presença.">
-  <meta property="og:title" content="Chá do Benício 💙">
-  <meta property="og:description" content="Um novo capítulo cheio de amor está chegando. Reserve um presente e confirme sua presença!">
-  <title>Chá do Benício 💙</title>
-  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
-  <script src="config.js" defer></script>
-  <script src="app.js" defer></script>
+ <meta charset="utf-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+ <meta name="theme-color" content="#dcedfb">
+ <meta name="description" content="Chá do Benício: dia 28 de novembro de 2026, às 19h, na Igreja Missão Renovada. Escolha um presente e confirme presença.">
+ <meta property="og:title" content="Chá do Benício 💙">
+ <meta property="og:description" content="Uma celebração preparada com amor. Dia 28 de novembro, às 19h!">
+ <title>Chá do Benício 💙 | Convite Interativo</title>
+ <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+ <link rel="preconnect" href="https://fonts.googleapis.com">
+ <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+ <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Baloo+2:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+ <link rel="stylesheet" href="styles.css">
+ <script src="config.js" defer></script>
+ <script src="app.js" defer></script>
 </head>
 <body>
-  <div class="page-bg" aria-hidden="true">
-    <img class="floating-cloud cloud-1" src="assets/cloud.webp" alt="">
-    <img class="floating-cloud cloud-2" src="assets/cloud.webp" alt="">
-    <img class="floating-cloud cloud-3" src="assets/cloud.webp" alt="">
-    <img class="floating-balloon balloon-1" src="assets/heart-balloon.webp" alt="">
-    <img class="floating-balloon balloon-2" src="assets/balloons-hearts.webp" alt="">
-  </div>
+<!-- Os ícones foram desenhados no mesmo estilo azul da referência, sem emojis do sistema. -->
+<svg xmlns="http://www.w3.org/2000/svg" class="sprite" aria-hidden="true">
+<defs>
+ <linearGradient id="iconBlue" x1="0" y1="0" x2=".8" y2="1"><stop stop-color="#71c8ff"/><stop offset=".45" stop-color="#1780d8"/><stop offset="1" stop-color="#074a9e"/></linearGradient>
+ <linearGradient id="iconGold" x1="0" y1="0" x2=".8" y2="1"><stop stop-color="#ffe8a4"/><stop offset=".5" stop-color="#f6b943"/><stop offset="1" stop-color="#d88118"/></linearGradient>
+ <linearGradient id="iconWhite" x1="0" y1="0" x2=".8" y2="1"><stop stop-color="white"/><stop offset="1" stop-color="#bcdfff"/></linearGradient>
+ <symbol id="ic-heart" viewBox="0 0 48 48"><path d="M24 42 5 23C-4 12 6-1 18 7l6 6 6-6C42-1 52 12 43 23Z" fill="url(#iconBlue)" stroke="#1164b8" stroke-width="1.5"/><path d="M10 12q7-6 12 3" fill="none" stroke="#c5efff" stroke-width="3.7" stroke-linecap="round"/></symbol>
+ <symbol id="ic-pin" viewBox="0 0 48 48"><path d="M24 44C19 36 8 27 8 19a16 16 0 0 1 32 0c0 8-11 17-16 25Z" fill="url(#iconBlue)" stroke="#0d60af" stroke-width="2"/><circle cx="24" cy="19" r="6.5" fill="url(#iconWhite)"/></symbol>
+ <symbol id="ic-clock" viewBox="0 0 48 48"><circle cx="24" cy="24" r="19" fill="url(#iconWhite)" stroke="#1778c8" stroke-width="3"/><path d="M24 12v13l9 6" fill="none" stroke="#1164ad" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M13 14q10-9 21 0" fill="none" stroke="white" stroke-width="3" opacity=".8"/></symbol>
+ <symbol id="ic-calendar" viewBox="0 0 48 48"><rect x="6" y="9" width="36" height="33" rx="7" fill="url(#iconWhite)" stroke="#1678cb" stroke-width="2"/><path d="M6 19h36" stroke="#1b8de2" stroke-width="6"/><path d="M16 5v10M32 5v10" stroke="#0b55a9" stroke-width="3.5" stroke-linecap="round"/><path d="m16 30 5 5 11-11" fill="none" stroke="#1785d3" stroke-width="3.2" stroke-linecap="round"/></symbol>
+ <symbol id="ic-gift" viewBox="0 0 48 48"><rect x="7" y="21" width="34" height="23" rx="4" fill="url(#iconBlue)"/><path d="M5 18h38v8H5z" fill="url(#iconWhite)" stroke="#2074bb" stroke-width="2"/><path d="M24 18v26" stroke="#e6f5ff" stroke-width="5"/><path d="M24 19c-21 3-17-18-8-14 5 2 8 10 8 14Zm0 0c21 3 17-18 8-14-5 2-8 10-8 14Z" fill="none" stroke="#238bdb" stroke-width="3"/></symbol>
+ <symbol id="ic-people" viewBox="0 0 48 48"><circle cx="24" cy="13" r="8" fill="url(#iconBlue)"/><circle cx="8.5" cy="17.5" r="5.5" fill="#73b8e6"/><circle cx="39.5" cy="17.5" r="5.5" fill="#73b8e6"/><path d="M12 41V31q0-10 12-10t12 10v10Z" fill="url(#iconBlue)"/><path d="M3 39v-9q0-6 8-6M45 39v-9q0-6-8-6" fill="none" stroke="#73b8e6" stroke-width="6" stroke-linecap="round"/></symbol>
+ <symbol id="ic-check" viewBox="0 0 48 48"><circle cx="24" cy="24" r="21" fill="url(#iconWhite)"/><path d="m13 24 8 8 14-16" fill="none" stroke="#1766b8" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+ <symbol id="ic-user" viewBox="0 0 48 48"><circle cx="24" cy="15" r="8" fill="none" stroke="#2a72b9" stroke-width="3"/><path d="M9 41v-5c0-8 7-13 15-13s15 5 15 13v5Z" fill="none" stroke="#2a72b9" stroke-width="3"/></symbol>
+ <symbol id="ic-message" viewBox="0 0 48 48"><path d="M7 9h34v25H22L11 42v-8H7z" fill="none" stroke="#2a72b9" stroke-width="3" stroke-linejoin="round"/><circle cx="17" cy="21" r="2.5" fill="#2a72b9"/><circle cx="24" cy="21" r="2.5" fill="#2a72b9"/><circle cx="31" cy="21" r="2.5" fill="#2a72b9"/></symbol>
+ <symbol id="ic-crown" viewBox="0 0 48 48"><path d="M6 17 14 24 24 8 34 24 42 17 39 37H9Z" fill="url(#iconGold)" stroke="#b8863b" stroke-width="2"/><circle cx="6" cy="15" r="4" fill="#f8cb5a"/><circle cx="24" cy="7" r="4" fill="#f8cb5a"/><circle cx="42" cy="15" r="4" fill="#f8cb5a"/></symbol>
+ <symbol id="ic-arrow" viewBox="0 0 24 24"><path d="m9 5 7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+</defs></svg>
 
-  <main class="site-shell">
-    <section class="hero-card section-card reveal" id="inicio" aria-label="Convite do Chá do Benício">
-      <span class="hero-spark spark-one" aria-hidden="true">✦</span>
-      <span class="hero-spark spark-two" aria-hidden="true">✧</span>
-      <span class="hero-spark spark-three" aria-hidden="true">✦</span>
-      <div class="hero-scene">
-        <img class="hero-bear" src="assets/bear-heart.webp" alt="Ursinho segurando um coração azul com a letra B">
-        <img class="hero-crib" src="assets/crib.webp" alt="Berço decorativo">
-        <img class="hero-bottle" src="assets/baby-bottle.webp" alt="Mamadeira decorativa">
-        <img class="hero-balloons" src="assets/balloons-bunch.webp" alt="Balões decorativos azuis">
-        <img class="hero-cloudfront" src="assets/cloud.webp" alt="">
-      </div>
-
-      <div class="hero-copy">
-        <img class="hero-title-art" src="assets/title-benicio.webp" alt="Chá do Benício">
-        <p class="hero-tagline">Um novo capítulo<br>cheio de amor<br>está chegando...</p>
-
-        <div class="hero-event-pill">
-          <span class="pill-icon">📅</span>
-          <span id="heroDateText">Sábado, 28 de novembro de 2026</span>
-        </div>
-
-        <p class="hero-invite">Papai e Mamãe te convidam para<br>um momento muito especial!</p>
-
-      </div>
-
-      <nav class="hero-actions" aria-label="Ações principais do convite">
-        <img class="nav-art" src="assets/top-buttons.png" alt="" aria-hidden="true">
-        <a class="action-button primary" href="#presentes" aria-label="Ver lista de presentes">
-          <span class="action-icon" aria-hidden="true">🎁</span>
-          <span class="action-text">Ver lista de presentes</span>
-          <span class="action-arrow" aria-hidden="true">›</span>
-        </a>
-        <a class="action-button" id="mapsTopButton" href="#encontro" aria-label="Ver localização">
-          <span class="action-icon" aria-hidden="true">📍</span>
-          <span class="action-text">Ver localização</span>
-          <span class="action-arrow" aria-hidden="true">›</span>
-        </a>
-        <a class="action-button" href="#presenca" aria-label="Confirmar presença">
-          <span class="action-icon" aria-hidden="true">👥</span>
-          <span class="action-text">Confirmar presença</span>
-          <span class="action-arrow" aria-hidden="true">›</span>
-        </a>
-      </nav>
-    </section>
-
-    <section class="gift-section section-card reveal" id="presentes">
-      <img class="gift-decor gift-decor-left" src="assets/bear-cloud-heart.webp" alt="" aria-hidden="true">
-      <img class="gift-decor gift-decor-right" src="assets/balloons-hearts.webp" alt="" aria-hidden="true">
-      <header class="section-title-block centered">
-        <img class="section-title-art" src="assets/title-gifts.png" alt="Lista de Presentes">
-        <p class="sr-only">Escolha um presente e ajude a preparar tudo com muito amor para a chegada do Benício.</p>
-      </header>
-
-      <div id="demoNotice" class="info-banner hidden" role="status"></div>
-      <div id="connectionNotice" class="info-banner error hidden" role="alert"></div>
-
-      <div class="gift-grid" id="giftGrid" aria-live="polite"></div>
-      <p class="gift-smallprint">💙 Escolher um item significa reservar o presente. O PS5 Pro foi sugerido pelo papai e continua sob investigação da mamãe. 😂</p>
-    </section>
-
-    <section class="meeting-section section-card reveal" id="encontro">
-      <header class="section-title-block centered">
-        <h2><span>💙</span> Nosso Encontro</h2>
-        <p>Vai ser uma alegria enorme ter você com a gente!</p>
-      </header>
-
-      <div class="meeting-layout">
-        <div class="meeting-visual">
-          <img src="assets/map-pin-house.webp" alt="Ilustração de localização com mapa e casa">
-        </div>
-
-        <div class="meeting-info">
-          <article class="meeting-box">
-            <div class="meeting-box-icon">📍</div>
-            <div>
-              <strong>Local</strong>
-              <p id="meetingPlaceName">Igreja Missão Renovada</p>
-              <small id="meetingPlaceAddress">Rua 6, Setor Eliziário, São Miguel do Araguaia - GO</small>
-            </div>
-          </article>
-          <article class="meeting-box">
-            <div class="meeting-box-icon">🕖</div>
-            <div>
-              <strong>Horário</strong>
-              <p id="meetingTime">19:00h</p>
-              <small>Sábado, 28 de novembro de 2026</small>
-            </div>
-          </article>
-          <a class="meeting-link" id="mapsLink" href="#" target="_blank" rel="noopener noreferrer">Abrir localização no Google Maps</a>
-        </div>
-
-        <div class="meeting-sign">
-          <img src="assets/sign-love.webp" alt="Plaquinha decorativa com mensagem carinhosa">
-        </div>
-      </div>
-    </section>
-
-    <section class="rsvp-section section-card reveal" id="presenca">
-      <header class="section-title-block centered">
-        <h2><span>💙</span> Confirme sua Presença</h2>
-        <p>Sua presença vai deixar esse momento ainda mais especial!</p>
-      </header>
-
-      <div class="rsvp-layout">
-        <div class="rsvp-visual">
-          <img src="assets/bear-cloud-balloons.webp" alt="Ursinho nas nuvens com balões em formato de coração">
-        </div>
-
-        <form id="rsvpForm" class="rsvp-form-card">
-          <div class="field-group">
-            <label for="rsvpName">Seu nome</label>
-            <input id="rsvpName" name="name" type="text" maxlength="80" autocomplete="name" placeholder="Digite seu nome" required>
-          </div>
-
-          <div class="field-group">
-            <label for="rsvpMessage">Observação <span>(opcional)</span></label>
-            <textarea id="rsvpMessage" name="message" rows="3" maxlength="300" placeholder="Deixe uma observação, por exemplo se vai levar mais alguém..."></textarea>
-          </div>
-
-          <button id="rsvpSubmit" class="submit-button" type="submit">
-            <span aria-hidden="true">✔</span>
-            Confirmar presença
-          </button>
-          <p id="rsvpFeedback" class="form-feedback" role="status" aria-live="polite"></p>
-        </form>
-      </div>
-    </section>
-  </main>
-
-  <footer class="footer-bar">
-    <div class="footer-copy">
-      <p class="footer-title">👑 Um recadinho do papai....👀</p>
-      <p>Gostou desse convite?</p>
-      <p>E se você também quiser um convite digital interativo, personalizado e cheio de surpresas, o papai faz o seu!</p>
-      <p class="footer-joke">Porque criar convites é divertido... mas comprar fraldas custa dinheiro! 😅</p>
+<main class="site-shell">
+ <section id="inicio" class="hero scene-fade">
+  <div class="curtain left-curtain" aria-hidden="true"></div><div class="curtain right-curtain" aria-hidden="true"></div>
+  <div class="hero-floating-star star-a" aria-hidden="true">✦</div><div class="hero-floating-star star-b" aria-hidden="true">✦</div>
+  <div class="hero-grid">
+    <div class="hero-art" aria-hidden="true">
+      <img class="hero-bear" src="assets/bear-heart.webp" alt="">
+      <img class="hero-crib" src="assets/crib.webp" alt="">
+      <img class="hero-bottle" src="assets/baby-bottle.webp" alt="">
+      <img class="hero-cloud" src="assets/cloud.webp" alt="">
     </div>
-    <a href="#" id="contactLink" class="whatsapp-button">💬 Peça o seu aqui</a>
-  </footer>
+    <div class="hero-copy">
+      <h1 class="hero-name"><img src="assets/title-benicio.webp" alt="Chá do Benício"></h1>
+      <p class="hero-tagline">Um novo capítulo<br>cheio de amor<br>está chegando...</p>
+      <div class="hero-date"><svg class="icon"><use href="#ic-calendar"/></svg><span id="heroDateText">Sábado, 28 de novembro de 2026</span></div>
+      <p class="hero-invite">Papai e Mamãe te convidam para<br>um momento muito especial!</p>
+      <svg class="icon hero-love" aria-hidden="true"><use href="#ic-heart"/></svg>
+    </div>
+  </div>
+  <nav class="hero-actions" aria-label="Navegação do convite">
+    <a class="action-button primary" href="#presentes"><span class="action-icon"><svg class="icon"><use href="#ic-gift"/></svg></span><span>Ver lista de<br>presentes</span><svg class="chevron"><use href="#ic-arrow"/></svg></a>
+    <a class="action-button" id="mapsTopButton" href="#encontro"><span class="action-icon"><svg class="icon"><use href="#ic-pin"/></svg></span><span>Ver localização</span><svg class="chevron"><use href="#ic-arrow"/></svg></a>
+    <a class="action-button" href="#presenca"><span class="action-icon"><svg class="icon"><use href="#ic-people"/></svg></span><span>Confirmar<br>presença</span><svg class="chevron"><use href="#ic-arrow"/></svg></a>
+  </nav>
+ </section>
 
-  <dialog id="giftModal" class="gift-dialog" aria-labelledby="giftModalTitle">
-    <form id="giftForm" class="gift-modal-form" method="dialog">
-      <button id="closeGiftModal" class="modal-close" type="button" aria-label="Fechar">×</button>
-      <div class="gift-modal-head">
-        <img id="giftModalImage" src="" alt="" class="gift-modal-image">
-        <div>
-          <p class="modal-kicker">PRESENTE COM CARINHO</p>
-          <h2 id="giftModalTitle">Reservar presente</h2>
-          <p id="giftModalDescription">Um carinho para o Benício.</p>
-        </div>
-      </div>
+ <section id="presentes" class="gift-section scene-fade">
+  <img class="gift-decor gift-decor-left" src="assets/bear-cloud-heart.webp" alt="" aria-hidden="true">
+  <img class="gift-decor gift-decor-right" src="assets/balloons-hearts.webp" alt="" aria-hidden="true">
+  <div class="gift-heading"><h2><img src="assets/title-gifts.png" alt="Lista de Presentes"></h2></div>
+  <div id="demoNotice" class="info-banner hidden" role="status"></div>
+  <div id="connectionNotice" class="info-banner error hidden" role="alert"></div>
+  <div id="giftGrid" class="gift-grid" aria-live="polite"></div>
+  <p class="gift-smallprint"><svg class="icon"><use href="#ic-heart"/></svg> Cada presente é reservado somente uma vez por unidade. O PS5 Pro foi sugestão do papai e ainda aguarda aprovação da mamãe!</p>
+ </section>
 
-      <label for="giftGuestName">Seu nome</label>
-      <input id="giftGuestName" name="giftGuestName" type="text" maxlength="80" autocomplete="name" placeholder="Quem está presenteando?" required>
+ <section id="encontro" class="meeting-section scene-fade">
+  <div class="meeting-header">
+   <img class="meeting-visual" src="assets/map-pin-house.webp" alt="">
+   <div class="meeting-heading"><h2><svg class="icon"><use href="#ic-heart"/></svg> Nosso Encontro</h2><p>Vai ser uma alegria enorme ter você com a gente!</p></div>
+   <img class="meeting-sign" src="assets/sign-love.webp" alt="">
+  </div>
+  <div class="meeting-info">
+   <article class="meeting-box"><div class="round-icon"><svg class="icon"><use href="#ic-pin"/></svg></div><div><strong>Local</strong><p id="meetingPlaceName">Igreja Missão Renovada</p><small id="meetingPlaceAddress">Rua 6, Setor Eliziário, São Miguel do Araguaia - GO</small></div></article>
+   <article class="meeting-box"><div class="round-icon"><svg class="icon"><use href="#ic-clock"/></svg></div><div><strong>Horário</strong><p id="meetingTime">19:00h</p><small>Sábado, 28 de novembro de 2026</small></div></article>
+  </div>
+  <a class="meeting-link" id="mapsLink" href="https://maps.app.goo.gl/pSpLkEZZSyKzMFrK9?g_st=ic" target="_blank" rel="noopener noreferrer"><svg class="icon"><use href="#ic-pin"/></svg> Abrir no Google Maps</a>
+ </section>
 
-      <label for="giftQuantity">Quantidade</label>
-      <select id="giftQuantity" name="giftQuantity"></select>
+ <section id="presenca" class="rsvp-section scene-fade">
+  <div class="rsvp-heading"><h2><svg class="icon"><use href="#ic-heart"/></svg> Confirme sua Presença</h2><p>Sua presença vai deixar esse momento ainda mais especial!</p></div>
+  <img class="rsvp-decor-right" src="assets/balloons-hearts.webp" alt="" aria-hidden="true">
+  <div class="rsvp-layout">
+   <img class="rsvp-bear" src="assets/bear-cloud-heart.webp" alt="Ursinho abraçando um coração azul entre nuvens">
+   <form id="rsvpForm" class="rsvp-form">
+    <div class="rsvp-fields">
+      <div class="field"><label for="rsvpName">Seu nome</label><div class="field-control"><svg class="icon"><use href="#ic-user"/></svg><input id="rsvpName" type="text" name="name" maxlength="80" autocomplete="name" placeholder="Digite seu nome" required></div></div>
+      <div class="field"><label for="rsvpMessage">Observação <span>(opcional)</span></label><div class="field-control"><svg class="icon"><use href="#ic-message"/></svg><textarea id="rsvpMessage" name="message" maxlength="300" rows="2" placeholder="Se vai levar mais alguém, deixe um recadinho..."></textarea></div></div>
+    </div>
+    <button id="rsvpSubmit" class="submit-button" type="submit"><svg class="icon"><use href="#ic-check"/></svg> Confirmar presença</button>
+    <p id="rsvpFeedback" class="form-feedback" role="status" aria-live="polite"></p>
+   </form>
+  </div>
+ </section>
+</main>
 
-      <p class="modal-note">Quando a quantidade acabar, o presente ficará indisponível para os próximos convidados.</p>
-      <button id="giftSubmit" class="submit-button modal-submit" type="submit">Reservar presente 💙</button>
-      <p id="giftFeedback" class="form-feedback" role="status" aria-live="polite"></p>
-    </form>
-  </dialog>
+<footer class="footer-bar"><div class="footer-copy"><p class="footer-title"><svg class="icon"><use href="#ic-crown"/></svg> Um recadinho do papai...</p><p>Gostou do convite? O papai também faz convites interativos personalizados!</p><p class="footer-joke">Criar convites é divertido, mas comprar fraldas custa dinheiro. 😅</p></div><a href="#" id="contactLink" class="whatsapp-button">Peça o seu aqui <svg class="chevron"><use href="#ic-arrow"/></svg></a></footer>
 
-  <div id="toast" class="toast" role="status" aria-live="polite"></div>
-</body>
-</html>
+<dialog id="giftModal" class="gift-dialog" aria-labelledby="giftModalTitle">
+ <form id="giftForm" class="gift-modal-form"><button id="closeGiftModal" class="modal-close" type="button" aria-label="Fechar">×</button>
+ <div class="gift-modal-head"><img id="giftModalImage" class="gift-modal-image" src="assets/gifts/fraldas-rn.svg" alt=""><div><p class="modal-kicker">PRESENTE COM CARINHO</p><h2 id="giftModalTitle">Reservar presente</h2><p id="giftModalDescription">Um carinho para o Benício.</p></div></div>
+ <label for="giftGuestName">Seu nome</label><input id="giftGuestName" name="giftGuestName" maxlength="80" autocomplete="name" placeholder="Quem está presenteando?" required>
+ <label for="giftQuantity">Quantidade</label><select id="giftQuantity" name="giftQuantity"></select>
+ <p class="modal-note">Ao confirmar, esta quantidade ficará indisponível para os outros convidados.</p>
+ <button id="giftSubmit" class="submit-button modal-submit" type="submit"><svg class="icon"><use href="#ic-gift"/></svg> Reservar presente</button><p id="giftFeedback" class="form-feedback" role="status" aria-live="polite"></p>
+ </form>
+</dialog>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+</body></html>
