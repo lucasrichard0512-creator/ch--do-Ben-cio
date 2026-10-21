@@ -45,7 +45,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
  .info-banner{font-size:11px;line-height:1.4;text-align:left;padding:10px 12px;border-radius:13px;margin:0 auto 17px}
  .gift-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
  .gift-card{min-height:256px;padding:10px 9px 11px;border-radius:17px;box-shadow:0 6px 16px #598cbb2c}
- .gift-image-wrap{height:98px;margin:3px 0 6px}.gift-image{width:auto;max-width:100%;max-height:100%;object-fit:contain}
+ .gift-image-wrap{height:112px;margin:4px 0 8px}.gift-image{width:auto;max-width:100%;max-height:100%;object-fit:contain;transform:scale(1.08)}
  .gift-card h3{font-size:12.5px;min-height:34px;line-height:1.12;margin-bottom:2px}.gift-stock{font-size:11px;min-height:18px}
  .gift-counter{width:min(100%,154px);gap:6px;margin:8px auto 10px}.qty-btn{width:30px;height:30px;font-size:19px}.gift-counter strong{font-size:15px}
  .reserve-button{font-size:clamp(10px,2.8vw,12px);min-height:38px;padding:7px 3px;white-space:normal;line-height:1.1;gap:3px}.reserve-button .icon{width:16px;height:16px}
@@ -119,4 +119,14 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
 }
 @media(max-width:370px){
  .hero-bear{left:-2%;width:114%;bottom:12%}
+}
+
+/* V10.2 fine tune */
+@media(max-width:680px){
+ .hero-copy .hero-crib{width:min(108px,48%);max-width:108px;align-self:flex-end;margin:-74px 6px 12px 0;opacity:.92}
+ .gift-card{min-height:270px}
+ .footer-copy p{max-width:100%}
+}
+@media(max-width:370px){
+ .hero-copy .hero-crib{width:min(98px,47%);margin:-68px 4px 10px 0}
 }

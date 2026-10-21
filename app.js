@@ -329,7 +329,7 @@ function setupInternalNavigation() {
 function refineGiftHumor() {
   const note = document.querySelector('.gift-smallprint');
   if (note) {
-    note.innerHTML = '<svg class="icon"><use href="#ic-heart"></use></svg> Cada presente pode ser reservado conforme a quantidade disponível. E sim... o PS5 Pro apareceu na lista por uma ideia muito humilde do papai. 😂';
+    note.innerHTML = '<svg class="icon"><use href="#ic-heart"></use></svg> Cada presente pode ser reservado apenas uma vez por unidade. E sim... o PS5 Pro segue sendo uma sugestão bem otimista do papai. 😂';
   }
 }
 

@@ -5,7 +5,7 @@ window.BENICIO_CONFIG = {
   EVENT_PLACE_NAME: 'Igreja Missão Renovada',
   EVENT_ADDRESS: 'Rua 6, Setor Eliziário, São Miguel do Araguaia - GO',
   MAPS_URL: 'https://maps.app.goo.gl/pSpLkEZZSyKzMFrK9?g_st=ic',
-  WHATSAPP_NUMBER: '',
+  WHATSAPP_NUMBER: '5562999407334',
   SUPABASE_URL: '',
   SUPABASE_PUBLISHABLE_KEY: ''
 };
