@@ -150,3 +150,17 @@ html,body{height:auto!important;min-height:100%;overflow-y:visible!important;scr
 .site-shell>section{scroll-snap-align:none!important}
 .footer-bar{position:relative;display:flex;min-height:145px;padding-bottom:max(28px,env(safe-area-inset-bottom))}
 @media(max-width:680px){html{scroll-behavior:auto!important}.footer-bar{padding-bottom:calc(34px + env(safe-area-inset-bottom))}}
+
+/* V10.8 - consistent mobile product gallery, no forced image enlargement. */
+@media(max-width:680px){
+ .gift-image-wrap{height:126px;margin:4px 0 10px;}
+ .gift-image{transform:none!important;filter:none!important;}
+}
+@media(max-width:370px){.gift-image-wrap{height:104px}}
+
+/* V10.8 - consistent mobile product gallery, no forced image enlargement. */
+@media(max-width:680px){
+ .gift-image-wrap{height:126px;margin:4px 0 10px;}
+ .gift-image{transform:none!important;filter:none!important;}
+}
+@media(max-width:370px){.gift-image-wrap{height:104px}}

@@ -180,3 +180,45 @@ section:target{scroll-margin-top:0}
   .hero-floating-star,.hero-balloons,.hero-bear{animation:none!important}
   .hero img{backface-visibility:visible!important;-webkit-backface-visibility:visible!important}
 }
+
+/* V10.8 - render crisp source photos without blur-causing transforms. */
+.gift-image-wrap{
+  overflow:hidden;
+  background:#fff;
+  height:140px;
+  flex:0 0 auto;
+  border-radius:12px;
+}
+.gift-image{
+  display:block!important;
+  width:100%!important;
+  height:100%!important;
+  max-width:100%!important;
+  max-height:100%!important;
+  object-fit:contain!important;
+  object-position:center center!important;
+  transform:none!important;
+  filter:none!important;
+  image-rendering:auto;
+}
+
+/* V10.8 - render crisp source photos without blur-causing transforms. */
+.gift-image-wrap{
+  overflow:hidden;
+  background:#fff;
+  height:140px;
+  flex:0 0 auto;
+  border-radius:12px;
+}
+.gift-image{
+  display:block!important;
+  width:100%!important;
+  height:100%!important;
+  max-width:100%!important;
+  max-height:100%!important;
+  object-fit:contain!important;
+  object-position:center center!important;
+  transform:none!important;
+  filter:none!important;
+  image-rendering:auto;
+}

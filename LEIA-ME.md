@@ -32,3 +32,23 @@ Enquanto `SUPABASE_URL` e `SUPABASE_PUBLISHABLE_KEY` estiverem vazios, o site in
 - Removido o movimento de rolagem forçado em links internos.
 - Na abertura no Safari iOS, fundo em camada única e elementos decorativos sem animação acelerada para reduzir risco de artefatos pretos.
 - Não foi possível reproduzir o defeito em um iPhone físico neste ambiente. Testar após publicar e recarregar sem cache.
+
+
+## Versão 10.8 - Imagens
+
+* 17 imagens dos presentes foram recriadas em padrão visual de alta nitidez (9 produtos e 8 itens de fralda/higiene).
+* 5 imagens de móveis/acessórios foram recuperadas dos arquivos originais de 1200px e reexportadas, sem afirmar que são nativamente tão definidas quanto as imagens recriadas.
+* Mamadeira e berço preservam o patrimônio visual original de maior qualidade.
+* Cards continuam com HTML, JavaScript e ações reais: as imagens recriadas foram recortadas sem incluir botões ou texto.
+* Imagens são representações ilustrativas e embalagens geradas não garantem correspondência exata com produtos comerciais.
+* Refaça o deploy completo para atualizar os arquivos estáticos.
+
+
+## Versão 10.8 - Imagens
+
+* 17 imagens dos presentes foram recriadas em padrão visual de alta nitidez (9 produtos e 8 itens de fralda/higiene).
+* 5 imagens de móveis/acessórios foram recuperadas dos arquivos originais de 1200px e reexportadas, sem afirmar que são nativamente tão definidas quanto as imagens recriadas.
+* Mamadeira e berço preservam o patrimônio visual original de maior qualidade.
+* Cards continuam com HTML, JavaScript e ações reais: as imagens recriadas foram recortadas sem incluir botões ou texto.
+* Imagens são representações ilustrativas e embalagens geradas não garantem correspondência exata com produtos comerciais.
+* Refaça o deploy completo para atualizar os arquivos estáticos.
