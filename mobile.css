@@ -201,3 +201,17 @@ html,body{height:auto!important;min-height:100%;overflow-y:visible!important;scr
  .meeting-scene{height:205px}
  .rsvp-scene{height:165px;max-height:165px}
 }
+
+
+/* V10.11 - correção do berço no hero e mais legibilidade das frases no celular */
+@media(max-width:680px){
+ .hero-copy .hero-crib{width:min(94px,43%);max-width:94px;align-self:flex-end;margin:-28px 6px 4px 0;opacity:.9}
+ .gift-smallprint,.fun-caption,.rsvp-humor{color:#2f5d97!important;font-weight:900!important;letter-spacing:-0.01em}
+ .gift-smallprint{font-size:15px;line-height:1.55;max-width:356px;margin-top:16px}
+ .fun-caption{font-size:15px!important;line-height:1.55!important;max-width:352px;margin:9px auto 0!important}
+ .rsvp-humor{font-size:14.5px;line-height:1.55;max-width:352px;margin:10px auto 0}
+}
+@media(max-width:370px){
+ .hero-copy .hero-crib{width:min(86px,42%);max-width:86px;margin:-24px 4px 4px 0}
+ .gift-smallprint,.fun-caption,.rsvp-humor{font-size:13.4px!important;line-height:1.5!important;max-width:320px}
+}

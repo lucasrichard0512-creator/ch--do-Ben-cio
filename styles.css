@@ -242,3 +242,10 @@ section:target{scroll-margin-top:0}
 .gift-section{padding-top:34px;padding-bottom:38px}
 .meeting-section{padding-top:38px;padding-bottom:34px}
 .rsvp-section{padding-top:34px;padding-bottom:28px}
+
+
+/* V10.11 - frases menores com mais destaque sem mudar o layout */
+.gift-smallprint,.fun-caption,.rsvp-humor{color:#315f96!important;font-weight:900!important;letter-spacing:-0.01em}
+.gift-smallprint{font-size:15px;line-height:1.6;max-width:800px;margin:16px auto 0}
+.fun-caption{font-size:clamp(14px,1.45vw,17px)!important;line-height:1.6!important;max-width:760px}
+.rsvp-humor{font-size:15px;line-height:1.6;max-width:780px;margin:12px auto 0}

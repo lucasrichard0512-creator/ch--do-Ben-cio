@@ -63,3 +63,6 @@ Enquanto `SUPABASE_URL` e `SUPABASE_PUBLISHABLE_KEY` estiverem vazios, o site in
 
 
 V10.10: frases de humor com fonte maior e compactação dos espaços entre seções para melhorar a leitura, sem alterar o conteúdo do convite.
+
+
+V10.11: berço da capa levemente menor e mais baixo no mobile; frases menores com maior destaque e remoção da parte “A mamãe pediu o plano de aula” da frase do PS5.
