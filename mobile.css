@@ -171,3 +171,33 @@ html,body{height:auto!important;min-height:100%;overflow-y:visible!important;scr
  .fun-caption{font-size:11.5px!important;max-width:340px}
  .rsvp-humor{font-size:11px;max-width:325px;margin:10px auto 0}
 }
+
+
+/* V10.10 - frases maiores e seções mais compactas no celular */
+@media(max-width:680px){
+ .gift-section{padding:24px var(--edge) 24px;min-height:0}
+ .gift-heading{margin:0 0 10px}
+ .gift-fun-intro{font-size:14px;line-height:1.55;max-width:350px;margin:0 auto 12px;padding:0 4px}
+ .gift-grid{gap:10px}
+ .gift-smallprint{font-size:13px;line-height:1.5;margin-top:14px;max-width:340px}
+ .meeting-section{min-height:0;padding:28px var(--edge) 24px}
+ .meeting-heading p{font-size:14.5px;line-height:1.38;max-width:340px;margin:5px auto 0}
+ .meeting-scene{height:clamp(215px,31svh,270px);margin:0 auto -6px}
+ .meeting-info{gap:10px;margin:0 auto 12px}
+ .rsvp-section{padding:28px var(--edge) 24px}
+ .rsvp-heading p{font-size:14.5px;line-height:1.38;max-width:340px;margin:5px auto 0}
+ .fun-caption{font-size:13px!important;line-height:1.5!important;max-width:340px;margin:7px auto 0!important}
+ .rsvp-layout{margin:6px auto 0;gap:2px}
+ .rsvp-scene{height:176px;max-height:176px}
+ .rsvp-form{padding:7px 4px 2px}
+ .rsvp-humor{font-size:12.8px;line-height:1.5;max-width:340px;margin:8px auto 0}
+ .footer-bar{gap:10px;padding:14px var(--edge) calc(18px + env(safe-area-inset-bottom))}
+ .footer-copy .footer-title{font-size:15px!important}
+ .footer-copy p{font-size:12.8px;line-height:1.55}
+}
+@media(max-width:370px){
+ .gift-fun-intro{font-size:13px}
+ .gift-smallprint,.fun-caption,.rsvp-humor,.footer-copy p{font-size:12.2px}
+ .meeting-scene{height:205px}
+ .rsvp-scene{height:165px;max-height:165px}
+}

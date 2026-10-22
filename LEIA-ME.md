@@ -60,3 +60,6 @@ Enquanto `SUPABASE_URL` e `SUPABASE_PUBLISHABLE_KEY` estiverem vazios, o site in
 - Removida a frase antiga sobre limitação por unidade; mantida apenas piada do PS5 Pro.
 - Humor discreto adicionado nos presentes, encontro, RSVP e rodapé.
 - IMPORTANTE: para registrar reservas reais compartilhadas, configure o Supabase em config.js.
+
+
+V10.10: frases de humor com fonte maior e compactação dos espaços entre seções para melhorar a leitura, sem alterar o conteúdo do convite.
