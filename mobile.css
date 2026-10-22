@@ -164,3 +164,10 @@ html,body{height:auto!important;min-height:100%;overflow-y:visible!important;scr
  .gift-image{transform:none!important;filter:none!important;}
 }
 @media(max-width:370px){.gift-image-wrap{height:104px}}
+
+/* V10.9 - textinhos discretos mesmo em telas pequenas. */
+@media(max-width:680px){
+ .gift-fun-intro{font-size:12px;margin:0 auto 15px;max-width:320px;padding:0 6px}
+ .fun-caption{font-size:11.5px!important;max-width:340px}
+ .rsvp-humor{font-size:11px;max-width:325px;margin:10px auto 0}
+}

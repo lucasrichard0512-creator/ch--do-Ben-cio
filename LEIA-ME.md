@@ -1,4 +1,4 @@
-# Chá do Benício — V10.5 (estabilização)
+# Chá do Benício — V10.9
 
 Esta versão mantém o visual e as 24 opções de presentes da V10.4.
 
@@ -52,3 +52,11 @@ Enquanto `SUPABASE_URL` e `SUPABASE_PUBLISHABLE_KEY` estiverem vazios, o site in
 * Cards continuam com HTML, JavaScript e ações reais: as imagens recriadas foram recortadas sem incluir botões ou texto.
 * Imagens são representações ilustrativas e embalagens geradas não garantem correspondência exata com produtos comerciais.
 * Refaça o deploy completo para atualizar os arquivos estáticos.
+
+
+## V10.9 — imagens e humor
+- Trocador, cômoda, carrinho, bebê conforto e PS5 Pro substituídos por renderizações novas em vez de ampliar originais embaçados.
+- Aviso global de demonstração retirado a pedido. Quando o Supabase não estiver configurado, o aviso aparece somente ao fazer a reserva e na confirmação de presença; nenhum dado é compartilhado entre aparelhos.
+- Removida a frase antiga sobre limitação por unidade; mantida apenas piada do PS5 Pro.
+- Humor discreto adicionado nos presentes, encontro, RSVP e rodapé.
+- IMPORTANTE: para registrar reservas reais compartilhadas, configure o Supabase em config.js.

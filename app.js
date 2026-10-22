@@ -6,30 +6,30 @@ const DEMO_KEY = 'cha-benicio-presentes-demo-v2';
 const DEMO_RSVP_KEY = 'cha-benicio-presencas-demo-v2';
 
 const GIFTS = [
-  { id: 'fraldas-rn', name: 'Fralda RN', qty: 2, image: 'assets/gifts/fraldas-rn.webp?v=10.8', description: 'Para os primeiros dias do Benício.' },
-  { id: 'fraldas-p', name: 'Fralda P', qty: 8, image: 'assets/gifts/fraldas-p.webp?v=10.8', description: 'As pequenas grandes aliadas da rotina.' },
-  { id: 'fraldas-m', name: 'Fralda M', qty: 14, image: 'assets/gifts/fraldas-m.webp?v=10.8', description: 'O estoque mais estratégico do enxoval.' },
-  { id: 'fraldas-g', name: 'Fralda G', qty: 10, image: 'assets/gifts/fraldas-g.webp?v=10.8', description: 'Porque o Benício vai crescer rapidinho.' },
-  { id: 'fraldas-xg', name: 'Fralda XG', qty: 5, image: 'assets/gifts/fraldas-xg.webp?v=10.8', description: 'Prevenção é tudo, principalmente com fraldas.' },
-  { id: 'lencos', name: 'Lenços umedecidos', qty: 15, image: 'assets/gifts/lencos.webp?v=10.8', description: 'Sempre úteis, sempre necessários.' },
-  { id: 'pomada', name: 'Pomada para assaduras', qty: 5, image: 'assets/gifts/pomada.webp?v=10.8', description: 'Cuidado e carinho para a pele do bebê.' },
-  { id: 'sabonete', name: 'Sabonete líquido', qty: 5, image: 'assets/gifts/sabonete.webp?v=10.8', description: 'Um banho cheiroso para o pequeno.' },
-  { id: 'shampoo', name: 'Shampoo infantil', qty: 3, image: 'assets/gifts/shampoo.webp?v=10.8', description: 'Para os banhos mais fofos da casa.' },
-  { id: 'bodies', name: 'Kit de bodies', qty: 4, image: 'assets/gifts/bodies.webp?v=10.8', description: 'Conforto para muitos abraços.' },
-  { id: 'macacao', name: 'Macacão para bebê', qty: 4, image: 'assets/gifts/macacao.webp?v=10.8', description: 'Fofura garantida para o enxoval.' },
-  { id: 'manta', name: 'Manta para bebê', qty: 3, image: 'assets/gifts/manta.webp?v=10.8', description: 'Um abraço quentinho em forma de manta.' },
-  { id: 'toalha', name: 'Toalha com capuz', qty: 5, image: 'assets/gifts/toalha.webp?v=10.8', description: 'Para sair do banho parecendo um mini ursinho.' },
-  { id: 'paninhos', name: 'Kit de paninhos de boca', qty: 6, image: 'assets/gifts/paninhos.webp?v=10.8', description: 'Nunca é demais. Nunca mesmo.' },
-  { id: 'lencol', name: 'Jogo de lençol para berço', qty: 3, image: 'assets/gifts/lencol.webp?v=10.8', description: 'Mais conforto para o soninho do Benício.' },
-  { id: 'mamadeira', name: 'Mamadeira', qty: 2, image: 'assets/baby-bottle.webp?v=10.8', description: 'Um clássico que ajuda muito na rotina.' },
-  { id: 'escova-pente', name: 'Kit escova e pente', qty: 1, image: 'assets/gifts/escova-pente.webp?v=10.8', description: 'Para o cabelo do Benício ficar sempre no capricho.' },
-  { id: 'banheira', name: 'Banheira', qty: 1, image: 'assets/gifts/banheira.webp?v=10.8', description: 'Banho gostoso e muito cuidado.' },
-  { id: 'trocador', name: 'Trocador', qty: 1, image: 'assets/gifts/trocador.webp?v=10.8', description: 'Praticidade na missão troca de fraldas.' },
-  { id: 'berco', name: 'Berço', qty: 1, image: 'assets/crib.webp?v=10.8', description: 'Onde vão nascer muitos soninhos tranquilos.' },
-  { id: 'carrinho', name: 'Carrinho de bebê', qty: 1, image: 'assets/gifts/carrinho.webp?v=10.8', description: 'Para os passeios mais especiais.' },
-  { id: 'bebe-conforto', name: 'Bebê conforto', qty: 1, image: 'assets/gifts/bebe-conforto.webp?v=10.8', description: 'Segurança e conforto nos trajetos.' },
-  { id: 'comoda', name: 'Cômoda para bebê', qty: 1, image: 'assets/gifts/comoda.webp?v=10.8', description: 'Organização para o enxoval do príncipe.' },
-  { id: 'ps5-pro', name: 'PS5 Pro', qty: 1, image: 'assets/gifts/ps5-pro.webp?v=10.8', description: 'Sugestão carinhosamente enviada pelo papai. A diretoria da mamãe ainda está avaliando. 😂', isJoke: true }
+  { id: 'fraldas-rn', name: 'Fralda RN', qty: 2, image: 'assets/gifts/fraldas-rn.webp?v=10.9', description: 'Para os primeiros dias do Benício.' },
+  { id: 'fraldas-p', name: 'Fralda P', qty: 8, image: 'assets/gifts/fraldas-p.webp?v=10.9', description: 'As pequenas grandes aliadas da rotina.' },
+  { id: 'fraldas-m', name: 'Fralda M', qty: 14, image: 'assets/gifts/fraldas-m.webp?v=10.9', description: 'O verdadeiro investimento a longo prazo. O papai já pensou em comprar ações de fraldas. 📈😂' },
+  { id: 'fraldas-g', name: 'Fralda G', qty: 10, image: 'assets/gifts/fraldas-g.webp?v=10.9', description: 'Porque o Benício vai crescer rapidinho.' },
+  { id: 'fraldas-xg', name: 'Fralda XG', qty: 5, image: 'assets/gifts/fraldas-xg.webp?v=10.9', description: 'Prevenção é tudo, principalmente com fraldas.' },
+  { id: 'lencos', name: 'Lenços umedecidos', qty: 15, image: 'assets/gifts/lencos.webp?v=10.9', description: 'Um acaba, dois aparecem. O lenço umedecido já virou moeda oficial desta casa. 😂' },
+  { id: 'pomada', name: 'Pomada para assaduras', qty: 5, image: 'assets/gifts/pomada.webp?v=10.9', description: 'Cuidado e carinho para a pele do bebê.' },
+  { id: 'sabonete', name: 'Sabonete líquido', qty: 5, image: 'assets/gifts/sabonete.webp?v=10.9', description: 'Um banho cheiroso para o pequeno.' },
+  { id: 'shampoo', name: 'Shampoo infantil', qty: 3, image: 'assets/gifts/shampoo.webp?v=10.9', description: 'Para os banhos mais fofos da casa.' },
+  { id: 'bodies', name: 'Kit de bodies', qty: 4, image: 'assets/gifts/bodies.webp?v=10.9', description: 'Conforto para muitos abraços.' },
+  { id: 'macacao', name: 'Macacão para bebê', qty: 4, image: 'assets/gifts/macacao.webp?v=10.9', description: 'Fofura garantida para o enxoval.' },
+  { id: 'manta', name: 'Manta para bebê', qty: 3, image: 'assets/gifts/manta.webp?v=10.9', description: 'Um abraço quentinho em forma de manta.' },
+  { id: 'toalha', name: 'Toalha com capuz', qty: 5, image: 'assets/gifts/toalha.webp?v=10.9', description: 'Para sair do banho parecendo um mini ursinho.' },
+  { id: 'paninhos', name: 'Kit de paninhos de boca', qty: 6, image: 'assets/gifts/paninhos.webp?v=10.9', description: 'Nunca é demais. Nunca mesmo.' },
+  { id: 'lencol', name: 'Jogo de lençol para berço', qty: 3, image: 'assets/gifts/lencol.webp?v=10.9', description: 'Mais conforto para o soninho do Benício.' },
+  { id: 'mamadeira', name: 'Mamadeira', qty: 2, image: 'assets/baby-bottle.webp?v=10.9', description: 'Um clássico que ajuda muito na rotina.' },
+  { id: 'escova-pente', name: 'Kit escova e pente', qty: 1, image: 'assets/gifts/escova-pente.webp?v=10.9', description: 'Para o cabelo do Benício ficar sempre no capricho.' },
+  { id: 'banheira', name: 'Banheira', qty: 1, image: 'assets/gifts/banheira.webp?v=10.9', description: 'Banho gostoso e muito cuidado.' },
+  { id: 'trocador', name: 'Trocador', qty: 1, image: 'assets/gifts/trocador.webp?v=10.9', description: 'O palco oficial das trocas de fraldas mais radicais. O papai já está em treinamento. 😅' },
+  { id: 'berco', name: 'Berço', qty: 1, image: 'assets/crib.webp?v=10.9', description: 'Onde vão nascer muitos soninhos tranquilos.' },
+  { id: 'carrinho', name: 'Carrinho de bebê', qty: 1, image: 'assets/gifts/carrinho.webp?v=10.9', description: 'O primeiro carro do Benício. Pelo menos esse não paga IPVA. 🚗😂' },
+  { id: 'bebe-conforto', name: 'Bebê conforto', qty: 1, image: 'assets/gifts/bebe-conforto.webp?v=10.9', description: 'O banco VIP do Benício. Nenhuma carona será autorizada sem o motorista papai. 💙' },
+  { id: 'comoda', name: 'Cômoda para bebê', qty: 1, image: 'assets/gifts/comoda.webp?v=10.9', description: 'Para guardar as roupinhas do príncipe... e os conjuntos que a mamãe jurou que não ia comprar. 😂' },
+  { id: 'ps5-pro', name: 'PS5 Pro', qty: 1, image: 'assets/gifts/ps5-pro.webp?v=10.9', description: 'O papai disse que desenvolve coordenação motora. A mamãe pediu referências científicas. 🎮😂', isJoke: true }
 ];
 
 const state = {
@@ -136,10 +136,9 @@ async function refreshGifts() {
 function updateConnectionStatus() {
   const node = $('#connectionStatus');
   if (!node) return;
-  node.hidden = DATABASE_READY && state.online;
-  node.textContent = !DATABASE_READY
-    ? 'Modo demonstração: presentes e presenças são salvos apenas neste navegador. Configure o Supabase antes de compartilhar.'
-    : 'Não foi possível atualizar os presentes. Reservas ficam bloqueadas até a conexão voltar.';
+  // No banner in preview mode. If a configured database fails, warn visitors.
+  node.hidden = !DATABASE_READY || state.online;
+  node.textContent = 'Não foi possível atualizar os presentes. Reservas ficam bloqueadas até a conexão voltar.';
 }
 
 function renderGifts() {
@@ -195,6 +194,8 @@ function showGiftModal(giftId) {
   $('#giftModalDescription').textContent = gift.description;
   $('#giftGuestName').value = $('#rsvpName').value.trim();
   setFeedback($('#giftFeedback'), '');
+  const modalNote = document.querySelector('.modal-note');
+  if (modalNote) modalNote.textContent = DATABASE_READY ? 'Ao confirmar, esta quantidade ficará indisponível para os outros convidados.' : 'Prévia: esta reserva será salva apenas neste aparelho, não para outros convidados.';
 
   const select = $('#giftQuantity');
   select.replaceChildren();
@@ -344,12 +345,6 @@ function setupInternalNavigation() {
   });
 }
 
-function refineGiftHumor() {
-  const note = document.querySelector('.gift-smallprint');
-  if (note) {
-    note.innerHTML = '<img src="assets/ui/icon-97cf0ed0b6a6.png" class="icon" alt="" aria-hidden="true"> Cada presente pode ser reservado apenas uma vez por unidade. E sim... o PS5 Pro segue sendo uma sugestão bem otimista do papai. 😂';
-  }
-}
 
 function initReveal() {
   const items = document.querySelectorAll('.section-panel');
@@ -373,7 +368,6 @@ function initReveal() {
 function start() {
   fillEventInfo();
   setupInternalNavigation();
-  refineGiftHumor();
   initReveal();
   updateConnectionStatus();
   refreshGifts();

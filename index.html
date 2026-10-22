@@ -12,10 +12,10 @@
  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Baloo+2:wght@400;500;600;700;800&display=swap" rel="stylesheet">
  <link rel="preload" as="image" href="assets/title-benicio.webp" fetchpriority="high">
- <link rel="stylesheet" href="styles.css?v=10.8">
- <link rel="stylesheet" href="mobile.css?v=10.8">
- <script src="config.js?v=10.8" defer></script>
- <script src="app.js?v=10.8" defer></script>
+ <link rel="stylesheet" href="styles.css?v=10.9">
+ <link rel="stylesheet" href="mobile.css?v=10.9">
+ <script src="config.js?v=10.9" defer></script>
+ <script src="app.js?v=10.9" defer></script>
 </head>
 <body>
 <!-- Os ícones foram desenhados no mesmo estilo azul da referência, sem emojis do sistema. -->
@@ -51,14 +51,15 @@
   <img class="gift-decor gift-decor-right" loading="lazy" decoding="async" src="assets/balloons-hearts.webp" alt="" aria-hidden="true">
   <div class="gift-heading"><h2><img src="assets/title-gifts.png" alt="Lista de Presentes"></h2></div>
   <p id="connectionStatus" class="connection-status" role="status" aria-live="polite" hidden></p>
+  <p class="gift-fun-intro">O Benício ainda nem nasceu e já tem lista de compras. Puxou o papai! 😂💙</p>
   <div id="giftGrid" class="gift-grid" aria-live="polite"></div>
-  <p class="gift-smallprint"><img src="assets/ui/icon-97cf0ed0b6a6.png" class="icon" alt="" aria-hidden="true"> O PS5 Pro entrou na lista por recomendação técnica do papai. A mamãe ainda não aprovou o orçamento. 😂</p>
+  <p class="gift-smallprint"><img src="assets/ui/icon-97cf0ed0b6a6.png" class="icon" alt="" aria-hidden="true"> O PS5 Pro foi indicado pelo papai como “material educativo”. A mamãe pediu o plano de aula. 🎮😂</p>
  </section>
 
  <section id="encontro" class="meeting-section scene-fade section-panel">
   <div class="meeting-heading">
    <h2><img src="assets/ui/icon-97cf0ed0b6a6.png" class="icon" alt="" aria-hidden="true"> Nosso Encontro</h2>
-   <p>Vai ser uma alegria enorme ter você com a gente!</p>
+   <p>Vai ser uma alegria enorme ter você com a gente!</p><p class="fun-caption">Quem chegar atrasado entra na escala de troca de fraldas. 😂</p>
   </div>
 
   <div class="meeting-scene" aria-hidden="true">
@@ -80,7 +81,7 @@
  </section>
 
  <section id="presenca" class="rsvp-section scene-fade section-panel">
-  <div class="rsvp-heading"><h2><img src="assets/ui/icon-97cf0ed0b6a6.png" class="icon" alt="" aria-hidden="true"> Confirme sua Presença</h2><p>Sua presença vai deixar esse momento ainda mais especial!</p></div>
+  <div class="rsvp-heading"><h2><img src="assets/ui/icon-97cf0ed0b6a6.png" class="icon" alt="" aria-hidden="true"> Confirme sua Presença</h2><p>Sua presença vai deixar esse momento ainda mais especial!</p><p class="fun-caption">Confirme direitinho: o Benício ainda não sabe contar os convidados. 😅</p></div>
   <div class="rsvp-layout">
    <div class="rsvp-scene" aria-hidden="true">
     <img class="rsvp-scene-cloud rsvp-scene-cloud-left" loading="lazy" decoding="async" src="assets/cloud.webp" alt="">
@@ -97,12 +98,13 @@
     </div>
     <button id="rsvpSubmit" class="submit-button" type="submit"><img src="assets/ui/icon-a9d996f90a57.png" class="icon" alt="" aria-hidden="true"> Confirmar presença</button>
     <p id="rsvpFeedback" class="form-feedback" role="status" aria-live="polite"></p>
+    <p class="rsvp-humor">Pode levar acompanhante, só não vale aparecer com a família inteira de surpresa! 😂</p>
    </form>
   </div>
  </section>
 </main>
 
-<footer class="footer-bar"><div class="footer-copy"><p class="footer-title"><img src="assets/ui/icon-ad655270cd94.png" class="icon" alt="" aria-hidden="true"> Um recadinho do papai</p><p>Gostou do convite? O papai que fez!</p><p class="footer-joke">Criar convites é legal, mas comprar fraldas custa dinheiro. 😅</p></div><a href="#" id="contactLink" class="whatsapp-button">Peça o seu aqui <img src="assets/ui/icon-0e848369ec2d.png" class="chevron" alt="" aria-hidden="true"></a></footer>
+<footer class="footer-bar"><div class="footer-copy"><p class="footer-title"><img src="assets/ui/icon-ad655270cd94.png" class="icon" alt="" aria-hidden="true"> Um recadinho do papai</p><p>Gostou do convite? O papai que fez!</p><p class="footer-joke">O papai fez o site. A mamãe revisou. O Benício aprovou dormindo. 😴💙<br>Se quiser ajudar no orçamento das fraldas, o papai aceita encomendas. 😂</p></div><a href="#" id="contactLink" class="whatsapp-button">Peça o seu aqui <img src="assets/ui/icon-0e848369ec2d.png" class="chevron" alt="" aria-hidden="true"></a></footer>
 
 <dialog id="giftModal" class="gift-dialog" aria-labelledby="giftModalTitle">
  <form id="giftForm" class="gift-modal-form"><button id="closeGiftModal" class="modal-close" type="button" aria-label="Fechar">×</button>
