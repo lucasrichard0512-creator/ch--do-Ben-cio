@@ -41,7 +41,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
  .action-button:first-child{grid-column:1/-1;min-height:58px;justify-content:center;font-size:14px}
  .action-button .action-icon{width:36px;height:36px;flex:0 0 36px}.action-icon .icon{width:25px;height:25px}.action-button .chevron{width:12px;height:12px;margin-left:auto}
  .gift-section{padding:34px var(--edge) 34px;min-height:100svh;background:radial-gradient(ellipse at 50% 0,#ffffff 0,#ebf6ff 37%,#d8ebfc 100%)}
- .gift-heading{margin:0 0 15px}.gift-heading h2{width:100%;max-width:470px}.gift-decor-left{width:62px;left:-35px;top:15px;opacity:.72}.gift-decor-right{width:68px;right:-35px;top:21px;opacity:.68}
+ .gift-heading{margin:0 auto 15px}.gift-decor-left{width:62px;left:-35px;top:15px;opacity:.72}.gift-decor-right{width:68px;right:-35px;top:21px;opacity:.68}
  .info-banner{font-size:11px;line-height:1.4;text-align:left;padding:10px 12px;border-radius:13px;margin:0 auto 17px}
  .gift-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
  .gift-card{min-height:256px;padding:10px 9px 11px;border-radius:17px;box-shadow:0 6px 16px #598cbb2c}
@@ -176,7 +176,7 @@ html,body{height:auto!important;min-height:100%;overflow-y:visible!important;scr
 /* V10.10 - frases maiores e seções mais compactas no celular */
 @media(max-width:680px){
  .gift-section{padding:24px var(--edge) 24px;min-height:0}
- .gift-heading{margin:0 0 10px}
+ .gift-heading{margin:0 auto 13px}
  .gift-fun-intro{font-size:14px;line-height:1.55;max-width:350px;margin:0 auto 12px;padding:0 4px}
  .gift-grid{gap:10px}
  .gift-smallprint{font-size:13px;line-height:1.5;margin-top:14px;max-width:340px}
@@ -232,15 +232,13 @@ html,body{height:auto!important;min-height:100%;overflow-y:visible!important;scr
 /* V12.1: títulos discretos em telas pequenas. */
 @media(max-width:680px){.gift-category-heading{font-size:clamp(19px,5vw,23px);margin:11px 0 1px;padding:5px 2px 7px}}
 
-/* V12.6: navegação discreta e cartões ligeiramente mais compactos no celular. */
+/* V12.7: novo cabeçalho; navegação discreta e cartões preservados. */
 @media(max-width:680px){
-  .gift-heading h2{width:100%;max-width:100%}
-  .gift-heading-title{font-size:clamp(21px,5.9vw,33px);letter-spacing:-.04em;gap:2px}
-  .gift-heading-title img{width:clamp(40px,10.5vw,68px)}
-  .gift-heading-subtitle{width:100%;max-width:470px;margin:1px auto 0}
+  .gift-heading{max-width:380px;gap:8px;padding:0 14px;margin:0 auto 13px}
+  .gift-heading-title{font-size:clamp(23px,6.5vw,30px);line-height:1.18;letter-spacing:-.035em}
+  .gift-heading-subtitle{font-size:clamp(12.5px,3.35vw,14px);line-height:1.5;max-width:330px}
   .gift-category-nav{flex-wrap:nowrap;justify-content:flex-start;overflow-x:auto;padding:2px 3px 8px;margin:0 -4px 7px;scrollbar-width:thin;-webkit-overflow-scrolling:touch}
   .gift-category-nav a{flex:0 0 auto;font-size:11px;padding:6px 9px}
-  .gift-illustration-note{font-size:10px;max-width:350px;margin-bottom:8px}
   .gift-card{min-height:244px;padding:8px 8px 10px}
   .gift-image-wrap{height:116px;margin:2px 0 6px}
   .gift-counter{margin:6px auto 8px}
