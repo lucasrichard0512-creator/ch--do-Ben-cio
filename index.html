@@ -21,10 +21,10 @@
  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Baloo+2:wght@400;500;600;700;800&display=swap" rel="stylesheet">
  <link rel="preload" as="image" href="assets/title-benicio.webp" fetchpriority="high">
- <link rel="stylesheet" href="styles.css?v=12.1">
- <link rel="stylesheet" href="mobile.css?v=12.1">
+ <link rel="stylesheet" href="styles.css?v=12.6">
+ <link rel="stylesheet" href="mobile.css?v=12.6">
  <script src="config.js?v=12.1" defer></script>
- <script src="app.js?v=12.1" defer></script>
+ <script src="app.js?v=12.6" defer></script>
 </head>
 <body>
 <!-- Os ícones foram desenhados no mesmo estilo azul da referência, sem emojis do sistema. -->
@@ -49,7 +49,7 @@
     </div>
   </div>
   <nav class="hero-actions" aria-label="Navegação do convite">
-    <a class="action-button primary" href="#presentes"><span class="action-icon"><img src="assets/ui/icon-87134f8f9592.png" class="icon" alt="" aria-hidden="true"></span><span>Ver lista de<br>presentes</span><img src="assets/ui/icon-0e848369ec2d.png" class="chevron" alt="" aria-hidden="true"></a>
+    <a class="action-button primary" href="#presentes"><span class="action-icon"><img src="assets/ui/icon-87134f8f9592.png" class="icon" alt="" aria-hidden="true"></span><span>Ver sugestões<br>de presentes</span><img src="assets/ui/icon-0e848369ec2d.png" class="chevron" alt="" aria-hidden="true"></a>
     <a class="action-button" id="mapsTopButton" href="#encontro"><span class="action-icon"><img src="assets/ui/icon-dde572298f23.png" class="icon" alt="" aria-hidden="true"></span><span>Ver localização</span><img src="assets/ui/icon-0e848369ec2d.png" class="chevron" alt="" aria-hidden="true"></a>
     <a class="action-button" href="#presenca"><span class="action-icon"><img src="assets/ui/icon-6ae59b2dab16.png" class="icon" alt="" aria-hidden="true"></span><span>Confirmar<br>presença</span><img src="assets/ui/icon-0e848369ec2d.png" class="chevron" alt="" aria-hidden="true"></a>
   </nav>
@@ -58,9 +58,11 @@
  <section id="presentes" class="gift-section scene-fade section-panel">
   <img class="gift-decor gift-decor-left" loading="lazy" decoding="async" src="assets/bear-cloud-heart.webp" alt="" aria-hidden="true">
   <img class="gift-decor gift-decor-right" loading="lazy" decoding="async" src="assets/balloons-hearts.webp" alt="" aria-hidden="true">
-  <div class="gift-heading"><h2><img src="assets/title-gifts.png" alt="Lista de Presentes"></h2></div>
+  <div class="gift-heading"><h2><span class="gift-heading-title"><img src="assets/gift-heading-icon.png" alt="" aria-hidden="true"><span>Sugestões de Presentes</span></span><img class="gift-heading-subtitle" src="assets/gift-heading-subtitle.png" alt="Escolha um presente e ajude a preparar tudo com muito amor para a chegada do Benício!"></h2></div>
   <p id="connectionStatus" class="connection-status" role="status" aria-live="polite" hidden></p>
   <p class="gift-fun-intro">O Benício ainda nem nasceu e já tem lista de compras. Puxou o papai! 😂💙</p>
+  <nav class="gift-category-nav" aria-label="Ir para categoria de sugestões de presentes"><a href="#categoria-fraldas">Fraldas</a><a href="#categoria-higiene">Higiene</a><a href="#categoria-roupinhas">Roupinhas</a><a href="#categoria-banho">Banho e enxoval</a><a href="#categoria-acessorios">Acessórios</a><a href="#categoria-especiais">Especiais</a></nav>
+  <p class="gift-illustration-note">Imagens ilustrativas. Cada unidade de um item identificado como kit corresponde a um kit.</p>
   <div id="giftGrid" class="gift-grid" aria-live="polite"></div>
   <p class="gift-smallprint"><img src="assets/ui/icon-97cf0ed0b6a6.png" class="icon" alt="" aria-hidden="true"> O PS5 Pro foi indicado pelo papai como “material educativo”. 🎮😂</p>
  </section>

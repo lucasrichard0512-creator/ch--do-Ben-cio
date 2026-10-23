@@ -25,4 +25,4 @@ Faça uma reserva e uma confirmação reais após a configuração, consulte o p
 
 ## Versão V12.1 — lista definitiva recebida em 22/10/2026
 
-Catálogo com 38 tipos e 225 unidades. A lista de presentes e o SQL estão sincronizados e os itens novos têm imagens ilustrativas. Continua exigindo Supabase e variáveis privadas na Vercel para reservas reais. Leia também `ATUALIZACAO-CATALOGO-V12.1.md`.
+Catálogo com 38 tipos e 225 unidades. A sugestões de presentes e o SQL estão sincronizados e os itens novos têm imagens ilustrativas. Continua exigindo Supabase e variáveis privadas na Vercel para reservas reais. Leia também `ATUALIZACAO-CATALOGO-V12.1.md`.

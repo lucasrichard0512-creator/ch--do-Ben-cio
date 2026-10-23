@@ -13,27 +13,27 @@ const GIFTS = [
   { id: 'fraldas-g', name: 'Fralda G', qty: 20, category: 'fraldas', image: 'assets/gifts/fraldas-g.webp?v=12.1', description: 'Porque o Benício vai crescer rapidinho.' },
   { id: 'fraldas-xg', name: 'Fralda XG', qty: 10, category: 'fraldas', image: 'assets/gifts/fraldas-xg.webp?v=12.1', description: 'Prevenção é tudo, principalmente com fraldas.' },
   { id: 'lencos', name: 'Kit de lenços umedecidos', qty: 30, category: 'higiene', image: 'assets/gifts/lencos.webp?v=12.1', description: 'Kit de lenços umedecidos para o cuidado diário. Uma unidade reservada corresponde a um kit.' },
-  { id: 'pomada', name: 'Kit de pomadas para assaduras', qty: 10, category: 'higiene', image: 'assets/gifts/pomada.webp?v=12.1', description: 'Kit de pomadas para proteger a pele do Benício.' },
-  { id: 'sabonete', name: 'Kit de sabonetes líquidos', qty: 10, category: 'higiene', image: 'assets/gifts/sabonete.webp?v=12.1', description: 'Kit para os banhos cheirosos do pequeno.' },
-  { id: 'shampoo', name: 'Kit de shampoo infantil', qty: 6, category: 'higiene', image: 'assets/gifts/shampoo.webp?v=12.1', description: 'Kit de shampoo suave para a rotina do bebê.' },
-  { id: 'escova-pente', name: 'Kit escova e pente', qty: 2, category: 'higiene', image: 'assets/gifts/escova-pente.webp?v=12.1', description: 'Para o cabelo do Benício ficar sempre no capricho.' },
-  { id: 'kit-unhas', name: 'Kit de cuidados para unhas', qty: 2, category: 'higiene', image: 'assets/gifts/kit-unhas.webp?v=12.1', description: 'Cortador, lixa e acessórios apropriados para as unhas delicadas do bebê.' },
-  { id: 'bodies-p', name: 'Kit de bodies tamanho P', qty: 2, category: 'roupinhas', image: 'assets/gifts/bodies-p.webp?v=12.1', description: 'Conforto para muitos abraços. Tamanho P.' },
-  { id: 'bodies-m', name: 'Kit de bodies tamanho M', qty: 4, category: 'roupinhas', image: 'assets/gifts/bodies-m.webp?v=12.1', description: 'Conforto para muitos abraços. Tamanho M.' },
-  { id: 'bodies-g', name: 'Kit de bodies tamanho G', qty: 2, category: 'roupinhas', image: 'assets/gifts/bodies-g.webp?v=12.1', description: 'Conforto para muitos abraços. Tamanho G.' },
+  { id: 'pomada', name: 'Kit de pomadas para assaduras', qty: 10, category: 'higiene', image: 'assets/gifts/pomada.webp?v=12.1', description: 'Kit de pomadas para proteger a pele do Benício. Uma unidade reservada corresponde a um kit.' },
+  { id: 'sabonete', name: 'Kit de sabonetes líquidos', qty: 10, category: 'higiene', image: 'assets/gifts/sabonete.webp?v=12.1', description: 'Kit para os banhos cheirosos do pequeno. Uma unidade reservada corresponde a um kit.' },
+  { id: 'shampoo', name: 'Kit de shampoo infantil', qty: 6, category: 'higiene', image: 'assets/gifts/shampoo.webp?v=12.1', description: 'Kit de shampoo suave para a rotina do bebê. Uma unidade reservada corresponde a um kit.' },
+  { id: 'escova-pente', name: 'Kit escova e pente', qty: 2, category: 'higiene', image: 'assets/gifts/escova-pente.webp?v=12.1', description: 'Para o cabelo do Benício ficar sempre no capricho. Uma unidade reservada corresponde a um kit.' },
+  { id: 'kit-unhas', name: 'Kit de cuidados para unhas', qty: 2, category: 'higiene', image: 'assets/gifts/kit-unhas.webp?v=12.1', description: 'Cortador, lixa e acessórios apropriados para as unhas delicadas do bebê. Uma unidade reservada corresponde a um kit.' },
+  { id: 'bodies-p', name: 'Kit de bodies tamanho P', qty: 2, category: 'roupinhas', image: 'assets/gifts/bodies-p.webp?v=12.1', description: 'Conforto para muitos abraços. Tamanho P. Uma unidade reservada corresponde a um kit.' },
+  { id: 'bodies-m', name: 'Kit de bodies tamanho M', qty: 4, category: 'roupinhas', image: 'assets/gifts/bodies-m.webp?v=12.1', description: 'Conforto para muitos abraços. Tamanho M. Uma unidade reservada corresponde a um kit.' },
+  { id: 'bodies-g', name: 'Kit de bodies tamanho G', qty: 2, category: 'roupinhas', image: 'assets/gifts/bodies-g.webp?v=12.1', description: 'Conforto para muitos abraços. Tamanho G. Uma unidade reservada corresponde a um kit.' },
   { id: 'macacao-p', name: 'Macacão tamanho P', qty: 2, category: 'roupinhas', image: 'assets/gifts/macacao-p.webp?v=12.1', description: 'Fofura garantida para o enxoval. Tamanho P.' },
   { id: 'macacao-m', name: 'Macacão tamanho M', qty: 4, category: 'roupinhas', image: 'assets/gifts/macacao-m.webp?v=12.1', description: 'Fofura garantida para o enxoval. Tamanho M.' },
   { id: 'macacao-g', name: 'Macacão tamanho G', qty: 2, category: 'roupinhas', image: 'assets/gifts/macacao-g.webp?v=12.1', description: 'Fofura garantida para o enxoval. Tamanho G.' },
-  { id: 'calcas-mijao', name: 'Kit de calças mijão', qty: 6, category: 'roupinhas', image: 'assets/gifts/calcas-mijao.webp?v=12.1', description: 'Conforto e praticidade para as trocas do dia a dia.' },
-  { id: 'meias', name: 'Kit de meias para bebê', qty: 4, category: 'roupinhas', image: 'assets/gifts/meias.webp?v=12.1', description: 'Para manter os pezinhos do Benício aquecidos.' },
+  { id: 'calcas-mijao', name: 'Kit de calças mijão', qty: 6, category: 'roupinhas', image: 'assets/gifts/calcas-mijao.webp?v=12.1', description: 'Conforto e praticidade para as trocas do dia a dia. Uma unidade reservada corresponde a um kit.' },
+  { id: 'meias', name: 'Kit de meias para bebê', qty: 4, category: 'roupinhas', image: 'assets/gifts/meias.webp?v=12.1', description: 'Para manter os pezinhos do Benício aquecidos. Uma unidade reservada corresponde a um kit.' },
   { id: 'saida-maternidade', name: 'Saída de maternidade', qty: 2, category: 'roupinhas', image: 'assets/gifts/saida-maternidade.webp?v=12.1', description: 'Um conjunto especial para os primeiros momentos fora da maternidade.' },
   { id: 'manta', name: 'Manta para bebê', qty: 6, category: 'banho', image: 'assets/gifts/manta.webp?v=12.1', description: 'Um abraço quentinho em forma de manta.' },
   { id: 'toalha', name: 'Toalha com capuz', qty: 10, category: 'banho', image: 'assets/gifts/toalha.webp?v=12.1', description: 'Para sair do banho parecendo um mini ursinho.' },
-  { id: 'paninhos', name: 'Kit de paninhos de boca', qty: 12, category: 'banho', image: 'assets/gifts/paninhos.webp?v=12.1', description: 'Nunca é demais. Nunca mesmo.' },
+  { id: 'paninhos', name: 'Kit de paninhos de boca', qty: 12, category: 'banho', image: 'assets/gifts/paninhos.webp?v=12.1', description: 'Nunca é demais. Nunca mesmo. Uma unidade reservada corresponde a um kit.' },
   { id: 'lencol', name: 'Jogo de lençol para berço', qty: 6, category: 'banho', image: 'assets/gifts/lencol.webp?v=12.1', description: 'Mais conforto para o soninho do Benício.' },
-  { id: 'fraldas-pano', name: 'Kit de fraldas de pano', qty: 6, category: 'banho', image: 'assets/gifts/fraldas-pano.webp?v=12.1', description: 'Panos versáteis para os cuidados do bebê.' },
-  { id: 'cueiros', name: 'Kit de cueiros de algodão', qty: 4, category: 'banho', image: 'assets/gifts/cueiros.webp?v=12.1', description: 'Algodão macio para aconchegar o pequeno.' },
-  { id: 'babadores', name: 'Kit de babadores', qty: 4, category: 'banho', image: 'assets/gifts/babadores.webp?v=12.1', description: 'Para o pequeno experimentar os primeiros sabores sem transformar tudo em lavanderia. 😂' },
+  { id: 'fraldas-pano', name: 'Kit de fraldas de pano', qty: 6, category: 'banho', image: 'assets/gifts/fraldas-pano.webp?v=12.1', description: 'Panos versáteis para os cuidados do bebê. Uma unidade reservada corresponde a um kit.' },
+  { id: 'cueiros', name: 'Kit de cueiros de algodão', qty: 4, category: 'banho', image: 'assets/gifts/cueiros.webp?v=12.1', description: 'Algodão macio para aconchegar o pequeno. Uma unidade reservada corresponde a um kit.' },
+  { id: 'babadores', name: 'Kit de babadores', qty: 4, category: 'banho', image: 'assets/gifts/babadores.webp?v=12.1', description: 'Para o pequeno experimentar os primeiros sabores sem transformar tudo em lavanderia. 😂 Uma unidade reservada corresponde a um kit.' },
   { id: 'protetor-colchao', name: 'Protetor impermeável para colchão', qty: 2, category: 'banho', image: 'assets/gifts/protetor-colchao.webp?v=12.1', description: 'Uma camada extra de proteção para o colchão do berço.' },
   { id: 'mamadeira', name: 'Mamadeira', qty: 2, category: 'acessorios', image: 'assets/baby-bottle.webp?v=12.1', description: 'Um clássico que ajuda muito na rotina.' },
   { id: 'bolsa-maternidade', name: 'Bolsa maternidade', qty: 1, category: 'acessorios', image: 'assets/gifts/bolsa-maternidade.webp?v=12.1', description: 'Para levar os itens essenciais do Benício aonde ele for.' },
@@ -53,6 +53,7 @@ const state = {
   selectedId: null,
   lastGuestName: '',
   busy: false,
+  rsvpBusy: false,
   online: !DATABASE_READY
 };
 
@@ -172,11 +173,11 @@ const GIFT_CATEGORY_LABELS = {'fraldas': '🍼 Fraldas', 'higiene': '🧴 Higien
 function renderGifts() {
   let currentCategory = null;
   const html = state.gifts.map(gift => {
-    const categoryHeading = gift.category !== currentCategory ? `<h3 class="gift-category-heading">${escapeHtml(GIFT_CATEGORY_LABELS[gift.category] || gift.category)}</h3>` : "";
+    const categoryHeading = gift.category !== currentCategory ? `<h3 id="categoria-${gift.category}" class="gift-category-heading">${escapeHtml(GIFT_CATEGORY_LABELS[gift.category] || gift.category)}</h3>` : "";
     currentCategory = gift.category;
     const left = Math.max(0, gift.qty - gift.reserved);
     const full = left === 0;
-    const selected = clamp(state.selection[gift.id] || 1, 1, Math.max(left, 1));
+    const selected = full ? 0 : clamp(state.selection[gift.id] || 1, 1, left);
     state.selection[gift.id] = selected;
     const availability = `${left} ${left === 1 ? 'disponível' : 'disponíveis'}`;
 
@@ -187,11 +188,11 @@ function renderGifts() {
         </div>
         <h3>${escapeHtml(gift.name)}</h3>
         <p class="gift-stock">${availability}</p>
-        <div class="gift-counter" aria-label="Quantidade para reservar de ${escapeHtml(gift.name)}">
-          <button type="button" class="qty-btn" data-action="minus" data-gift-id="${gift.id}" ${selected <= 1 || full ? 'disabled' : ''}>−</button>
+        ${full ? '<p class="gift-no-stock" role="status">Indisponível</p>' : `<div class="gift-counter" aria-label="Quantidade para reservar de ${escapeHtml(gift.name)}">
+          <button type="button" class="qty-btn" data-action="minus" data-gift-id="${gift.id}" ${selected <= 1 ? 'disabled' : ''} aria-label="Diminuir quantidade de ${escapeHtml(gift.name)}">−</button>
           <strong>${selected}</strong>
-          <button type="button" class="qty-btn" data-action="plus" data-gift-id="${gift.id}" ${selected >= left || full ? 'disabled' : ''}>+</button>
-        </div>
+          <button type="button" class="qty-btn" data-action="plus" data-gift-id="${gift.id}" ${selected >= left ? 'disabled' : ''} aria-label="Aumentar quantidade de ${escapeHtml(gift.name)}">+</button>
+        </div>`}
         <button type="button" class="reserve-button" data-reserve-id="${gift.id}" ${full || !state.online ? 'disabled' : ''}>
           ${full ? 'Presente esgotado' : '<img src="assets/ui/icon-87134f8f9592.png" class="icon" alt="" aria-hidden="true"> Reservar presente'}
         </button>
@@ -206,6 +207,7 @@ function changeSelection(giftId, direction) {
   const gift = state.gifts.find(item => item.id === giftId);
   if (!gift) return;
   const left = Math.max(0, gift.qty - gift.reserved);
+  if (left === 0) return;
   const current = state.selection[giftId] || 1;
   const next = direction === 'plus' ? current + 1 : current - 1;
   state.selection[giftId] = clamp(next, 1, Math.max(left, 1));
@@ -262,11 +264,17 @@ async function reserveGift(event) {
 
   try {
     if (DATABASE_READY) {
-      await supabaseRequest('rpc/reserve_gift', 'POST', {
+      const saved = await supabaseRequest('rpc/reserve_gift', 'POST', {
         p_gift_id: gift.id,
         p_guest_name: name,
         p_quantity: quantity
       });
+      // Show the server-confirmed quantity immediately, then reconcile the full catalog.
+      if (Number.isInteger(Number(saved?.remaining)) && Number(saved.remaining) >= 0) {
+        const remaining = Number(saved.remaining);
+        gift.reserved = Math.max(0, gift.qty - remaining);
+        renderGifts();
+      }
     } else {
       const demo = readDemo(DEMO_KEY, {});
       const current = clamp(Number(demo[gift.id]) || 0, 0, gift.qty);
@@ -297,6 +305,7 @@ async function reserveGift(event) {
 
 async function submitRsvp(event) {
   event.preventDefault();
+  if (state.rsvpBusy) return;
   const name = $('#rsvpName').value.trim().replace(/\s+/g, ' ');
   const message = $('#rsvpMessage').value.trim();
   const guestsCount = Number($('#rsvpGuests').value);
@@ -309,13 +318,15 @@ async function submitRsvp(event) {
     return;
   }
 
+  state.rsvpBusy = true;
   const button = $('#rsvpSubmit');
   button.disabled = true;
   button.innerHTML = 'Enviando...';
 
   try {
+    let existing = false;
     if (DATABASE_READY) {
-      await supabaseRequest('rpc/confirm_rsvp', 'POST', {
+      const savedRsvp = await supabaseRequest('rpc/confirm_rsvp', 'POST', {
         p_guest_name: name,
         p_attending: true,
         p_guest_phone: phone,
@@ -323,18 +334,22 @@ async function submitRsvp(event) {
         p_message: message,
         p_reminder_opt_in: reminderOptIn
       });
+      existing = savedRsvp?.updated === true;
     } else {
       const entries = readDemo(DEMO_RSVP_KEY, []);
       entries.push({ name, guestsCount, message, at: new Date().toISOString() });
       writeDemo(DEMO_RSVP_KEY, entries);
     }
 
-    setFeedback(feedback, DATABASE_READY ? 'Presença confirmada! Vai ser lindo ter você com a gente. 💙' : 'Confirmação de demonstração salva somente neste navegador.');
-    toast(DATABASE_READY ? 'Presença confirmada com carinho 💙' : 'Simulação salva neste navegador.');
+    setFeedback(feedback, DATABASE_READY
+      ? (existing ? 'Sua confirmação foi atualizada! 💙' : 'Presença confirmada! Vai ser lindo ter você com a gente. 💙')
+      : 'Confirmação de demonstração salva somente neste navegador.');
+    toast(DATABASE_READY ? (existing ? 'Sua presença foi atualizada 💙' : 'Presença confirmada com carinho 💙') : 'Simulação salva neste navegador.');
     $('#rsvpForm').reset();
   } catch (error) {
     setFeedback(feedback, error.message || 'Não foi possível enviar sua confirmação.', true);
   } finally {
+    state.rsvpBusy = false;
     button.disabled = false;
     button.innerHTML = '<img src="assets/ui/icon-a9d996f90a57.png" class="icon" alt="" aria-hidden="true"> Confirmar presença';
   }

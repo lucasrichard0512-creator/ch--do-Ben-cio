@@ -262,3 +262,16 @@ section:target{scroll-margin-top:0}
 /* V12.1: divisores discretos das categorias, preservando os cartões atuais. */
 .gift-category-heading{grid-column:1/-1;position:relative;z-index:2;margin:13px 0 2px;padding:5px 4px 8px;color:#16487f;font-family:'Baloo 2',Nunito,sans-serif;font-size:clamp(19px,2.1vw,28px);line-height:1.2;font-weight:800;text-align:left;border-bottom:1px solid #b4d8f4}
 .gift-category-heading:first-child{margin-top:0}
+
+/* V12.6: novo título acessível, preservando ícones 3D e subtítulo da arte original. */
+.gift-heading h2{display:flex;flex-direction:column;align-items:center;width:min(760px,94%);max-width:100%}
+.gift-heading-title{display:flex;align-items:center;justify-content:center;gap:5px;width:100%;font-family:'Baloo 2','Nunito',sans-serif;font-size:clamp(27px,4vw,54px);line-height:1.06;font-weight:900;letter-spacing:-.035em;text-align:center;color:#0a3b82;text-shadow:0 2px 0 #9ac4f2,1px 4px 0 #4f8bcf,0 5px 6px #124d9d55}
+.gift-heading-title img{width:clamp(53px,11vw,115px);max-height:115px;object-fit:contain;flex:0 0 auto}
+.gift-heading-subtitle{display:block;width:min(680px,100%);height:auto;object-fit:contain;margin:-2px auto 0}
+.gift-category-nav{position:relative;z-index:2;display:flex;justify-content:center;gap:7px;flex-wrap:wrap;margin:0 auto 10px;max-width:900px}
+.gift-category-nav a{display:inline-block;color:#215a93;background:#f8fcff;border:1px solid #c9e2f9;border-radius:18px;padding:5px 10px;text-decoration:none;font-size:12px;font-weight:800;line-height:1.2}
+.gift-category-nav a:focus-visible{outline:3px solid #227cce;outline-offset:2px}
+.gift-category-heading{scroll-margin-top:16px}
+.gift-illustration-note{position:relative;z-index:2;text-align:center;font-size:11px;line-height:1.35;color:#6b85a3;margin:0 auto 12px;max-width:750px}
+.gift-no-stock{display:flex;align-items:center;justify-content:center;min-height:28px;margin:7px 0 9px;color:#687f99;font-weight:800;font-size:12px}
+.gift-image-wrap{background:#fff!important}
