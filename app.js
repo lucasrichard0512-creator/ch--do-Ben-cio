@@ -1,41 +1,57 @@
 'use strict';
 
 const CONFIG = window.BENICIO_CONFIG || {};
-const DATABASE_READY = Boolean(CONFIG.SUPABASE_URL && CONFIG.SUPABASE_PUBLISHABLE_KEY);
+// Gravações reais através das rotas privadas /api do Vercel.
+const DATABASE_READY = true;
 const DEMO_KEY = 'cha-benicio-presentes-demo-v2';
 const DEMO_RSVP_KEY = 'cha-benicio-presencas-demo-v2';
 
 const GIFTS = [
-  { id: 'fraldas-rn', name: 'Fralda RN', qty: 2, image: 'assets/gifts/fraldas-rn.webp?v=10.9', description: 'Para os primeiros dias do Benício.' },
-  { id: 'fraldas-p', name: 'Fralda P', qty: 8, image: 'assets/gifts/fraldas-p.webp?v=10.9', description: 'As pequenas grandes aliadas da rotina.' },
-  { id: 'fraldas-m', name: 'Fralda M', qty: 14, image: 'assets/gifts/fraldas-m.webp?v=10.9', description: 'O verdadeiro investimento a longo prazo. O papai já pensou em comprar ações de fraldas. 📈😂' },
-  { id: 'fraldas-g', name: 'Fralda G', qty: 10, image: 'assets/gifts/fraldas-g.webp?v=10.9', description: 'Porque o Benício vai crescer rapidinho.' },
-  { id: 'fraldas-xg', name: 'Fralda XG', qty: 5, image: 'assets/gifts/fraldas-xg.webp?v=10.9', description: 'Prevenção é tudo, principalmente com fraldas.' },
-  { id: 'lencos', name: 'Lenços umedecidos', qty: 15, image: 'assets/gifts/lencos.webp?v=10.9', description: 'Um acaba, dois aparecem. O lenço umedecido já virou moeda oficial desta casa. 😂' },
-  { id: 'pomada', name: 'Pomada para assaduras', qty: 5, image: 'assets/gifts/pomada.webp?v=10.9', description: 'Cuidado e carinho para a pele do bebê.' },
-  { id: 'sabonete', name: 'Sabonete líquido', qty: 5, image: 'assets/gifts/sabonete.webp?v=10.9', description: 'Um banho cheiroso para o pequeno.' },
-  { id: 'shampoo', name: 'Shampoo infantil', qty: 3, image: 'assets/gifts/shampoo.webp?v=10.9', description: 'Para os banhos mais fofos da casa.' },
-  { id: 'bodies', name: 'Kit de bodies', qty: 4, image: 'assets/gifts/bodies.webp?v=10.9', description: 'Conforto para muitos abraços.' },
-  { id: 'macacao', name: 'Macacão para bebê', qty: 4, image: 'assets/gifts/macacao.webp?v=10.9', description: 'Fofura garantida para o enxoval.' },
-  { id: 'manta', name: 'Manta para bebê', qty: 3, image: 'assets/gifts/manta.webp?v=10.9', description: 'Um abraço quentinho em forma de manta.' },
-  { id: 'toalha', name: 'Toalha com capuz', qty: 5, image: 'assets/gifts/toalha.webp?v=10.9', description: 'Para sair do banho parecendo um mini ursinho.' },
-  { id: 'paninhos', name: 'Kit de paninhos de boca', qty: 6, image: 'assets/gifts/paninhos.webp?v=10.9', description: 'Nunca é demais. Nunca mesmo.' },
-  { id: 'lencol', name: 'Jogo de lençol para berço', qty: 3, image: 'assets/gifts/lencol.webp?v=10.9', description: 'Mais conforto para o soninho do Benício.' },
-  { id: 'mamadeira', name: 'Mamadeira', qty: 2, image: 'assets/baby-bottle.webp?v=10.9', description: 'Um clássico que ajuda muito na rotina.' },
-  { id: 'escova-pente', name: 'Kit escova e pente', qty: 1, image: 'assets/gifts/escova-pente.webp?v=10.9', description: 'Para o cabelo do Benício ficar sempre no capricho.' },
-  { id: 'banheira', name: 'Banheira', qty: 1, image: 'assets/gifts/banheira.webp?v=10.9', description: 'Banho gostoso e muito cuidado.' },
-  { id: 'trocador', name: 'Trocador', qty: 1, image: 'assets/gifts/trocador.webp?v=10.9', description: 'O palco oficial das trocas de fraldas mais radicais. O papai já está em treinamento. 😅' },
-  { id: 'berco', name: 'Berço', qty: 1, image: 'assets/crib.webp?v=10.9', description: 'Onde vão nascer muitos soninhos tranquilos.' },
-  { id: 'carrinho', name: 'Carrinho de bebê', qty: 1, image: 'assets/gifts/carrinho.webp?v=10.9', description: 'O primeiro carro do Benício. Pelo menos esse não paga IPVA. 🚗😂' },
-  { id: 'bebe-conforto', name: 'Bebê conforto', qty: 1, image: 'assets/gifts/bebe-conforto.webp?v=10.9', description: 'O banco VIP do Benício. Nenhuma carona será autorizada sem o motorista papai. 💙' },
-  { id: 'comoda', name: 'Cômoda para bebê', qty: 1, image: 'assets/gifts/comoda.webp?v=10.9', description: 'Para guardar as roupinhas do príncipe... e os conjuntos que a mamãe jurou que não ia comprar. 😂' },
-  { id: 'ps5-pro', name: 'PS5 Pro', qty: 1, image: 'assets/gifts/ps5-pro.webp?v=10.9', description: 'O papai disse que desenvolve coordenação motora. A mamãe pediu referências científicas. 🎮😂', isJoke: true }
+  { id: 'fraldas-rn', name: 'Fralda RN', qty: 2, category: 'fraldas', image: 'assets/gifts/fraldas-rn.webp?v=12.1', description: 'Para os primeiros dias do Benício.' },
+  { id: 'fraldas-p', name: 'Fralda P', qty: 16, category: 'fraldas', image: 'assets/gifts/fraldas-p.webp?v=12.1', description: 'As pequenas grandes aliadas da rotina.' },
+  { id: 'fraldas-m', name: 'Fralda M', qty: 28, category: 'fraldas', image: 'assets/gifts/fraldas-m.webp?v=12.1', description: 'O verdadeiro investimento a longo prazo. O papai já pensou em comprar ações de fraldas. 📈😂' },
+  { id: 'fraldas-g', name: 'Fralda G', qty: 20, category: 'fraldas', image: 'assets/gifts/fraldas-g.webp?v=12.1', description: 'Porque o Benício vai crescer rapidinho.' },
+  { id: 'fraldas-xg', name: 'Fralda XG', qty: 10, category: 'fraldas', image: 'assets/gifts/fraldas-xg.webp?v=12.1', description: 'Prevenção é tudo, principalmente com fraldas.' },
+  { id: 'lencos', name: 'Kit de lenços umedecidos', qty: 30, category: 'higiene', image: 'assets/gifts/lencos.webp?v=12.1', description: 'Kit de lenços umedecidos para o cuidado diário. Uma unidade reservada corresponde a um kit.' },
+  { id: 'pomada', name: 'Kit de pomadas para assaduras', qty: 10, category: 'higiene', image: 'assets/gifts/pomada.webp?v=12.1', description: 'Kit de pomadas para proteger a pele do Benício.' },
+  { id: 'sabonete', name: 'Kit de sabonetes líquidos', qty: 10, category: 'higiene', image: 'assets/gifts/sabonete.webp?v=12.1', description: 'Kit para os banhos cheirosos do pequeno.' },
+  { id: 'shampoo', name: 'Kit de shampoo infantil', qty: 6, category: 'higiene', image: 'assets/gifts/shampoo.webp?v=12.1', description: 'Kit de shampoo suave para a rotina do bebê.' },
+  { id: 'escova-pente', name: 'Kit escova e pente', qty: 2, category: 'higiene', image: 'assets/gifts/escova-pente.webp?v=12.1', description: 'Para o cabelo do Benício ficar sempre no capricho.' },
+  { id: 'kit-unhas', name: 'Kit de cuidados para unhas', qty: 2, category: 'higiene', image: 'assets/gifts/kit-unhas.webp?v=12.1', description: 'Cortador, lixa e acessórios apropriados para as unhas delicadas do bebê.' },
+  { id: 'bodies-p', name: 'Kit de bodies tamanho P', qty: 2, category: 'roupinhas', image: 'assets/gifts/bodies-p.webp?v=12.1', description: 'Conforto para muitos abraços. Tamanho P.' },
+  { id: 'bodies-m', name: 'Kit de bodies tamanho M', qty: 4, category: 'roupinhas', image: 'assets/gifts/bodies-m.webp?v=12.1', description: 'Conforto para muitos abraços. Tamanho M.' },
+  { id: 'bodies-g', name: 'Kit de bodies tamanho G', qty: 2, category: 'roupinhas', image: 'assets/gifts/bodies-g.webp?v=12.1', description: 'Conforto para muitos abraços. Tamanho G.' },
+  { id: 'macacao-p', name: 'Macacão tamanho P', qty: 2, category: 'roupinhas', image: 'assets/gifts/macacao-p.webp?v=12.1', description: 'Fofura garantida para o enxoval. Tamanho P.' },
+  { id: 'macacao-m', name: 'Macacão tamanho M', qty: 4, category: 'roupinhas', image: 'assets/gifts/macacao-m.webp?v=12.1', description: 'Fofura garantida para o enxoval. Tamanho M.' },
+  { id: 'macacao-g', name: 'Macacão tamanho G', qty: 2, category: 'roupinhas', image: 'assets/gifts/macacao-g.webp?v=12.1', description: 'Fofura garantida para o enxoval. Tamanho G.' },
+  { id: 'calcas-mijao', name: 'Kit de calças mijão', qty: 6, category: 'roupinhas', image: 'assets/gifts/calcas-mijao.webp?v=12.1', description: 'Conforto e praticidade para as trocas do dia a dia.' },
+  { id: 'meias', name: 'Kit de meias para bebê', qty: 4, category: 'roupinhas', image: 'assets/gifts/meias.webp?v=12.1', description: 'Para manter os pezinhos do Benício aquecidos.' },
+  { id: 'saida-maternidade', name: 'Saída de maternidade', qty: 2, category: 'roupinhas', image: 'assets/gifts/saida-maternidade.webp?v=12.1', description: 'Um conjunto especial para os primeiros momentos fora da maternidade.' },
+  { id: 'manta', name: 'Manta para bebê', qty: 6, category: 'banho', image: 'assets/gifts/manta.webp?v=12.1', description: 'Um abraço quentinho em forma de manta.' },
+  { id: 'toalha', name: 'Toalha com capuz', qty: 10, category: 'banho', image: 'assets/gifts/toalha.webp?v=12.1', description: 'Para sair do banho parecendo um mini ursinho.' },
+  { id: 'paninhos', name: 'Kit de paninhos de boca', qty: 12, category: 'banho', image: 'assets/gifts/paninhos.webp?v=12.1', description: 'Nunca é demais. Nunca mesmo.' },
+  { id: 'lencol', name: 'Jogo de lençol para berço', qty: 6, category: 'banho', image: 'assets/gifts/lencol.webp?v=12.1', description: 'Mais conforto para o soninho do Benício.' },
+  { id: 'fraldas-pano', name: 'Kit de fraldas de pano', qty: 6, category: 'banho', image: 'assets/gifts/fraldas-pano.webp?v=12.1', description: 'Panos versáteis para os cuidados do bebê.' },
+  { id: 'cueiros', name: 'Kit de cueiros de algodão', qty: 4, category: 'banho', image: 'assets/gifts/cueiros.webp?v=12.1', description: 'Algodão macio para aconchegar o pequeno.' },
+  { id: 'babadores', name: 'Kit de babadores', qty: 4, category: 'banho', image: 'assets/gifts/babadores.webp?v=12.1', description: 'Para o pequeno experimentar os primeiros sabores sem transformar tudo em lavanderia. 😂' },
+  { id: 'protetor-colchao', name: 'Protetor impermeável para colchão', qty: 2, category: 'banho', image: 'assets/gifts/protetor-colchao.webp?v=12.1', description: 'Uma camada extra de proteção para o colchão do berço.' },
+  { id: 'mamadeira', name: 'Mamadeira', qty: 2, category: 'acessorios', image: 'assets/baby-bottle.webp?v=12.1', description: 'Um clássico que ajuda muito na rotina.' },
+  { id: 'bolsa-maternidade', name: 'Bolsa maternidade', qty: 1, category: 'acessorios', image: 'assets/gifts/bolsa-maternidade.webp?v=12.1', description: 'Para levar os itens essenciais do Benício aonde ele for.' },
+  { id: 'banheira', name: 'Banheira', qty: 1, category: 'especiais', image: 'assets/gifts/banheira.webp?v=12.1', description: 'Banho gostoso e muito cuidado.' },
+  { id: 'trocador', name: 'Trocador', qty: 1, category: 'especiais', image: 'assets/gifts/trocador.webp?v=12.1', description: 'O palco oficial das trocas de fraldas mais radicais. O papai já está em treinamento. 😅' },
+  { id: 'berco', name: 'Berço', qty: 1, category: 'especiais', image: 'assets/crib.webp?v=12.1', description: 'Onde vão nascer muitos soninhos tranquilos.' },
+  { id: 'colchao-berco', name: 'Colchão para berço', qty: 1, category: 'especiais', image: 'assets/gifts/colchao-berco.webp?v=12.1', description: 'Conforto para o berço e para os soninhos do Benício.' },
+  { id: 'carrinho', name: 'Carrinho de bebê', qty: 1, category: 'especiais', image: 'assets/gifts/carrinho.webp?v=12.1', description: 'O primeiro carro do Benício. Pelo menos esse não paga IPVA. 🚗😂' },
+  { id: 'bebe-conforto', name: 'Bebê conforto', qty: 1, category: 'especiais', image: 'assets/gifts/bebe-conforto.webp?v=12.1', description: 'O banco VIP do Benício. Nenhuma carona será autorizada sem o motorista papai. 💙' },
+  { id: 'comoda', name: 'Cômoda para bebê', qty: 1, category: 'especiais', image: 'assets/gifts/comoda.webp?v=12.1', description: 'Para guardar as roupinhas do príncipe... e os conjuntos que a mamãe jurou que não ia comprar. 😂' },
+  { id: 'ps5-pro', name: 'PS5 Pro', qty: 1, category: 'especiais', image: 'assets/gifts/ps5-pro.webp?v=12.1', description: 'O papai disse que desenvolve coordenação motora. A mamãe pediu referências científicas. 🎮😂', isJoke: true }
 ];
 
 const state = {
   gifts: GIFTS.map(item => ({ ...item, reserved: 0 })),
   selection: Object.fromEntries(GIFTS.map(item => [item.id, 1])),
   selectedId: null,
+  lastGuestName: '',
   busy: false,
   online: !DATABASE_READY
 };
@@ -74,26 +90,36 @@ function setFeedback(node, message, isError = false) {
 }
 
 async function supabaseRequest(path, method = 'GET', payload) {
-  const url = CONFIG.SUPABASE_URL.replace(/\/$/, '') + '/rest/v1/' + path;
-  const headers = { apikey: CONFIG.SUPABASE_PUBLISHABLE_KEY, 'Content-Type': 'application/json' };
-  if (CONFIG.SUPABASE_PUBLISHABLE_KEY.startsWith('eyJ')) {
-    headers.Authorization = 'Bearer ' + CONFIG.SUPABASE_PUBLISHABLE_KEY;
-  }
+  const target = path.startsWith('gifts?') ? '/api/gifts'
+    : path === 'rpc/reserve_gift' ? '/api/reserve-gift'
+    : path === 'rpc/confirm_rsvp' ? '/api/confirm-rsvp' : null;
+  if (!target) throw new Error('Serviço não reconhecido.');
   let response;
   try {
-    response = await fetch(url, { method, headers, body: payload === undefined ? undefined : JSON.stringify(payload) });
-  } catch {
-    throw new Error('Não foi possível conectar. Confira sua internet e tente novamente.');
-  }
+    response = await fetch(target, {
+      method,
+      headers: { 'Content-Type': 'application/json' },
+      body: payload === undefined ? undefined : JSON.stringify(
+        target === '/api/reserve-gift'
+          ? { giftId: payload.p_gift_id, name: payload.p_guest_name, quantity: payload.p_quantity }
+          : target === '/api/confirm-rsvp'
+            ? { name: payload.p_guest_name, phone: payload.p_guest_phone,
+                guestsCount: payload.p_guests_count, message: payload.p_message,
+                reminderOptIn: payload.p_reminder_opt_in }
+            : payload
+      )
+    });
+  } catch { throw new Error('Sem conexão. Confira sua internet e tente novamente.'); }
   const result = await response.json().catch(() => null);
-  if (!response.ok) {
-    const raw = result?.message || result?.error || 'Não foi possível concluir agora.';
-    if (String(raw).includes('PRESENTE_ESGOTADO')) throw new Error('Esse presente acabou de ser reservado por outra pessoa.');
-    if (String(raw).includes('DADOS_INVALIDOS')) throw new Error('Revise os dados informados e tente novamente.');
-    if (String(raw).includes('PRESENTE_INEXISTENTE')) throw new Error('Presente não encontrado. Atualize a página.');
-    throw new Error('Não conseguimos concluir agora. Tente novamente em instantes.');
-  }
+  if (!response.ok) throw new Error(result?.error || 'Não conseguimos concluir agora. Tente novamente.');
   return result;
+}
+
+function normalizeBrazilPhone(value) {
+  let digits = String(value || '').replace(/\D/g, '');
+  if (digits.startsWith('55') && (digits.length === 12 || digits.length === 13)) digits = digits.slice(2);
+  if (!/^[1-9][0-9]{9,10}$/.test(digits)) return null;
+  return '55' + digits;
 }
 
 function applyDemoQuantities() {
@@ -141,15 +167,20 @@ function updateConnectionStatus() {
   node.textContent = 'Não foi possível atualizar os presentes. Reservas ficam bloqueadas até a conexão voltar.';
 }
 
+const GIFT_CATEGORY_LABELS = {'fraldas': '🍼 Fraldas', 'higiene': '🧴 Higiene e cuidados', 'roupinhas': '👕 Roupinhas', 'banho': '🛁 Banho e enxoval', 'acessorios': '🎒 Acessórios', 'especiais': '🎁 Presentes especiais'};
+
 function renderGifts() {
+  let currentCategory = null;
   const html = state.gifts.map(gift => {
+    const categoryHeading = gift.category !== currentCategory ? `<h3 class="gift-category-heading">${escapeHtml(GIFT_CATEGORY_LABELS[gift.category] || gift.category)}</h3>` : "";
+    currentCategory = gift.category;
     const left = Math.max(0, gift.qty - gift.reserved);
     const full = left === 0;
     const selected = clamp(state.selection[gift.id] || 1, 1, Math.max(left, 1));
     state.selection[gift.id] = selected;
     const availability = `${left} ${left === 1 ? 'disponível' : 'disponíveis'}`;
 
-    return `
+    return `${categoryHeading}
       <article data-gift-id="${gift.id}" class="gift-card ${full ? 'is-full' : ''} ${gift.isJoke ? 'is-joke' : ''}">
         <div class="gift-image-wrap">
           <img src="${gift.image}" alt="${escapeHtml(gift.name)}" class="gift-image" loading="lazy" decoding="async">
@@ -192,7 +223,7 @@ function showGiftModal(giftId) {
   $('#giftModalImage').alt = gift.name;
   $('#giftModalTitle').textContent = gift.name;
   $('#giftModalDescription').textContent = gift.description;
-  $('#giftGuestName').value = $('#rsvpName').value.trim();
+  $('#giftGuestName').value = $('#rsvpName').value.trim() || state.lastGuestName;
   setFeedback($('#giftFeedback'), '');
   const modalNote = document.querySelector('.modal-note');
   if (modalNote) modalNote.textContent = DATABASE_READY ? 'Ao confirmar, esta quantidade ficará indisponível para os outros convidados.' : 'Prévia: esta reserva será salva apenas neste aparelho, não para outros convidados.';
@@ -248,6 +279,7 @@ async function reserveGift(event) {
       renderGifts();
     }
 
+    state.lastGuestName = name;
     $('#giftModal').close();
     toast(DATABASE_READY ? `💙 Obrigado, ${name.split(' ')[0]}! Sua reserva foi registrada.` : 'Reserva de demonstração salva apenas neste navegador.');
     // A reserva já foi gravada. Uma falha ao reler o catálogo não pode
@@ -268,9 +300,11 @@ async function submitRsvp(event) {
   const name = $('#rsvpName').value.trim().replace(/\s+/g, ' ');
   const message = $('#rsvpMessage').value.trim();
   const guestsCount = Number($('#rsvpGuests').value);
+  const phone = normalizeBrazilPhone($('#rsvpPhone').value);
+  const reminderOptIn = $('#rsvpReminderOptIn').checked;
   const feedback = $('#rsvpFeedback');
 
-  if (name.length < 2 || name.length > 80 || message.length > 300 || !Number.isInteger(guestsCount) || guestsCount < 1 || guestsCount > 15) {
+  if (name.length < 2 || name.length > 80 || !phone || message.length > 300 || !Number.isInteger(guestsCount) || guestsCount < 1 || guestsCount > 15) {
     setFeedback(feedback, 'Confira os dados antes de enviar.', true);
     return;
   }
@@ -284,8 +318,10 @@ async function submitRsvp(event) {
       await supabaseRequest('rpc/confirm_rsvp', 'POST', {
         p_guest_name: name,
         p_attending: true,
+        p_guest_phone: phone,
         p_guests_count: guestsCount,
-        p_message: message
+        p_message: message,
+        p_reminder_opt_in: reminderOptIn
       });
     } else {
       const entries = readDemo(DEMO_RSVP_KEY, []);
