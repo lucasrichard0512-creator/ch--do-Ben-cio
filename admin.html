@@ -5,8 +5,8 @@
  <meta name="robots" content="noindex, nofollow, noarchive">
  <meta name="theme-color" content="#dceefe">
  <title>Painel privado • Chá do Benício</title>
- <link rel="stylesheet" href="admin.css?v=12.2">
- <script src="admin.js?v=12.2" defer></script>
+ <link rel="stylesheet" href="admin.css?v=12.4">
+ <script src="admin.js?v=12.4" defer></script>
 </head>
 <body>
  <main class="container">
@@ -18,12 +18,7 @@
      <button id="logout" class="secondary" hidden>Sair</button>
    </header>
 
-   <section id="loginView" class="login" aria-labelledby="loginTitle">
-      <div class="loginIntro">
-        <p class="eyebrow">ACESSO DO ORGANIZADOR</p>
-        <h2 id="loginTitle">Entrar no painel</h2>
-      </div>
-      <p>Entre com o usuário criado no Supabase. Estas informações não ficam públicas no convite.</p>
+   <section id="loginView" class="login" aria-label="Acesso ao painel privado">
       <form id="loginForm">
         <label>E-mail<input id="loginEmail" type="email" autocomplete="username" required></label>
         <label>Senha<input id="loginPassword" type="password" autocomplete="current-password" required></label>
@@ -31,7 +26,6 @@
       </form>
       <p id="loginError" class="error" role="alert"></p>
    </section>
-
    <div id="dashboard" hidden>
      <section class="stats" aria-label="Resumo do evento">
        <article class="statCard statBlue"><span class="statLabel">Confirmações</span><strong id="rsvpCount">0</strong><small>responsáveis confirmados</small></article>

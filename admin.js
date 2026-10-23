@@ -53,10 +53,8 @@ function render(){
  drawTable('reminderRows',(dataset.reminders||[]).filter(x=>filter(byId[x.rsvp_id]||'')),x=>`<tr>${cell('Convidado',escapeHTML(byId[x.rsvp_id]||'—'))}${cell('Etapa','Véspera (27/11)')}${cell('Status',`<span class="tag ${x.status==='accepted'?'':'bad'}">${escapeHTML(x.status)}</span>`)}${cell('Registrado',dateBrazil(x.delivered_at||x.created_at))}</tr>`,4);
 }
 function csvFile(name,headers,rows){
- const field=x=>{let s=String(x??'').replace(/|
-/g,' ');if(/^[=+@-]/.test(s))s="'"+s;return '"'+s.replace(/"/g,'""')+'"';};
- const csv='﻿'+[headers,...rows].map(row=>row.map(field).join(';')).join('
-');
+ const field=x=>{let s=String(x??'').replace(/\r|\n/g,' ');if(/^[=+@-]/.test(s))s="'"+s;return '"'+s.replace(/"/g,'""')+'"';};
+ const csv='\uFEFF'+[headers,...rows].map(row=>row.map(field).join(';')).join('\r\n');
  const url=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'}));
  const link=document.createElement('a');link.href=url;link.download=name;link.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
 }
