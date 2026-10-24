@@ -262,3 +262,21 @@ html,body{height:auto!important;min-height:100%;overflow-y:visible!important;scr
  .gift-heading-subtitle{font-size:14px}
  .gift-fun-intro{font-size:14px}
 }
+
+/* V13: dados essenciais da celebração visíveis na primeira tela. */
+@media(max-width:680px){
+ .hero-when{gap:2px}
+ .hero-hour{font-size:12px}
+ .hero-place{font-size:clamp(10.5px,2.9vw,13px);gap:4px;max-width:100%;line-height:1.25}
+ .hero-place .icon{width:16px;height:16px}
+ .hero-copy{gap:6px}
+ .action-button:first-child{font-size:clamp(13px,3.8vw,15px)}
+}
+
+@media(max-width:680px){
+ .hero-facts{gap:8px;margin:0 auto 11px;max-width:430px}
+ .hero-facts .hero-date,.hero-facts .hero-place{min-height:68px;border-radius:16px;padding:9px 10px;gap:6px;font-size:clamp(12.5px,3.45vw,14px);line-height:1.22}
+ .hero-facts .hero-date .icon,.hero-facts .hero-place .icon{width:20px;height:20px;flex:none}
+ .hero-facts .hero-hour{font-size:clamp(12.5px,3.45vw,14px)}
+}
+@media(max-width:370px){.hero-grid{min-height:284px}.hero-facts .hero-date,.hero-facts .hero-place{padding:7px 8px;gap:5px;font-size:12.5px}}

@@ -4,11 +4,11 @@
  <meta charset="utf-8">
  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
  <meta name="theme-color" content="#dcedfb">
- <meta name="description" content="Chá do Benício: dia 28 de novembro de 2026, às 19h, na Igreja Missão Renovada. Escolha um presente e confirme presença.">
+ <meta name="description" content="Você está convidado para o Chá do Benício! Confira a data, o local e confirme sua presença.">
  <meta property="og:type" content="website">
  <meta property="og:url" content="https://benicio-silk.vercel.app/">
  <meta property="og:title" content="Chá do Benício | Seu convite">
- <meta property="og:description" content="Você está convidado! Toque para abrir o convite e confirmar sua presença.">
+ <meta property="og:description" content="Um convite especial para você: confira quando e onde será o Chá do Benício e confirme sua presença.">
  <meta property="og:image" content="https://benicio-silk.vercel.app/assets/previa-whatsapp.jpg">
  <meta property="og:image:secure_url" content="https://benicio-silk.vercel.app/assets/previa-whatsapp.jpg">
  <meta property="og:image:type" content="image/jpeg">
@@ -21,10 +21,10 @@
  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Baloo+2:wght@400;500;600;700;800&display=swap" rel="stylesheet">
  <link rel="preload" as="image" href="assets/title-benicio.webp" fetchpriority="high">
- <link rel="stylesheet" href="styles.css?v=12.9">
- <link rel="stylesheet" href="mobile.css?v=12.9">
+ <link rel="stylesheet" href="styles.css?v=13.0">
+ <link rel="stylesheet" href="mobile.css?v=13.0">
  <script src="config.js?v=12.1" defer></script>
- <script src="app.js?v=12.9.4" defer></script>
+ <script src="app.js?v=13.0" defer></script>
 </head>
 <body>
 <!-- Os ícones foram desenhados no mesmo estilo azul da referência, sem emojis do sistema. -->
@@ -43,30 +43,19 @@
     <div class="hero-copy">
       <p class="hero-tagline">Um novo capítulo<br>cheio de amor<br>está chegando...</p>
       <img class="hero-crib" src="assets/crib.webp" alt="">
-      <div class="hero-date"><img src="assets/ui/icon-b7faadad6085.png" class="icon" alt="" aria-hidden="true"><span id="heroDateText">Sábado, 28 de novembro de 2026</span></div>
       <p class="hero-invite">Papai e Mamãe te convidam para<br>um momento muito especial!</p>
       <img src="assets/ui/icon-5e6a21ca15ba.png" class="icon hero-love" alt="" aria-hidden="true">
     </div>
   </div>
-  <nav class="hero-actions" aria-label="Navegação do convite">
-    <a class="action-button primary" href="#presentes"><span class="action-icon"><img src="assets/ui/icon-87134f8f9592.png" class="icon" alt="" aria-hidden="true"></span><span>Ver sugestões<br>de presentes</span><img src="assets/ui/icon-0e848369ec2d.png" class="chevron" alt="" aria-hidden="true"></a>
-    <a class="action-button" id="mapsTopButton" href="#encontro"><span class="action-icon"><img src="assets/ui/icon-dde572298f23.png" class="icon" alt="" aria-hidden="true"></span><span>Ver localização</span><img src="assets/ui/icon-0e848369ec2d.png" class="chevron" alt="" aria-hidden="true"></a>
-    <a class="action-button" href="#presenca"><span class="action-icon"><img src="assets/ui/icon-6ae59b2dab16.png" class="icon" alt="" aria-hidden="true"></span><span>Confirmar<br>presença</span><img src="assets/ui/icon-0e848369ec2d.png" class="chevron" alt="" aria-hidden="true"></a>
-  </nav>
- </section>
-
- <section id="presentes" class="gift-section scene-fade section-panel">
-  <img class="gift-decor gift-decor-left" loading="lazy" decoding="async" src="assets/bear-cloud-heart.webp" alt="" aria-hidden="true">
-  <img class="gift-decor gift-decor-right" loading="lazy" decoding="async" src="assets/balloons-hearts.webp" alt="" aria-hidden="true">
-  <div class="gift-heading">
-    <h2 class="gift-heading-title">Sugestões de presentes</h2>
-    <p class="gift-heading-subtitle">Conte pra gente qual presente você vai levar ao Chá do Benício. <span aria-hidden="true">💙</span></p>
+  <div class="hero-facts" aria-label="Data, horário e local do Chá do Benício">
+    <div class="hero-date"><img src="assets/ui/icon-b7faadad6085.png" class="icon" alt="" aria-hidden="true"><span class="hero-when"><span id="heroDateText">28 de novembro de 2026</span><span class="hero-hour" id="heroTimeText">Às 19h</span></span></div>
+    <p class="hero-place"><img src="assets/ui/icon-dde572298f23.png" class="icon" alt="" aria-hidden="true"><span id="heroPlaceText">Igreja Missão Renovada</span></p>
   </div>
-  <p id="connectionStatus" class="connection-status" role="status" aria-live="polite" hidden></p>
-  <p class="gift-fun-intro">O Benício ainda nem nasceu e já tem lista de compras. Puxou o papai! 😂💙</p>
-  <nav class="gift-category-nav" aria-label="Ir para categoria de sugestões de presentes"><a href="#categoria-fraldas">Fraldas</a><a href="#categoria-higiene">Higiene</a><a href="#categoria-roupinhas">Roupinhas</a><a href="#categoria-banho">Banho e enxoval</a><a href="#categoria-acessorios">Acessórios</a><a href="#categoria-especiais">Especiais</a></nav>
-  <div id="giftGrid" class="gift-grid" aria-live="polite"></div>
-  <p class="gift-smallprint"><img src="assets/ui/icon-97cf0ed0b6a6.png" class="icon" alt="" aria-hidden="true"> O PS5 Pro foi indicado pelo papai como “material educativo”. 🎮😂</p>
+  <nav class="hero-actions" aria-label="Navegação do convite">
+    <a class="action-button primary" href="#presenca"><span class="action-icon"><img src="assets/ui/icon-6ae59b2dab16.png" class="icon" alt="" aria-hidden="true"></span><span>Confirmar presença</span><img src="assets/ui/icon-0e848369ec2d.png" class="chevron" alt="" aria-hidden="true"></a>
+    <a class="action-button" id="mapsTopButton" href="#encontro"><span class="action-icon"><img src="assets/ui/icon-dde572298f23.png" class="icon" alt="" aria-hidden="true"></span><span>Ver localização</span><img src="assets/ui/icon-0e848369ec2d.png" class="chevron" alt="" aria-hidden="true"></a>
+    <a class="action-button" href="#presentes"><span class="action-icon"><img src="assets/ui/icon-87134f8f9592.png" class="icon" alt="" aria-hidden="true"></span><span>Ver presentes</span><img src="assets/ui/icon-0e848369ec2d.png" class="chevron" alt="" aria-hidden="true"></a>
+  </nav>
  </section>
 
  <section id="encontro" class="meeting-section scene-fade section-panel">
@@ -118,9 +107,23 @@
    </form>
   </div>
  </section>
+
+ <section id="presentes" class="gift-section scene-fade section-panel">
+  <img class="gift-decor gift-decor-left" loading="lazy" decoding="async" src="assets/bear-cloud-heart.webp" alt="" aria-hidden="true">
+  <img class="gift-decor gift-decor-right" loading="lazy" decoding="async" src="assets/balloons-hearts.webp" alt="" aria-hidden="true">
+  <div class="gift-heading">
+    <h2 class="gift-heading-title">Sugestões de presentes</h2>
+    <p class="gift-heading-subtitle">Conte pra gente qual presente você vai levar ao Chá do Benício. <span aria-hidden="true">💙</span></p>
+  </div>
+  <p id="connectionStatus" class="connection-status" role="status" aria-live="polite" hidden></p>
+  <p class="gift-fun-intro">O Benício ainda nem nasceu e já tem lista de compras. Puxou o papai! 😂💙</p>
+  <nav class="gift-category-nav" aria-label="Ir para categoria de sugestões de presentes"><a href="#categoria-fraldas">Fraldas</a><a href="#categoria-higiene">Higiene</a><a href="#categoria-roupinhas">Roupinhas</a><a href="#categoria-banho">Banho e enxoval</a><a href="#categoria-acessorios">Acessórios</a><a href="#categoria-especiais">Especiais</a></nav>
+  <div id="giftGrid" class="gift-grid" aria-live="polite"></div>
+  <p class="gift-smallprint"><img src="assets/ui/icon-97cf0ed0b6a6.png" class="icon" alt="" aria-hidden="true"> O PS5 Pro foi indicado pelo papai como “material educativo”. 🎮😂</p>
+ </section>
 </main>
 
-<footer class="footer-bar"><div class="footer-copy"><p class="footer-title"><img src="assets/ui/icon-ad655270cd94.png" class="icon" alt="" aria-hidden="true"> Um recadinho do papai</p><p>Gostou do convite? O papai que fez!</p><p class="footer-joke">O papai fez o site. A mamãe revisou. O Benício aprovou dormindo. 😴💙<br>Se quiser ajudar no orçamento das fraldas, o papai aceita encomendas. 😂</p></div><a href="#" id="contactLink" class="whatsapp-button">Peça o seu aqui <img src="assets/ui/icon-0e848369ec2d.png" class="chevron" alt="" aria-hidden="true"></a></footer>
+<footer class="footer-bar"><div class="footer-copy"><p class="footer-title"><img src="assets/ui/icon-ad655270cd94.png" class="icon" alt="" aria-hidden="true"> Um recadinho do papai</p><p class="footer-joke">O papai fez o site. A mamãe revisou. O Benício aprovou dormindo. 😴💙</p></div></footer>
 
 <dialog id="giftModal" class="gift-dialog" aria-labelledby="giftModalTitle">
  <form id="giftForm" class="gift-modal-form"><button id="closeGiftModal" class="modal-close" type="button" aria-label="Fechar">×</button>

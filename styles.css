@@ -281,3 +281,21 @@ section:target{scroll-margin-top:0}
 .qty-btn{width:44px;height:44px;flex:0 0 44px}
 .reserve-button{min-height:44px}
 .modal-close{width:44px;height:44px}
+
+/* V13: convite em primeiro lugar, sem aumentar o número de avisos. */
+.hero-when{display:flex;flex-direction:column;gap:1px;min-width:0}
+.hero-hour{font-size:1.06em;font-weight:900;color:#0866af}
+.hero-place{order:3;display:flex;align-items:center;justify-content:center;gap:6px;max-width:100%;margin:0;color:#14497e;font-size:clamp(12px,1.35vw,17px);line-height:1.3;font-weight:900}
+.hero-place .icon{width:20px;height:20px;flex:none}
+.hero-invite{order:4}.hero-love{order:5}
+.hero-copy .hero-crib{order:6}
+.footer-bar{justify-content:center;text-align:center}
+.footer-title{justify-content:center}
+
+/* V13: dados do convite legíveis sem disputar a atenção com o ursinho. */
+.hero-facts{position:relative;z-index:9;display:grid;grid-template-columns:1fr 1fr;align-items:stretch;gap:12px;max-width:700px;width:100%;margin:0 auto 18px}
+.hero-facts .hero-date,.hero-facts .hero-place{display:flex;align-items:center;justify-content:center;gap:10px;margin:0;order:initial;min-height:66px;padding:10px 14px;border:1px solid #d6e8f7;border-radius:22px;background:#ffffffec;box-shadow:0 6px 20px #567fb125;text-align:left;color:#16487f;font-size:clamp(14px,1.3vw,16px);font-weight:900;line-height:1.3}
+.hero-facts .hero-date{min-width:0}
+.hero-facts .hero-place .icon{width:22px;height:22px}
+.hero-facts .hero-when{display:flex;flex-direction:column;gap:1px}
+.hero-facts .hero-hour{font-size:1em}

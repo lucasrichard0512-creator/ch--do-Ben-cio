@@ -358,7 +358,9 @@ async function submitRsvp(event) {
 }
 
 function fillEventInfo() {
-  $('#heroDateText').textContent = CONFIG.EVENT_DATE_LABEL || 'Sábado, 28 de novembro de 2026';
+  $('#heroDateText').textContent = (CONFIG.EVENT_DATE_LABEL || 'Sábado, 28 de novembro de 2026').replace(/^[^,]+,\s*/, '');
+  $('#heroTimeText').textContent = 'Às ' + String(CONFIG.EVENT_TIME || '19:00h').replace(':00h', 'h').replace(/h$/, 'h');
+  $('#heroPlaceText').textContent = CONFIG.EVENT_PLACE_NAME || 'Igreja Missão Renovada';
   $('#meetingPlaceName').textContent = CONFIG.EVENT_PLACE_NAME || 'Igreja Missão Renovada';
   $('#meetingPlaceAddress').textContent = CONFIG.EVENT_ADDRESS || 'São Miguel do Araguaia - GO';
   $('#meetingTime').textContent = CONFIG.EVENT_TIME || '19:00h';
@@ -368,19 +370,7 @@ function fillEventInfo() {
     $('#mapsLink').href = mapsUrl;
   }
 
-  const whatsapp = String(CONFIG.WHATSAPP_NUMBER || '').replace(/\D/g, '');
-  const contact = $('#contactLink');
-  if (whatsapp.length >= 12 && whatsapp.length <= 15) {
-    const text = 'Olá! Vi o convite do Chá do Benício e gostaria de pedir um convite interativo assim.';
-    contact.href = `https://wa.me/${whatsapp}?text=${encodeURIComponent(text)}`;
-    contact.target = '_blank';
-    contact.rel = 'noopener noreferrer';
-  } else {
-    const text = 'Olá! Vi o convite do Chá do Benício e gostaria de pedir um convite interativo assim.';
-    contact.href = `https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`;
-    contact.target = '_blank';
-    contact.rel = 'noopener noreferrer';
-  }
+
 }
 
 
