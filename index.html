@@ -21,10 +21,10 @@
  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Baloo+2:wght@400;500;600;700;800&display=swap" rel="stylesheet">
  <link rel="preload" as="image" href="assets/title-benicio.webp" fetchpriority="high">
- <link rel="stylesheet" href="styles.css?v=13.0">
- <link rel="stylesheet" href="mobile.css?v=13.0">
+ <link rel="stylesheet" href="styles.css?v=13.1">
+ <link rel="stylesheet" href="mobile.css?v=13.1">
  <script src="config.js?v=12.1" defer></script>
- <script src="app.js?v=13.0" defer></script>
+ <script src="app.js?v=13.1" defer></script>
 </head>
 <body>
 <!-- Os ícones foram desenhados no mesmo estilo azul da referência, sem emojis do sistema. -->
@@ -123,7 +123,14 @@
  </section>
 </main>
 
-<footer class="footer-bar"><div class="footer-copy"><p class="footer-title"><img src="assets/ui/icon-ad655270cd94.png" class="icon" alt="" aria-hidden="true"> Um recadinho do papai</p><p class="footer-joke">O papai fez o site. A mamãe revisou. O Benício aprovou dormindo. 😴💙</p></div></footer>
+<footer class="footer-bar" aria-label="Recadinho do papai e contato para convites interativos">
+  <div class="footer-copy">
+    <p class="footer-title"><img src="assets/ui/icon-ad655270cd94.png" class="icon" alt="" aria-hidden="true"> Um recadinho do papai</p>
+    <p class="footer-joke">O papai fez o site. A mamãe revisou. O Benício aprovou dormindo. 😴💙</p>
+    <p class="footer-portfolio">Gostou? O papai também cria convites interativos!</p>
+  </div>
+  <a href="https://wa.me/5562999407334?text=Ol%C3%A1%21%20Vi%20o%20convite%20do%20Ch%C3%A1%20do%20Ben%C3%ADcio%20e%20gostaria%20de%20saber%20mais%20sobre%20os%20convites%20interativos%20que%20voc%C3%AA%20cria." id="contactLink" class="whatsapp-button" target="_blank" rel="noopener noreferrer" aria-label="Falar com o papai pelo WhatsApp sobre um convite interativo">Quero um convite assim <img src="assets/ui/icon-0e848369ec2d.png" class="chevron" alt="" aria-hidden="true"></a>
+</footer>
 
 <dialog id="giftModal" class="gift-dialog" aria-labelledby="giftModalTitle">
  <form id="giftForm" class="gift-modal-form"><button id="closeGiftModal" class="modal-close" type="button" aria-label="Fechar">×</button>

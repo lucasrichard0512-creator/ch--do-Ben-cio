@@ -370,7 +370,19 @@ function fillEventInfo() {
     $('#mapsLink').href = mapsUrl;
   }
 
-
+  // A chamada para orçamentos aparece apenas no rodapé, sem disputar
+  // destaque com a confirmação de presença ou com os presentes do chá.
+  const contact = $('#contactLink');
+  if (contact) {
+    const whatsapp = String(CONFIG.WHATSAPP_NUMBER || '').replace(/\D/g, '');
+    if (/^\d{12,15}$/.test(whatsapp)) {
+      const text = 'Olá! Vi o convite do Chá do Benício e gostaria de saber mais sobre os convites interativos que você cria.';
+      contact.href = `https://wa.me/${whatsapp}?text=${encodeURIComponent(text)}`;
+    } else {
+      // Evita um botão que abre uma conversa sem destinatário.
+      contact.remove();
+    }
+  }
 }
 
 
