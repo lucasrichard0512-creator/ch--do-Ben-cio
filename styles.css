@@ -272,3 +272,12 @@ section:target{scroll-margin-top:0}
 .gift-category-heading{scroll-margin-top:16px}
 .gift-no-stock{display:flex;align-items:center;justify-content:center;min-height:28px;margin:7px 0 9px;color:#687f99;font-weight:800;font-size:12px}
 .gift-image-wrap{background:#fff!important}
+
+/* V12.8: linguagem de convite, sem aparência de loja virtual. */
+.reserve-button{white-space:normal;min-height:42px;padding:8px 7px;line-height:1.18;text-align:center;font-size:clamp(11px,1.02vw,13px)}
+.gift-stock{text-align:center;line-height:1.3;min-height:24px}
+
+/* V12.9: controles mais fáceis de tocar sem acrescentar mensagens na tela. */
+.qty-btn{width:44px;height:44px;flex:0 0 44px}
+.reserve-button{min-height:44px}
+.modal-close{width:44px;height:44px}

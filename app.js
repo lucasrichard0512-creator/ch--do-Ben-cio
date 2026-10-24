@@ -179,7 +179,9 @@ function renderGifts() {
     const full = left === 0;
     const selected = full ? 0 : clamp(state.selection[gift.id] || 1, 1, left);
     state.selection[gift.id] = selected;
-    const availability = `${left} ${left === 1 ? 'disponível' : 'disponíveis'}`;
+    const isDiaperPack = ['fraldas-rn', 'fraldas-p', 'fraldas-m', 'fraldas-g', 'fraldas-xg'].includes(gift.id);
+    const itemWord = isDiaperPack ? (left === 1 ? 'pacote' : 'pacotes') : (left === 1 ? 'unidade' : 'unidades');
+    const availability = full ? 'Todos já escolhidos 💙' : `Ainda ${left === 1 ? 'falta' : 'faltam'} ${left} ${itemWord}`;
 
     return `${categoryHeading}
       <article data-gift-id="${gift.id}" class="gift-card ${full ? 'is-full' : ''} ${gift.isJoke ? 'is-joke' : ''}">
@@ -188,13 +190,13 @@ function renderGifts() {
         </div>
         <h3>${escapeHtml(gift.name)}</h3>
         <p class="gift-stock">${availability}</p>
-        ${full ? '<p class="gift-no-stock" role="status">Indisponível</p>' : `<div class="gift-counter" aria-label="Quantidade para reservar de ${escapeHtml(gift.name)}">
+        ${full ? '<p class="gift-no-stock" role="status">Tudo escolhido 💙</p>' : `<div class="gift-counter" aria-label="Quantidade que vou levar de ${escapeHtml(gift.name)}">
           <button type="button" class="qty-btn" data-action="minus" data-gift-id="${gift.id}" ${selected <= 1 ? 'disabled' : ''} aria-label="Diminuir quantidade de ${escapeHtml(gift.name)}">−</button>
           <strong>${selected}</strong>
           <button type="button" class="qty-btn" data-action="plus" data-gift-id="${gift.id}" ${selected >= left ? 'disabled' : ''} aria-label="Aumentar quantidade de ${escapeHtml(gift.name)}">+</button>
         </div>`}
         <button type="button" class="reserve-button" data-reserve-id="${gift.id}" ${full || !state.online ? 'disabled' : ''}>
-          ${full ? 'Presente esgotado' : '<img src="assets/ui/icon-87134f8f9592.png" class="icon" alt="" aria-hidden="true"> Reservar presente'}
+          ${full ? 'Já escolheram todos' : 'Vou levar esse presente'}
         </button>
       </article>
     `;
@@ -228,7 +230,7 @@ function showGiftModal(giftId) {
   $('#giftGuestName').value = $('#rsvpName').value.trim() || state.lastGuestName;
   setFeedback($('#giftFeedback'), '');
   const modalNote = document.querySelector('.modal-note');
-  if (modalNote) modalNote.textContent = DATABASE_READY ? 'Ao confirmar, esta quantidade ficará indisponível para os outros convidados.' : 'Prévia: esta reserva será salva apenas neste aparelho, não para outros convidados.';
+  if (modalNote) modalNote.textContent = DATABASE_READY ? 'Escolha aqui e leve o presente no dia do chá. Não há pagamento pelo site.' : 'Prévia: esta reserva será salva apenas neste aparelho, não para outros convidados.';
 
   const select = $('#giftQuantity');
   select.replaceChildren();
@@ -260,7 +262,7 @@ async function reserveGift(event) {
   state.busy = true;
   const button = $('#giftSubmit');
   button.disabled = true;
-  button.textContent = 'Reservando...';
+  button.textContent = 'Confirmando...';
 
   try {
     if (DATABASE_READY) {
@@ -289,7 +291,7 @@ async function reserveGift(event) {
 
     state.lastGuestName = name;
     $('#giftModal').close();
-    toast(DATABASE_READY ? `💙 Obrigado, ${name.split(' ')[0]}! Sua reserva foi registrada.` : 'Reserva de demonstração salva apenas neste navegador.');
+    toast(DATABASE_READY ? `💙 Obrigado, ${name.split(' ')[0]}! Sua escolha foi anotada.` : 'Escolha de demonstração salva apenas neste navegador.');
     // A reserva já foi gravada. Uma falha ao reler o catálogo não pode
     // transformar a operação concluída em um erro ou induzir a novo envio.
     await refreshGifts();
@@ -299,7 +301,7 @@ async function reserveGift(event) {
   } finally {
     state.busy = false;
     button.disabled = false;
-    button.innerHTML = '<img src="assets/ui/icon-87134f8f9592.png" class="icon" alt="" aria-hidden="true"> Reservar presente';
+    button.textContent = 'Confirmar minha escolha';
   }
 }
 

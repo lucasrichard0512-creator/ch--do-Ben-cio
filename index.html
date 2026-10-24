@@ -21,10 +21,10 @@
  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Baloo+2:wght@400;500;600;700;800&display=swap" rel="stylesheet">
  <link rel="preload" as="image" href="assets/title-benicio.webp" fetchpriority="high">
- <link rel="stylesheet" href="styles.css?v=12.7.1">
- <link rel="stylesheet" href="mobile.css?v=12.7">
+ <link rel="stylesheet" href="styles.css?v=12.9">
+ <link rel="stylesheet" href="mobile.css?v=12.9">
  <script src="config.js?v=12.1" defer></script>
- <script src="app.js?v=12.6" defer></script>
+ <script src="app.js?v=12.9" defer></script>
 </head>
 <body>
 <!-- Os ícones foram desenhados no mesmo estilo azul da referência, sem emojis do sistema. -->
@@ -60,7 +60,7 @@
   <img class="gift-decor gift-decor-right" loading="lazy" decoding="async" src="assets/balloons-hearts.webp" alt="" aria-hidden="true">
   <div class="gift-heading">
     <h2 class="gift-heading-title">Sugestões de presentes</h2>
-    <p class="gift-heading-subtitle">Escolha um presente e ajude a preparar a chegada do Benício! <span aria-hidden="true">💙</span></p>
+    <p class="gift-heading-subtitle">Conte pra gente qual presente você vai levar ao Chá do Benício. <span aria-hidden="true">💙</span></p>
   </div>
   <p id="connectionStatus" class="connection-status" role="status" aria-live="polite" hidden></p>
   <p class="gift-fun-intro">O Benício ainda nem nasceu e já tem lista de compras. Puxou o papai! 😂💙</p>
@@ -124,11 +124,11 @@
 
 <dialog id="giftModal" class="gift-dialog" aria-labelledby="giftModalTitle">
  <form id="giftForm" class="gift-modal-form"><button id="closeGiftModal" class="modal-close" type="button" aria-label="Fechar">×</button>
- <div class="gift-modal-head"><img id="giftModalImage" class="gift-modal-image" src="assets/gifts/fraldas-rn.webp" alt=""><div><p class="modal-kicker">PRESENTE COM CARINHO</p><h2 id="giftModalTitle">Reservar presente</h2><p id="giftModalDescription">Um carinho para o Benício.</p></div></div>
+ <div class="gift-modal-head"><img id="giftModalImage" class="gift-modal-image" src="assets/gifts/fraldas-rn.webp" alt=""><div><p class="modal-kicker">PRESENTE COM CARINHO</p><h2 id="giftModalTitle">Confirmar minha escolha</h2><p id="giftModalDescription">Um carinho para o Benício.</p></div></div>
  <label for="giftGuestName">Seu nome</label><input id="giftGuestName" name="giftGuestName" maxlength="80" autocomplete="name" placeholder="Quem está presenteando?" required>
- <label for="giftQuantity">Quantidade</label><select id="giftQuantity" name="giftQuantity"></select>
- <p class="modal-note">Ao confirmar, esta quantidade ficará indisponível para os outros convidados.</p>
- <button id="giftSubmit" class="submit-button modal-submit" type="submit"><img src="assets/ui/icon-87134f8f9592.png" class="icon" alt="" aria-hidden="true"> Reservar presente</button><p id="giftFeedback" class="form-feedback" role="status" aria-live="polite"></p>
+ <label for="giftQuantity">Quantidade que vou levar</label><select id="giftQuantity" name="giftQuantity"></select>
+ <p class="modal-note">Escolha aqui e leve o presente no dia do chá. Não há pagamento pelo site.</p>
+ <button id="giftSubmit" class="submit-button modal-submit" type="submit"><img src="assets/ui/icon-87134f8f9592.png" class="icon" alt="" aria-hidden="true"> Confirmar minha escolha</button><p id="giftFeedback" class="form-feedback" role="status" aria-live="polite"></p>
  </form>
 </dialog>
 <div id="toast" class="toast" role="status" aria-live="polite"></div>

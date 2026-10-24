@@ -245,3 +245,20 @@ html,body{height:auto!important;min-height:100%;overflow-y:visible!important;scr
   .gift-no-stock{min-height:28px;margin:6px 0 8px}
 }
 @media(max-width:370px){.gift-image-wrap{height:103px}}
+
+/* V12.8: leitura clara, inclusive nos cards de duas colunas. */
+@media(max-width:680px){
+ .gift-heading{gap:7px;margin-bottom:11px}
+ .gift-stock{font-size:clamp(10px,2.6vw,11px);min-height:29px}
+ .reserve-button{min-height:41px;font-size:clamp(10px,2.8vw,12px);line-height:1.14;padding:7px 5px}
+}
+
+/* V12.9: área de toque legível para convidados no celular. */
+@media(max-width:680px){
+ .qty-btn{width:44px;height:44px;flex:0 0 44px}
+ .reserve-button{min-height:44px}
+ .gift-card h3{font-size:clamp(13px,3.4vw,14px)}
+ .gift-stock{font-size:clamp(11px,2.9vw,12px)}
+ .gift-heading-subtitle{font-size:14px}
+ .gift-fun-intro{font-size:14px}
+}
