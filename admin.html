@@ -6,7 +6,7 @@
  <meta name="theme-color" content="#dceefe">
  <title>Painel privado • Chá do Benício</title>
  <link rel="stylesheet" href="admin.css?v=12.4">
- <script src="admin.js?v=12.4" defer></script>
+ <script src="admin.js?v=13.4" defer></script>
 </head>
 <body>
  <main class="container">
@@ -31,7 +31,7 @@
        <article class="statCard statBlue"><span class="statLabel">Confirmações</span><strong id="rsvpCount">0</strong><small>responsáveis confirmados</small></article>
        <article class="statCard statSky"><span class="statLabel">Total de pessoas</span><strong id="guestCount">0</strong><small>incluindo acompanhantes</small></article>
        <article class="statCard statIndigo"><span class="statLabel">Presentes reservados</span><strong id="giftCount">0</strong><small>unidades registradas</small></article>
-       <article class="statCard statGold"><span class="statLabel">Lembretes autorizados</span><strong id="optInCount">0</strong><small>WhatsApps cadastrados</small></article>
+
      </section>
 
      <section class="toolsCard">
@@ -50,7 +50,7 @@
 
      <section class="panel panelHighlight">
        <div class="panelHead"><h2>💙 Pessoas confirmadas</h2><span id="lastRsvp"></span></div>
-       <div class="tableWrap"><table><thead><tr><th>Nome</th><th>WhatsApp</th><th>Pessoas</th><th>Recado</th><th>Lembrete</th><th>Atualizado em</th></tr></thead><tbody id="rsvpRows"></tbody></table></div>
+       <div class="tableWrap"><table><thead><tr><th>Nome</th><th>WhatsApp</th><th>Pessoas</th><th>Recado</th><th>Atualizado em</th></tr></thead><tbody id="rsvpRows"></tbody></table></div>
      </section>
 
      <section class="panel panelHighlight">
@@ -64,11 +64,6 @@
        <div class="tableWrap"><table><thead><tr><th>Tipo</th><th>Status</th><th>Detalhe</th><th>Data</th></tr></thead><tbody id="notificationRows"></tbody></table></div>
      </section>
 
-     <section class="panel">
-       <h2>📅 Lembretes do evento</h2>
-       <p class="hint">Agendados para 27/11/2026, por WhatsApp, somente para quem autorizou. O envio depende da API oficial configurada no Vercel.</p>
-       <div class="tableWrap"><table><thead><tr><th>Convidado</th><th>Etapa</th><th>Status</th><th>Registrado</th></tr></thead><tbody id="reminderRows"></tbody></table></div>
-     </section>
    </div>
  </main>
 </body></html>

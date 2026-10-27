@@ -105,8 +105,7 @@ async function supabaseRequest(path, method = 'GET', payload) {
           ? { giftId: payload.p_gift_id, name: payload.p_guest_name, quantity: payload.p_quantity }
           : target === '/api/confirm-rsvp'
             ? { name: payload.p_guest_name, phone: payload.p_guest_phone,
-                guestsCount: payload.p_guests_count, message: payload.p_message,
-                reminderOptIn: payload.p_reminder_opt_in }
+                guestsCount: payload.p_guests_count, message: payload.p_message }
             : payload
       )
     });
@@ -312,7 +311,6 @@ async function submitRsvp(event) {
   const message = $('#rsvpMessage').value.trim();
   const guestsCount = Number($('#rsvpGuests').value);
   const phone = normalizeBrazilPhone($('#rsvpPhone').value);
-  const reminderOptIn = $('#rsvpReminderOptIn').checked;
   const feedback = $('#rsvpFeedback');
 
   if (name.length < 2 || name.length > 80 || !phone || message.length > 300 || !Number.isInteger(guestsCount) || guestsCount < 1 || guestsCount > 15) {
@@ -333,8 +331,7 @@ async function submitRsvp(event) {
         p_attending: true,
         p_guest_phone: phone,
         p_guests_count: guestsCount,
-        p_message: message,
-        p_reminder_opt_in: reminderOptIn
+        p_message: message
       });
       existing = savedRsvp?.updated === true;
     } else {

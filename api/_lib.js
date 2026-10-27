@@ -1,5 +1,4 @@
 /* Rotas privadas do convite. Nunca importar este módulo no navegador. */
-const { timingSafeEqual } = require('node:crypto');
 const BASE = () => String(process.env.SUPABASE_URL || '').replace(/\/$/, '');
 const SERVICE = () => process.env.SUPABASE_SECRET_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY;
 const ANON = () => process.env.SUPABASE_PUBLISHABLE_KEY || process.env.SUPABASE_ANON_KEY;
@@ -20,10 +19,6 @@ function cleanPhone(value) {
   if (p.startsWith('55') && (p.length === 12 || p.length === 13)) p = p.slice(2);
   if (!/^[1-9][0-9]{9,10}$/.test(p)) return null;
   return '55' + p;
-}
-function safeEqual(a,b){
-  const left=Buffer.from(String(a||''));const right=Buffer.from(String(b||''));
-  return left.length===right.length && left.length>0 && timingSafeEqual(left,right);
 }
 async function supaFetch(endpoint, { method = 'GET', data, userToken, anonAuth=false, extraHeaders={} } = {}) {
   if (!BASE() || !SERVICE()) throw new Error('Supabase não configurado no servidor.');
@@ -88,22 +83,4 @@ async function pageAll(table,fields,extra=''){
   }
   return out;
 }
-function localDateBrazil(value){
-  const parts=new Intl.DateTimeFormat('en-US',{timeZone:'America/Sao_Paulo',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(value);
-  const vals=Object.fromEntries(parts.map(p=>[p.type,p.value]));
-  return `${vals.year}-${vals.month}-${vals.day}`;
-}
-async function whatsappTemplate(to,name){
-  const {META_WHATSAPP_TOKEN, META_PHONE_NUMBER_ID, WHATSAPP_TEMPLATE_NAME}=process.env;
-  if(!META_WHATSAPP_TOKEN||!META_PHONE_NUMBER_ID||!WHATSAPP_TEMPLATE_NAME)throw new Error('WhatsApp oficial não configurado');
-  const version=process.env.META_GRAPH_VERSION||'v24.0';
-  const response=await fetch(`https://graph.facebook.com/${version}/${encodeURIComponent(META_PHONE_NUMBER_ID)}/messages`,{
-    method:'POST',headers:{Authorization:'Bearer '+META_WHATSAPP_TOKEN,'Content-Type':'application/json'},
-    body:JSON.stringify({messaging_product:'whatsapp',to,type:'template',template:{name:WHATSAPP_TEMPLATE_NAME,language:{code:'pt_BR'},components:[{type:'body',parameters:[{type:'text',text:name.split(' ')[0]}]}]}}),
-    signal:AbortSignal.timeout(12000)
-  });
-  const result=await response.json().catch(()=>({}));
-  if(!response.ok||!result.messages?.length)throw new Error('Meta não aceitou o envio: '+(result.error?.code||response.status));
-  return result.messages[0].id;
-}
-module.exports={respond,requireMethod,body,cleanName,cleanPhone,safeEqual,supaFetch,ownerNotice,guardAdmin,pageAll,localDateBrazil,whatsappTemplate};
+module.exports={respond,requireMethod,body,cleanName,cleanPhone,supaFetch,ownerNotice,guardAdmin,pageAll};

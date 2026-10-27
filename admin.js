@@ -6,7 +6,7 @@ const dateBrazil=value=>value?new Date(value).toLocaleString('pt-BR',{timeZone:'
 const phonePretty=value=>value?`+${value}`:'—';
 const cell=(label,content)=>`<td data-label="${escapeHTML(label)}">${content}</td>`;
 let session=null;
-let dataset={rsvps:[],reservations:[],notifications:[],reminders:[],gifts:[]};
+let dataset={rsvps:[],reservations:[],notifications:[],gifts:[]};
 function setSession(auth){session={...auth,expires_at:Date.now()+Math.max(300,Number(auth.expires_in)||3600)*1000};sessionStorage.setItem('benicio_admin_session',JSON.stringify(session));}
 function logout(){session=null;sessionStorage.removeItem('benicio_admin_session');sel('loginView').hidden=false;sel('dashboard').hidden=true;sel('logout').hidden=true;sel('loginPassword').value='';}
 async function api(path,options={}){
@@ -43,14 +43,11 @@ function render(){
  sel('rsvpCount').textContent=String(list.filter(x=>x.attending).length);
  sel('guestCount').textContent=String(list.filter(x=>x.attending).reduce((n,x)=>n+Number(x.guests_count||0),0));
  sel('giftCount').textContent=String(bookings.reduce((n,x)=>n+Number(x.quantity||0),0));
- sel('optInCount').textContent=String(list.filter(x=>x.attending&&x.reminder_opt_in&&x.guest_phone).length);
  const shownRsvp=list.filter(x=>filter([x.guest_name,x.guest_phone,x.message].join(' ')));
  const shownGifts=bookings.filter(x=>filter([x.guest_name,giftName[x.gift_id]||x.gift_id].join(' ')));
- drawTable('rsvpRows',shownRsvp,x=>`<tr>${cell('Nome',`<strong>${escapeHTML(x.guest_name)}</strong>`)}${cell('WhatsApp',x.guest_phone?`<a target="_blank" rel="noopener" href="https://wa.me/${encodeURIComponent(x.guest_phone)}">${escapeHTML(phonePretty(x.guest_phone))}</a>`:'Não informado')}${cell('Pessoas',x.guests_count)}${cell('Recado',escapeHTML(x.message||'—'))}${cell('Lembrete',`<span class="tag ${x.reminder_opt_in?'':'bad'}">${x.reminder_opt_in?'Autorizado':'Não autorizado'}</span>`)}${cell('Atualizado em',dateBrazil(x.updated_at||x.created_at))}</tr>`,6);
+ drawTable('rsvpRows',shownRsvp,x=>`<tr>${cell('Nome',`<strong>${escapeHTML(x.guest_name)}</strong>`)}${cell('WhatsApp',x.guest_phone?`<a target="_blank" rel="noopener" href="https://wa.me/${encodeURIComponent(x.guest_phone)}">${escapeHTML(phonePretty(x.guest_phone))}</a>`:'Não informado')}${cell('Pessoas',x.guests_count)}${cell('Recado',escapeHTML(x.message||'—'))}${cell('Atualizado em',dateBrazil(x.updated_at||x.created_at))}</tr>`,5);
  drawTable('giftRows',shownGifts,x=>`<tr>${cell('Presente',escapeHTML(giftName[x.gift_id]||x.gift_id))}${cell('Convidado',`<strong>${escapeHTML(x.guest_name)}</strong>`)}${cell('Quantidade',Number(x.quantity))}${cell('Registrado em',dateBrazil(x.created_at))}</tr>`,4);
  drawTable('notificationRows',(dataset.notifications||[]).filter(x=>filter(x.event_type+' '+x.detail)),x=>`<tr>${cell('Tipo',x.event_type==='gift'?'Presente':'Presença')}${cell('Status',`<span class="tag ${x.status==='accepted'?'':'bad'}">${escapeHTML(x.status)}</span>`)}${cell('Detalhe',escapeHTML(x.detail))}${cell('Data',dateBrazil(x.created_at))}</tr>`,4);
- const byId=Object.fromEntries(list.map(x=>[x.id,x.guest_name]));
- drawTable('reminderRows',(dataset.reminders||[]).filter(x=>filter(byId[x.rsvp_id]||'')),x=>`<tr>${cell('Convidado',escapeHTML(byId[x.rsvp_id]||'—'))}${cell('Etapa','Véspera (27/11)')}${cell('Status',`<span class="tag ${x.status==='accepted'?'':'bad'}">${escapeHTML(x.status)}</span>`)}${cell('Registrado',dateBrazil(x.delivered_at||x.created_at))}</tr>`,4);
 }
 function csvFile(name,headers,rows){
  const field=x=>{let s=String(x??'').replace(/\r|\n/g,' ');if(/^[=+@-]/.test(s))s="'"+s;return '"'+s.replace(/"/g,'""')+'"';};
@@ -68,7 +65,7 @@ sel('loginForm').addEventListener('submit',async e=>{
 sel('logout').addEventListener('click',logout);
 sel('refresh').addEventListener('click',fetchRecords);
 sel('search').addEventListener('input',render);
-sel('exportRsvp').addEventListener('click',()=>csvFile('benicio-presencas.csv',['Nome','WhatsApp','Pessoas','Recado','Autorizou lembrete','Atualizado em'],dataset.rsvps.map(x=>[x.guest_name,x.guest_phone,x.guests_count,x.message,x.reminder_opt_in?'Sim':'Não',dateBrazil(x.updated_at||x.created_at)])));
+sel('exportRsvp').addEventListener('click',()=>csvFile('benicio-presencas.csv',['Nome','WhatsApp','Pessoas','Recado','Atualizado em'],dataset.rsvps.map(x=>[x.guest_name,x.guest_phone,x.guests_count,x.message,dateBrazil(x.updated_at||x.created_at)])));
 sel('exportGifts').addEventListener('click',()=>{const names=Object.fromEntries(dataset.gifts.map(x=>[x.id,x.name]));csvFile('benicio-presentes.csv',['Presente','Convidado','Quantidade','Reservado em'],dataset.reservations.map(x=>[names[x.gift_id]||x.gift_id,x.guest_name,x.quantity,dateBrazil(x.created_at)]));});
 try{session=JSON.parse(sessionStorage.getItem('benicio_admin_session')||'null');}catch{session=null;}
 if(session?.access_token){sel('loginView').hidden=true;sel('dashboard').hidden=false;sel('logout').hidden=false;fetchRecords();}
