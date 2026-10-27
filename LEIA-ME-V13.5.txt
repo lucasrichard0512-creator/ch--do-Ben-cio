@@ -1,0 +1,10 @@
+CHÁ DO BENÍCIO V13.5 — Confirmação sem WhatsApp
+
+- Removido o campo “Seu WhatsApp” do formulário de presença.
+- Removidos os números de telefone das tabelas, busca e CSV do painel privado.
+- O registro de presença agora usa um identificador aleatório guardado no navegador para permitir atualização sem exigir número de telefone.
+- Os presentes, quantidades e a chamada comercial opcional “Quero um convite assim” no rodapé foram preservados.
+- A estrutura da tabela rsvps já permite guest_phone nulo no SQL original das versões 12.x.
+- Nenhum dado antigo é apagado do banco. Confirmações antigas feitas com telefone não são mescladas automaticamente com novas confirmações sem telefone.
+- Não requer um SQL novo, se o banco foi configurado com o esquema V12.x original.
+- Publicar os arquivos deste ZIP na Vercel. O site publicado não é alterado automaticamente.

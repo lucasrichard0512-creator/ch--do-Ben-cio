@@ -5,6 +5,7 @@ const CONFIG = window.BENICIO_CONFIG || {};
 const DATABASE_READY = true;
 const DEMO_KEY = 'cha-benicio-presentes-demo-v2';
 const DEMO_RSVP_KEY = 'cha-benicio-presencas-demo-v2';
+const RSVP_ID_KEY = 'cha-benicio-confirmacao-id-v13.5';
 
 const GIFTS = [
   { id: 'fraldas-rn', name: 'Fralda RN', qty: 2, category: 'fraldas', image: 'assets/gifts/fraldas-rn.webp?v=12.1', description: 'Para os primeiros dias do Benício.' },
@@ -104,7 +105,7 @@ async function supabaseRequest(path, method = 'GET', payload) {
         target === '/api/reserve-gift'
           ? { giftId: payload.p_gift_id, name: payload.p_guest_name, quantity: payload.p_quantity }
           : target === '/api/confirm-rsvp'
-            ? { name: payload.p_guest_name, phone: payload.p_guest_phone,
+            ? { name: payload.p_guest_name, rsvpId: payload.p_rsvp_id,
                 guestsCount: payload.p_guests_count, message: payload.p_message }
             : payload
       )
@@ -113,13 +114,6 @@ async function supabaseRequest(path, method = 'GET', payload) {
   const result = await response.json().catch(() => null);
   if (!response.ok) throw new Error(result?.error || 'Não conseguimos concluir agora. Tente novamente.');
   return result;
-}
-
-function normalizeBrazilPhone(value) {
-  let digits = String(value || '').replace(/\D/g, '');
-  if (digits.startsWith('55') && (digits.length === 12 || digits.length === 13)) digits = digits.slice(2);
-  if (!/^[1-9][0-9]{9,10}$/.test(digits)) return null;
-  return '55' + digits;
 }
 
 function applyDemoQuantities() {
@@ -310,10 +304,9 @@ async function submitRsvp(event) {
   const name = $('#rsvpName').value.trim().replace(/\s+/g, ' ');
   const message = $('#rsvpMessage').value.trim();
   const guestsCount = Number($('#rsvpGuests').value);
-  const phone = normalizeBrazilPhone($('#rsvpPhone').value);
   const feedback = $('#rsvpFeedback');
 
-  if (name.length < 2 || name.length > 80 || !phone || message.length > 300 || !Number.isInteger(guestsCount) || guestsCount < 1 || guestsCount > 15) {
+  if (name.length < 2 || name.length > 80 || message.length > 300 || !Number.isInteger(guestsCount) || guestsCount < 1 || guestsCount > 15) {
     setFeedback(feedback, 'Confira os dados antes de enviar.', true);
     return;
   }
@@ -324,16 +317,23 @@ async function submitRsvp(event) {
   button.innerHTML = 'Enviando...';
 
   try {
-    let existing = false;
     if (DATABASE_READY) {
+      // Um ID aleatório identifica a confirmação neste navegador sem pedir telefone.
+      // Envios repetidos com o mesmo ID atualizam a confirmação, sem duplicar pessoas.
+      let savedId;
+      try { savedId = localStorage.getItem(RSVP_ID_KEY); } catch { savedId = null; }
+      const rsvpId = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(savedId || '')
+        ? savedId : (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function' ? crypto.randomUUID() : null);
       const savedRsvp = await supabaseRequest('rpc/confirm_rsvp', 'POST', {
         p_guest_name: name,
         p_attending: true,
-        p_guest_phone: phone,
+        p_rsvp_id: rsvpId,
         p_guests_count: guestsCount,
         p_message: message
       });
-      existing = savedRsvp?.updated === true;
+      if (savedRsvp?.id) {
+        try { localStorage.setItem(RSVP_ID_KEY, savedRsvp.id); } catch { /* Confirmação já foi gravada. */ }
+      }
     } else {
       const entries = readDemo(DEMO_RSVP_KEY, []);
       entries.push({ name, guestsCount, message, at: new Date().toISOString() });
@@ -341,9 +341,9 @@ async function submitRsvp(event) {
     }
 
     setFeedback(feedback, DATABASE_READY
-      ? (existing ? 'Sua confirmação foi atualizada! 💙' : 'Presença confirmada! Vai ser lindo ter você com a gente. 💙')
+      ? 'Presença confirmada! Vai ser lindo ter você com a gente. 💙'
       : 'Confirmação de demonstração salva somente neste navegador.');
-    toast(DATABASE_READY ? (existing ? 'Sua presença foi atualizada 💙' : 'Presença confirmada com carinho 💙') : 'Simulação salva neste navegador.');
+    toast(DATABASE_READY ? 'Presença confirmada com carinho 💙' : 'Simulação salva neste navegador.');
     $('#rsvpForm').reset();
   } catch (error) {
     setFeedback(feedback, error.message || 'Não foi possível enviar sua confirmação.', true);
